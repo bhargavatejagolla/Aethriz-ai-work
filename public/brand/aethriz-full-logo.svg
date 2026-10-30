@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" width="320" height="64" fill="none">
+  <defs>
+    <linearGradient id="fullLogoRedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="60%" stop-color="#DC2626" />
+      <stop offset="100%" stop-color="#991B1B" />
+    </linearGradient>
+    <linearGradient id="fullLogoDarkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="50%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0B0E14" />
+    </linearGradient>
+    <filter id="fullLogoShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#DC2626" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <!-- Left Emblem (Icon Badge) -->
+  <g transform="translate(6, 6) scale(0.52)">
+    <circle cx="50" cy="50" r="46" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" />
+    <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(220, 38, 38, 0.15)" stroke-width="1.5" />
+    <g filter="url(#fullLogoShadow)">
+      <path d="M 37 46 L 47 23 C 48.2 20.5 51.8 20.5 53 23 L 63 46 L 56 46 L 50 31 L 44 46 Z" fill="url(#fullLogoDarkGrad)" />
+      <path d="M 50 21 L 53 23 L 47 23 Z" fill="#64748B" opacity="0.8" />
+      <path d="M 32 54 L 68 54 L 64 46 L 36 46 Z" fill="url(#fullLogoRedGrad)" />
+      <path d="M 23 76 L 36 76 L 47 52 L 34 52 Z" fill="url(#fullLogoRedGrad)" />
+      <path d="M 23 76 L 28 76 L 38 54 L 34 52 Z" fill="#991B1B" opacity="0.5" />
+      <path d="M 64 76 L 77 76 L 66 52 L 53 52 Z" fill="url(#fullLogoRedGrad)" />
+      <path d="M 72 76 L 77 76 L 66 52 L 62 52 Z" fill="#F87171" opacity="0.6" />
+    </g>
+  </g>
+
+  <!-- Wordmark: ∧ ≡ T H R I Z -->
+  <g transform="translate(70, 4)">
+    <!-- A: Caret apex -->
+    <path d="M 6 28 L 18 6 L 30 28" stroke="#0F172A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- E: 3 Bio-Crimson Parallel Rectangular Bars -->
+    <rect x="42" y="9" width="26" height="3.4" rx="0.5" fill="#D20117" />
+    <rect x="42" y="17.2" width="26" height="3.4" rx="0.5" fill="#D20117" />
+    <rect x="42" y="25.4" width="26" height="3.4" rx="0.5" fill="#D20117" />
+    
+    <!-- T -->
+    <path d="M 78 6 L 100 6 M 89 6 L 89 28" stroke="#0F172A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- H -->
+    <path d="M 112 6 L 112 28 M 132 6 L 132 28 M 112 17 L 132 17" stroke="#0F172A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- R -->
+    <path d="M 144 6 L 144 28 M 144 6 L 160 6 C 166.5 6 170 8.5 170 13 C 170 17.5 166.5 19.5 160 19.5 L 144 19.5 M 158 19.5 L 170 28" stroke="#0F172A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- I -->
+    <line x1="182" y1="6" x2="182" y2="28" stroke="#0F172A" stroke-width="2.6" stroke-linecap="round" />
+    
+    <!-- Z -->
+    <path d="M 193 6 L 213 6 L 193 28 L 213 28" stroke="#0F172A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- Subtitle: BIO-HEALTH AI -->
+    <text x="44" y="44" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" font-weight="800" fill="#DC2626" letter-spacing="0.28em">BIO-HEALTH AI</text>
+  </g>
+</svg>
