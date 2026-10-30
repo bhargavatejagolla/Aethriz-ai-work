@@ -7,6 +7,7 @@ import Image from "next/image";
 export default function LandingPage() {
   const [reveal, setReveal] = useState<number>(50);
   const [activeStep, setActiveStep] = useState<number>(4);
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [formData, setFormData] = useState({
@@ -25,94 +26,362 @@ export default function LandingPage() {
 
   return (
     <div className="bg-[#F1F5F9] text-[#1D1F22] font-sans text-base leading-normal antialiased overflow-x-hidden selection:bg-[#E3202B] selection:text-white min-h-screen">
-      {/* ============ TOP NAVBAR ============ */}
-      <header className="sticky top-0 z-50 w-full bg-[#F1F5F9]/85 backdrop-blur-md border-b border-slate-200/50">
-        <div className="max-w-[1240px] mx-auto px-6 h-18 flex items-center justify-between gap-6">
+      {/* ============ STICKY GLASS NAVBAR ============ */}
+      <header className="sticky top-4 z-40 px-4">
+        <nav
+          aria-label="Main"
+          className="relative max-w-[1180px] mx-auto p-2.5 pl-4 sm:pl-5 flex items-center justify-between gap-4 flex-wrap rounded-full border border-white/70 shadow-[0_24px_60px_rgba(120,60,90,0.16),0_2px_8px_rgba(29,31,34,0.06),inset_0_1.5px_0_rgba(255,255,255,0.95),inset_0_-1px_0_rgba(255,255,255,0.35),inset_0_0_0_1px_rgba(255,255,255,0.18)]"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.48) 100%)",
+            backdropFilter: "blur(30px) saturate(220%) brightness(1.05)",
+            WebkitBackdropFilter: "blur(30px) saturate(220%) brightness(1.05)",
+          }}
+        >
+          {/* Top highlight line */}
+          <span
+            aria-hidden="true"
+            className="absolute left-9 right-9 top-0 h-[1px] pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(255,255,255,0), #FFFFFF, rgba(255,255,255,0))",
+            }}
+          />
+
           {/* Brand Logo & Name */}
-          <Link href="#top" className="flex items-center gap-3 group">
-            <div className="relative w-9 h-9 rounded-xl overflow-hidden shadow-xs flex-shrink-0 transition-transform group-hover:scale-105">
+          <Link href="#top" className="flex items-center gap-3">
+            <div className="relative w-10 h-10 rounded-[11px] overflow-hidden shadow-sm flex-shrink-0">
               <Image
                 src="/brand/aethriz-hero-logo.png"
                 alt="AETHRIZ logo"
-                width={36}
-                height={36}
+                width={40}
+                height={40}
                 className="w-full h-full object-cover"
                 priority
               />
             </div>
-            <span
-              className="font-medium text-[16px] tracking-[0.16em] text-[#1D1F22] select-none"
-              style={{ fontFamily: "'Inter Tight', sans-serif" }}
-            >
-              AETHRIZ
+            <span className="flex flex-col leading-none">
+              <span
+                className="font-semibold text-lg tracking-[0.14em] text-[#1D1F22]"
+                style={{ fontFamily: "'Inter Tight', sans-serif" }}
+              >
+                AETHRIZ
+              </span>
+              <span
+                className="text-[9.5px] tracking-[0.22em] text-[#C8161F] mt-[3px] font-mono"
+              >
+                BIO-HEALTH AI
+              </span>
             </span>
           </Link>
 
-          {/* Navigation Links */}
-          <nav
-            aria-label="Main"
-            className="hidden md:flex items-center gap-8 lg:gap-10 text-[14.5px] font-medium text-[#545B61]"
-          >
-            <Link
-              href="#services"
-              className="hover:text-[#1D1F22] transition-colors"
-            >
-              Platform
-            </Link>
-            <Link
-              href="#how"
-              className="hover:text-[#1D1F22] transition-colors"
-            >
-              How it works
-            </Link>
-            <Link
-              href="#mission"
-              className="hover:text-[#1D1F22] transition-colors"
-            >
-              Mission
-            </Link>
-            <Link
-              href="#faq"
-              className="hover:text-[#1D1F22] transition-colors"
-            >
-              FAQ
-            </Link>
-          </nav>
+          {/* Desktop Navigation with Mega Menus */}
+          <div className="ae-nav items-center gap-1 text-[15px] hidden md:flex">
+            {/* Platform Dropdown */}
+            <div className="ae-dd relative">
+              <button
+                type="button"
+                className="ae-ddbtn"
+                aria-haspopup="true"
+              >
+                Platform
+                <svg
+                  aria-hidden="true"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+              <div
+                className="ae-menu"
+                style={{
+                  width: "500px",
+                  gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                }}
+              >
+                <Link href="#services">
+                  <span className="ae-mi">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M3 12h4l3-8 4 16 3-8h4" />
+                    </svg>
+                  </span>
+                  <span>
+                    <span className="ae-mt">AI Health</span>
+                    <span className="ae-md">
+                      Personal insights from your health data
+                    </span>
+                  </span>
+                </Link>
+                <Link href="#how">
+                  <span className="ae-mi">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M7 12h10" />
+                    </svg>
+                  </span>
+                  <span>
+                    <span className="ae-mt">Food Scanner</span>
+                    <span className="ae-md">
+                      Scan a meal, see what it means for you
+                    </span>
+                  </span>
+                </Link>
+                <Link href="#how">
+                  <span className="ae-mi">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <circle cx="12" cy="4.5" r="2.5" />
+                      <path d="M12 7v7M8 9.5l4 1.5 4-1.5M9.5 21l2.5-7 2.5 7" />
+                    </svg>
+                  </span>
+                  <span>
+                    <span className="ae-mt">3D Anatomy</span>
+                    <span className="ae-md">
+                      Explore your health, organ by organ
+                    </span>
+                  </span>
+                </Link>
+                <Link href="#how">
+                  <span className="ae-mi">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                  </span>
+                  <span>
+                    <span className="ae-mt">How it works</span>
+                    <span className="ae-md">Five steps from report to daily habit</span>
+                  </span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Care Dropdown */}
+            <div className="ae-dd relative">
+              <button
+                type="button"
+                className="ae-ddbtn"
+                aria-haspopup="true"
+              >
+                Care
+                <svg
+                  aria-hidden="true"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+              <div
+                className="ae-menu"
+                style={{
+                  width: "280px",
+                  gridTemplateColumns: "1fr",
+                }}
+              >
+                <Link href="#community">
+                  <span className="ae-mi">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                  </span>
+                  <span>
+                    <span className="ae-mt">Doctors</span>
+                    <span className="ae-md">
+                      Specialists trained on your reports
+                    </span>
+                  </span>
+                </Link>
+                <Link href="#languages">
+                  <span className="ae-mi">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="2" y1="12" x2="22" y2="12" />
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                    </svg>
+                  </span>
+                  <span>
+                    <span className="ae-mt">22+ Languages</span>
+                    <span className="ae-md">
+                      Care in your mother tongue
+                    </span>
+                  </span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Company Dropdown */}
+            <div className="ae-dd relative">
+              <button
+                type="button"
+                className="ae-ddbtn"
+                aria-haspopup="true"
+              >
+                Company
+                <svg
+                  aria-hidden="true"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+              <div
+                className="ae-menu"
+                style={{
+                  width: "280px",
+                  gridTemplateColumns: "1fr",
+                }}
+              >
+                <Link href="#mission">
+                  <span className="ae-mi">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 16v-4M12 8h.01" />
+                    </svg>
+                  </span>
+                  <span>
+                    <span className="ae-mt">Mission</span>
+                    <span className="ae-md">Preventive health for 1.4 billion people</span>
+                  </span>
+                </Link>
+                <Link href="#contact">
+                  <span className="ae-mi">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                  </span>
+                  <span>
+                    <span className="ae-mt">Contact</span>
+                    <span className="ae-md">Reach our clinical team</span>
+                  </span>
+                </Link>
+              </div>
+            </div>
+          </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-3">
-            {/* Contact / Mail Icon Button */}
+          <div className="flex items-center gap-2.5">
             <Link
               href="#contact"
-              title="Contact us"
-              className="w-10 h-10 rounded-full flex items-center justify-center text-[#545B61] hover:text-[#1D1F22] hover:bg-black/5 transition-all"
+              className="ae-btn inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium text-[#1D1F22] border border-black/10 shadow-[inset_0_1px_0_#FFF,0_2px_4px_rgba(29,31,34,0.04)] hover:bg-black/5 transition-all"
             >
               <svg
                 aria-hidden="true"
-                width="19"
-                height="19"
+                width="15"
+                height="15"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.8"
+                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
                 <rect x="3" y="5" width="18" height="14" rx="3" />
                 <path d="M3.5 7l8.5 6 8.5-6" />
               </svg>
+              <span>Contact</span>
             </Link>
 
-            {/* Pre-register pastel pill button with diagonal arrow */}
             <Link
               href="#register"
-              className="ae-btn inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium text-[#1D1F22] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7),0_4px_14px_rgba(227,32,43,0.12)] hover:shadow-[0_6px_20px_rgba(227,32,43,0.2)] transition-all"
+              className="ae-btn-dark inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium text-white shadow-[0_8px_20px_rgba(14,15,17,0.25),inset_0_1px_0_rgba(255,255,255,0.2)]"
               style={{
-                background:
-                  "linear-gradient(100deg, #FFD3CF 0%, #F7E0EA 55%, #E9E4F5 100%)",
+                background: "linear-gradient(180deg, #32363A 0%, #1D1F22 100%)",
               }}
             >
-              <span>Pre-register</span>
+              <span>Sign in</span>
               <svg
                 aria-hidden="true"
                 width="12"
@@ -162,53 +431,47 @@ export default function LandingPage() {
               )}
             </button>
           </div>
-        </div>
+        </nav>
 
         {/* Mobile Dropdown Menu Panel */}
         {mobileMenuOpen && (
-          <div className="md:hidden px-6 pb-4 pt-2 border-t border-slate-200/50 bg-[#F1F5F9]/95 backdrop-blur-md flex flex-col gap-2 text-sm animate-in fade-in duration-150">
+          <div className="md:hidden mt-3 max-w-[1180px] mx-auto p-4 rounded-3xl bg-white/95 backdrop-blur-xl border border-white/80 shadow-2xl flex flex-col gap-2 text-sm animate-in fade-in duration-200">
             <Link
               href="#services"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-3 bg-white/80 rounded-xl font-medium text-[#1D1F22] shadow-xs"
+              className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22] flex items-center justify-between"
             >
-              Platform
+              <span>Platform</span>
+              <span className="text-xs text-[#C8161F] font-mono">BIO-AI</span>
             </Link>
             <Link
               href="#how"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-3 bg-white/80 rounded-xl font-medium text-[#1D1F22] shadow-xs"
+              className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
               How it works
             </Link>
             <Link
               href="#mission"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-3 bg-white/80 rounded-xl font-medium text-[#1D1F22] shadow-xs"
+              className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
               Mission
             </Link>
             <Link
               href="#faq"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-3 bg-white/80 rounded-xl font-medium text-[#1D1F22] shadow-xs"
+              className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
               FAQ
             </Link>
             <Link
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-3 bg-white/80 rounded-xl font-medium text-[#1D1F22] shadow-xs flex items-center justify-between"
+              className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22] flex items-center justify-between"
             >
               <span>Contact</span>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <rect x="3" y="5" width="18" height="14" rx="3" />
                 <path d="M3.5 7l8.5 6 8.5-6" />
               </svg>
@@ -432,14 +695,39 @@ export default function LandingPage() {
                   <stop offset="0.64" stopColor="#FFFFFF" stopOpacity="0" />
                   <stop offset="1" stopColor="#8C6E96" stopOpacity="0.32" />
                 </linearGradient>
+                {/* Anatomical Muscular Gradients from BodyParts3D Atlas */}
+                <linearGradient id="ae-musc-plate" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#C05245" stopOpacity="0.75" />
+                  <stop offset="50%" stopColor="#A85B50" stopOpacity="0.68" />
+                  <stop offset="100%" stopColor="#822E24" stopOpacity="0.78" />
+                </linearGradient>
+                <linearGradient id="ae-musc-deep" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#9C3A30" stopOpacity="0.72" />
+                  <stop offset="100%" stopColor="#6C2018" stopOpacity="0.82" />
+                </linearGradient>
+                <linearGradient id="ae-musc-core" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#872E24" stopOpacity="0.7" />
+                  <stop offset="30%" stopColor="#B6584E" stopOpacity="0.65" />
+                  <stop offset="70%" stopColor="#B6584E" stopOpacity="0.65" />
+                  <stop offset="100%" stopColor="#872E24" stopOpacity="0.7" />
+                </linearGradient>
+                <linearGradient id="ae-musc-quad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#B8544A" stopOpacity="0.72" />
+                  <stop offset="70%" stopColor="#96372D" stopOpacity="0.75" />
+                  <stop offset="100%" stopColor="#77251C" stopOpacity="0.8" />
+                </linearGradient>
+                <linearGradient id="ae-fascia-highlight" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.85" />
+                  <stop offset="100%" stopColor="#E2D0C6" stopOpacity="0.4" />
+                </linearGradient>
                 <linearGradient id="ae-beamG" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stopColor="#E3202B" stopOpacity="0" />
-                  <stop offset="0.5" stopColor="#E3202B" stopOpacity="0.32" />
+                  <stop offset="0.5" stopColor="#E3202B" stopOpacity="0.38" />
                   <stop offset="1" stopColor="#E3202B" stopOpacity="0" />
                 </linearGradient>
                 <radialGradient id="ae-glowR">
-                  <stop offset="0" stopColor="#FF3B43" stopOpacity="0.6" />
-                  <stop offset="1" stopColor="#FF3B43" stopOpacity="0" />
+                  <stop offset="0" stopColor="#FF3B43" stopOpacity="0.65" />
+                  <stop offset="100%" stopColor="#FF3B43" stopOpacity="0" />
                 </radialGradient>
                 <clipPath id="ae-bclip">
                   <ellipse cx="120" cy="40" rx="22" ry="27" />
@@ -464,121 +752,174 @@ export default function LandingPage() {
                 </g>
               </g>
 
-              {/* Interior Anatomy, Clipped */}
+              {/* Real Human Muscular Anatomy from BodyParts3D Atlas */}
               <g clipPath="url(#ae-bclip)">
                 <rect x="0" y="0" width="240" height="520" fill="url(#ae-shade)" />
-                {/* Horizontal Rib Lines */}
-                <g fill="none" stroke="rgba(150,120,165,0.16)" strokeWidth="0.8">
-                  <path d="M20 110 Q120 118 220 110" />
-                  <path d="M20 132 Q120 140 220 132" />
-                  <path d="M20 154 Q120 162 220 154" />
-                  <path d="M20 176 Q120 184 220 176" />
-                  <path d="M20 198 Q120 206 220 198" />
-                  <path d="M20 220 Q120 228 220 220" />
-                  <path d="M20 242 Q120 250 220 242" />
-                  <path d="M20 264 Q120 272 220 264" />
-                  <path d="M20 300 Q120 308 220 300" />
-                  <path d="M20 336 Q120 344 220 336" />
-                  <path d="M20 372 Q120 380 220 372" />
-                  <path d="M20 408 Q120 416 220 408" />
-                  <path d="M20 444 Q120 452 220 444" />
-                  <path d="M20 26 Q120 34 220 26" />
-                  <path d="M20 50 Q120 58 220 50" />
+
+                {/* Sub-fascial Muscle Fiber Tone */}
+                <rect x="0" y="0" width="240" height="520" fill="rgba(168,91,80,0.12)" />
+
+                {/* Trapezius & Sternocleidomastoid Neck Muscles */}
+                <g fill="url(#ae-musc-deep)" stroke="rgba(255,255,255,0.4)" strokeWidth="0.6">
+                  {/* Sternocleidomastoid cords */}
+                  <path d="M113 66 C115 76 117 88 118 98 C116 98 112 86 110 72 Z" />
+                  <path d="M127 66 C125 76 123 88 122 98 C124 98 128 86 130 72 Z" />
+                  {/* Trapezius collar slopes */}
+                  <path d="M102 72 C96 80 86 88 78 96 C84 94 94 88 102 82 Z" />
+                  <path d="M138 72 C144 80 154 88 162 96 C156 94 146 88 138 82 Z" />
                 </g>
 
-                {/* Lungs */}
-                <ellipse
-                  cx="104"
-                  cy="142"
-                  rx="15"
-                  ry="27"
-                  fill="rgba(255,160,170,0.20)"
-                  stroke="rgba(227,32,43,0.16)"
-                />
-                <ellipse
-                  cx="136"
-                  cy="142"
-                  rx="15"
-                  ry="27"
-                  fill="rgba(255,160,170,0.20)"
-                  stroke="rgba(227,32,43,0.16)"
-                />
-
-                {/* Spine & Rib cage arches */}
-                <g
-                  fill="none"
-                  stroke="rgba(160,115,140,0.34)"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                >
-                  <path d="M120 108 V172" strokeWidth="2.2" />
-                  <path d="M118 114 C106 113 94 117 88 128" />
-                  <path d="M122 114 C134 113 146 117 152 128" />
-                  <path d="M118 125 C105 124 93 129 87 141" />
-                  <path d="M122 125 C135 124 147 129 153 141" />
-                  <path d="M118 136 C105 136 93 141 88 154" />
-                  <path d="M122 136 C135 136 147 141 152 154" />
-                  <path d="M118 147 C106 148 95 153 90 166" />
-                  <path d="M122 147 C134 148 145 153 150 166" />
-                  <path d="M118 158 C108 160 99 166 95 177" />
-                  <path d="M122 158 C132 160 141 166 145 177" />
-                  <path d="M98 252 C104 270 136 270 142 252" />
-                  <path d="M92 104 C100 100 110 102 116 106" />
-                  <path d="M148 104 C140 100 130 102 124 106" />
+                {/* Deltoids (Shoulders) - Anterior & Lateral Bundles */}
+                <g fill="url(#ae-musc-plate)" stroke="rgba(255,255,255,0.45)" strokeWidth="0.8">
+                  {/* Left Deltoid */}
+                  <path d="M74 100 C64 105 60 118 64 134 C68 144 76 150 78 142 C76 128 72 116 74 100 Z" />
+                  <path d="M70 106 C66 116 66 128 70 138" fill="none" stroke="rgba(255,220,215,0.6)" strokeWidth="0.8" />
+                  {/* Right Deltoid */}
+                  <path d="M166 100 C176 105 180 118 176 134 C172 144 164 150 162 142 C164 128 168 116 166 100 Z" />
+                  <path d="M170 106 C174 116 174 128 170 138" fill="none" stroke="rgba(255,220,215,0.6)" strokeWidth="0.8" />
                 </g>
 
-                {/* Vertebrae dots */}
-                <g fill="rgba(160,115,140,0.34)">
-                  <circle cx="120" cy="184" r="2.4" />
-                  <circle cx="120" cy="193" r="2.4" />
-                  <circle cx="120" cy="202" r="2.4" />
-                  <circle cx="120" cy="211" r="2.4" />
-                  <circle cx="120" cy="220" r="2.4" />
-                  <circle cx="120" cy="229" r="2.4" />
-                  <circle cx="120" cy="238" r="2.4" />
-                  <circle cx="120" cy="247" r="2.4" />
+                {/* Pectoralis Major (Chest Muscle Plates) */}
+                <g fill="url(#ae-musc-plate)" stroke="rgba(255,255,255,0.5)" strokeWidth="1">
+                  {/* Left Pectoral Plate */}
+                  <path d="M118 106 C105 106 90 114 84 128 C80 138 88 152 104 154 C112 155 118 150 118 142 Z" />
+                  {/* Right Pectoral Plate */}
+                  <path d="M122 106 C135 106 150 114 156 128 C160 138 152 152 136 154 C128 155 122 150 122 142 Z" />
                 </g>
 
-                {/* Neural pathways */}
-                <g fill="none" stroke="rgba(227,32,43,0.22)" strokeWidth="1">
-                  <path d="M128 158 C126 190 118 220 112 252 C104 300 100 360 98 440" />
-                  <path d="M128 158 C134 196 138 230 130 258 C140 300 142 360 142 440" />
-                  <path d="M118 112 C96 116 74 118 64 150 C58 190 52 240 44 300" />
-                  <path d="M122 112 C144 116 166 118 176 150 C182 190 188 240 196 300" />
+                {/* Pectoralis Striation Lines (Muscle Fibers) */}
+                <g fill="none" stroke="rgba(255,230,225,0.65)" strokeWidth="0.9" strokeLinecap="round">
+                  <path d="M117 114 C104 118 94 126 86 134" />
+                  <path d="M123 114 C136 118 146 126 154 134" />
+                  <path d="M117 126 C105 130 96 138 88 144" />
+                  <path d="M123 126 C135 130 144 138 152 144" />
+                  <path d="M117 138 C108 142 100 146 94 150" />
+                  <path d="M123 138 C132 142 140 146 146 150" />
                 </g>
 
-                {/* Brain & Stomach */}
-                <path
-                  d="M106 34 C110 26 118 26 120 32 C122 26 132 26 134 34 C138 40 132 48 126 46 C122 52 116 52 114 46 C106 48 102 40 106 34 Z"
-                  fill="rgba(255,140,150,0.24)"
-                  stroke="rgba(227,32,43,0.34)"
-                  strokeWidth="1"
-                />
-                <ellipse
-                  cx="110"
-                  cy="200"
-                  rx="12"
-                  ry="8"
-                  fill="rgba(243,169,58,0.32)"
-                />
-                <circle cx="120" cy="38" r="24" fill="url(#ae-glowR)" />
-                <circle cx="128" cy="150" r="26" fill="url(#ae-glowR)" />
-                <circle
-                  cx="110"
-                  cy="200"
-                  r="20"
-                  fill="url(#ae-glowR)"
-                  opacity="0.7"
-                />
+                {/* Serratus Anterior & Intercostals (Lateral Ribcage Muscles) */}
+                <g fill="url(#ae-musc-deep)" stroke="rgba(255,255,255,0.4)" strokeWidth="0.7">
+                  <path d="M82 158 C77 164 74 172 74 180 C78 178 82 174 84 168 Z" />
+                  <path d="M158 158 C163 164 166 172 166 180 C162 178 158 174 156 168 Z" />
+                  <path d="M84 174 C80 182 78 190 78 196 C82 194 84 190 86 184 Z" />
+                  <path d="M156 174 C160 182 162 190 162 196 C158 194 156 190 154 184 Z" />
+                  <path d="M86 190 C83 198 82 206 82 212 C86 210 88 204 89 198 Z" />
+                  <path d="M154 190 C157 198 158 206 158 212 C154 210 152 204 151 198 Z" />
+                </g>
 
-                {/* Beating Heart */}
+                {/* Rectus Abdominis (Anatomical 6-Pack Abs) & Linea Alba */}
+                {/* Center Linea Alba */}
+                <line x1="120" y1="154" x2="120" y2="264" stroke="rgba(255,255,255,0.9)" strokeWidth="1.6" strokeLinecap="round" />
+
+                {/* Abdominal Muscle Bellies */}
+                <g fill="url(#ae-musc-core)" stroke="rgba(255,255,255,0.5)" strokeWidth="0.9">
+                  {/* Upper Abs Pair */}
+                  <path d="M106 158 C100 158 96 163 96 172 C96 180 100 185 106 185 C112 185 118 180 118 172 C118 163 112 158 106 158 Z" />
+                  <path d="M134 158 C128 158 122 163 122 172 C122 180 128 185 134 185 C140 185 144 180 144 172 C144 163 140 158 134 158 Z" />
+
+                  {/* Mid Abs Pair */}
+                  <path d="M106 190 C99 190 95 196 95 206 C95 216 99 222 106 222 C113 222 118 216 118 206 C118 196 113 190 106 190 Z" />
+                  <path d="M134 190 C127 190 122 196 122 206 C122 216 127 222 134 222 C141 222 145 216 145 206 C145 196 141 190 134 190 Z" />
+
+                  {/* Lower Abs Pair */}
+                  <path d="M107 226 C101 226 97 232 97 242 C97 252 102 258 109 258 C115 258 118 252 118 242 C118 232 114 226 107 226 Z" />
+                  <path d="M133 226 C126 226 122 232 122 242 C122 252 125 258 131 258 C137 258 143 252 143 242 C143 232 139 226 133 226 Z" />
+                </g>
+
+                {/* Transverse Tendinous Inscriptions (Ab Grooves) */}
+                <g fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="1.2" strokeLinecap="round">
+                  <path d="M96 186 Q107 188 118 186" />
+                  <path d="M122 186 Q133 188 144 186" />
+                  <path d="M95 223 Q106 225 118 223" />
+                  <path d="M122 223 Q133 225 145 223" />
+                  <path d="M97 259 Q108 261 118 259" />
+                  <path d="M122 259 Q132 261 143 259" />
+                </g>
+
+                {/* External Obliques (Waist Flank Muscles & V-Cut) */}
+                <g fill="url(#ae-musc-deep)" stroke="rgba(255,255,255,0.4)" strokeWidth="0.8">
+                  <path d="M94 194 C88 202 86 216 86 234 C86 248 90 258 94 260 C96 250 96 234 96 216 Z" />
+                  <path d="M146 194 C152 202 154 216 154 234 C154 248 150 258 146 260 C144 250 144 234 144 216 Z" />
+                  {/* Inguinal V-cut groin lines */}
+                  <path d="M96 258 C104 270 114 274 120 274" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="1.2" />
+                  <path d="M144 258 C136 270 126 274 120 274" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="1.2" />
+                </g>
+
+                {/* Biceps Brachii & Forearms */}
+                <g fill="url(#ae-musc-plate)" stroke="rgba(255,255,255,0.45)" strokeWidth="0.8">
+                  {/* Left Biceps */}
+                  <path d="M62 138 C56 154 54 174 56 194 C60 194 66 180 68 166 C70 152 68 140 62 138 Z" />
+                  {/* Right Biceps */}
+                  <path d="M178 138 C184 154 186 174 184 194 C180 194 174 180 172 166 C170 152 172 140 178 138 Z" />
+                  {/* Left Forearm Brachioradialis */}
+                  <path d="M52 204 C46 228 42 258 40 284 C44 284 50 262 54 234 C56 218 54 208 52 204 Z" />
+                  {/* Right Forearm Brachioradialis */}
+                  <path d="M188 204 C194 228 198 258 200 284 C196 284 190 262 186 234 C184 218 186 208 188 204 Z" />
+                </g>
+
+                {/* Quadriceps Femoris (Thigh Muscles) */}
+                <g fill="url(#ae-musc-quad)" stroke="rgba(255,255,255,0.45)" strokeWidth="0.8">
+                  {/* Left Central Rectus Femoris */}
+                  <path d="M104 274 C98 300 96 332 98 360 C103 360 106 332 107 300 C108 285 107 276 104 274 Z" />
+                  {/* Left Outer Vastus Lateralis */}
+                  <path d="M93 278 C86 304 84 336 88 362 C92 362 95 336 96 304 C97 290 96 280 93 278 Z" />
+                  {/* Left Medial Vastus Medialis (Teardrop) */}
+                  <path d="M110 334 C106 342 105 352 106 364 C111 364 115 356 114 346 C113 338 111 334 110 334 Z" fill="url(#ae-musc-plate)" />
+
+                  {/* Right Central Rectus Femoris */}
+                  <path d="M136 274 C142 300 144 332 142 360 C137 360 134 332 133 300 C132 285 133 276 136 274 Z" />
+                  {/* Right Outer Vastus Lateralis */}
+                  <path d="M147 278 C154 304 156 336 152 362 C148 362 145 336 144 304 C143 290 144 280 147 278 Z" />
+                  {/* Right Medial Vastus Medialis (Teardrop) */}
+                  <path d="M130 334 C134 342 135 352 134 364 C129 364 125 356 126 346 C127 338 129 334 130 334 Z" fill="url(#ae-musc-plate)" />
+                </g>
+
+                {/* Patellar Tendons & Knee Articulations */}
+                <g fill="rgba(255,255,255,0.75)">
+                  <circle cx="102" cy="370" r="3.2" />
+                  <circle cx="138" cy="370" r="3.2" />
+                  <rect x="100.5" y="373" width="3" height="8" rx="1.5" />
+                  <rect x="136.5" y="373" width="3" height="8" rx="1.5" />
+                </g>
+
+                {/* Gastrocnemius (Calves) & Tibialis Anterior (Shins) */}
+                <g fill="url(#ae-musc-quad)" stroke="rgba(255,255,255,0.4)" strokeWidth="0.8">
+                  {/* Left Calf Lateral Belly */}
+                  <path d="M92 384 C85 402 85 424 90 446 C94 446 97 428 98 410 C99 396 97 386 92 384 Z" />
+                  {/* Left Calf Medial Belly */}
+                  <path d="M102 386 C105 402 106 422 104 442 C101 442 99 424 98 406 C97 394 100 388 102 386 Z" />
+                  {/* Left Tibialis / Achilles */}
+                  <path d="M96 442 C94 460 93 474 94 486 C98 486 100 472 101 456 C101 446 98 442 96 442 Z" fill="url(#ae-musc-deep)" />
+
+                  {/* Right Calf Lateral Belly */}
+                  <path d="M148 384 C155 402 155 424 150 446 C146 446 143 428 142 410 C141 396 143 386 148 384 Z" />
+                  {/* Right Calf Medial Belly */}
+                  <path d="M138 386 C135 402 134 422 136 442 C139 442 141 424 142 406 C143 394 140 388 138 386 Z" />
+                  {/* Right Tibialis / Achilles */}
+                  <path d="M144 442 C146 460 147 474 146 486 C142 486 140 472 139 456 C139 446 142 442 144 442 Z" fill="url(#ae-musc-deep)" />
+                </g>
+
+                {/* Cardiovascular Vasculature (Aorta & Vena Cava) */}
+                <g fill="none" strokeWidth="1.2">
+                  {/* Red Arterial Vasculature */}
+                  <path d="M125 142 C125 125 120 112 118 98 M125 125 C128 112 130 98 132 98" stroke="#EF4444" opacity="0.8" />
+                  <path d="M122 154 V250 C122 258 116 266 108 280 M122 250 C122 258 128 266 136 280" stroke="#EF4444" opacity="0.75" />
+                  {/* Blue Venous Drainage */}
+                  <path d="M117 140 C117 125 114 112 114 98" stroke="#2563EB" opacity="0.75" />
+                  <path d="M117 154 V248 C117 256 112 264 105 278" stroke="#2563EB" opacity="0.7" />
+                </g>
+
+                {/* Pulsing Myocardial Engine (Beating Heart) */}
+                <circle cx="127" cy="143" r="22" fill="url(#ae-glowR)" />
                 <path
                   className="ae-beat"
-                  d="M128 160 C118 153 114 148 114 143 A6 6 0 0 1 128 139 A6 6 0 0 1 142 143 C142 148 138 153 128 160 Z"
+                  d="M127 152 C117 145 113 140 113 135 A6.5 6.5 0 0 1 127 131 A6.5 6.5 0 0 1 141 135 C141 140 137 145 127 152 Z"
                   fill="#E3202B"
+                  stroke="#FF6B6F"
+                  strokeWidth="0.8"
                 />
 
-                {/* Moving Laser Beam */}
+                {/* Vertical Moving Scanning Laser Beam */}
                 <rect
                   className="ae-beam"
                   x="0"
@@ -589,7 +930,7 @@ export default function LandingPage() {
                 />
               </g>
 
-              {/* Body Rim Light */}
+              {/* Muscular Rim Highlight */}
               <g
                 fill="none"
                 stroke="rgba(255,255,255,0.95)"
@@ -624,19 +965,19 @@ export default function LandingPage() {
             />
           </div>
 
-          {/* Elliptical 3D Laser Scanning Ring - Level horizontal ellipse moving from legs to head */}
+          {/* Elliptical 3D Laser Scanning Ring - Strictly Level Horizontal Ellipse Moving From Legs To Head */}
           <div
-            className="ae-scanring absolute left-1/2 top-[55px] w-[310px] h-[68px] -ml-[155px] pointer-events-none z-20 flex items-center justify-center"
+            className="ae-scanring absolute left-1/2 top-[40px] w-[310px] h-[66px] pointer-events-none z-20 flex items-center justify-center"
           >
             <div
-              className="w-full h-full rounded-[50%] border-2 border-[rgba(227,32,43,0.85)] shadow-[0_0_26px_rgba(227,32,43,0.65),inset_0_0_20px_rgba(227,32,43,0.35)] flex items-center justify-center"
+              className="w-full h-full rounded-[50%] border-2 border-[rgba(227,32,43,0.88)] shadow-[0_0_26px_rgba(227,32,43,0.70),inset_0_0_20px_rgba(227,32,43,0.40)] flex items-center justify-center"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, rgba(227,32,43,0.18) 0%, rgba(227,32,43,0.05) 55%, transparent 72%)",
+                  "radial-gradient(ellipse at center, rgba(227,32,43,0.22) 0%, rgba(227,32,43,0.06) 55%, transparent 72%)",
               }}
             >
               <div
-                className="w-[96%] h-[92%] rounded-[50%] border border-white/70 shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+                className="w-[96%] h-[90%] rounded-[50%] border border-white/80 shadow-[0_0_8px_rgba(255,255,255,0.7)]"
               />
             </div>
           </div>
@@ -2411,16 +2752,29 @@ export default function LandingPage() {
               ),
             },
           ].map((step, idx) => {
-            const isActive = activeStep === idx;
+            const isActive =
+              hoveredStep !== null ? hoveredStep === idx : activeStep === idx;
             return (
               <div
                 key={step.num}
-                onMouseEnter={() => setActiveStep(idx)}
+                onMouseEnter={() => setHoveredStep(idx)}
+                onMouseLeave={() => setHoveredStep(null)}
+                onClick={() => setActiveStep(idx)}
                 className={`ae-lift relative overflow-hidden rounded-[28px] p-7 min-h-[320px] flex flex-col justify-between cursor-pointer transition-all duration-300 ${
                   isActive
-                    ? "bg-[#1D1F22] text-white shadow-xl -translate-y-2 scale-[1.02]"
-                    : "bg-white text-[#1D1F22] shadow-xs hover:shadow-md hover:-translate-y-1"
+                    ? "text-white shadow-2xl -translate-y-2.5 scale-[1.02] border border-white/10"
+                    : "bg-white text-[#1D1F22] shadow-xs hover:shadow-lg hover:-translate-y-1 border border-slate-100"
                 }`}
+                style={
+                  isActive
+                    ? {
+                        background:
+                          "linear-gradient(145deg, #18191E 0%, #101115 60%, #1A0D12 100%)",
+                        boxShadow:
+                          "0 24px 50px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12)",
+                      }
+                    : undefined
+                }
               >
                 {/* Ambient Red Glow on Active Card */}
                 {isActive && (
