@@ -25,411 +25,102 @@ export default function LandingPage() {
 
   return (
     <div className="bg-[#F1F5F9] text-[#1D1F22] font-sans text-base leading-normal antialiased overflow-x-hidden selection:bg-[#E3202B] selection:text-white min-h-screen">
-      {/* ============ STICKY GLASS NAVBAR ============ */}
-      <header className="sticky top-4 z-40 px-4">
-        <nav
-          aria-label="Main"
-          className="relative max-w-[1180px] mx-auto p-2.5 pl-4 sm:pl-5 flex items-center justify-between gap-4 flex-wrap rounded-full border border-white/70 shadow-[0_24px_60px_rgba(120,60,90,0.16),0_2px_8px_rgba(29,31,34,0.06),inset_0_1.5px_0_rgba(255,255,255,0.95),inset_0_-1px_0_rgba(255,255,255,0.35),inset_0_0_0_1px_rgba(255,255,255,0.18)]"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.48) 100%)",
-            backdropFilter: "blur(30px) saturate(220%) brightness(1.05)",
-            WebkitBackdropFilter: "blur(30px) saturate(220%) brightness(1.05)",
-          }}
-        >
-          {/* Top highlight line */}
-          <span
-            aria-hidden="true"
-            className="absolute left-9 right-9 top-0 h-[1px] pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(255,255,255,0), #FFFFFF, rgba(255,255,255,0))",
-            }}
-          />
-
+      {/* ============ TOP NAVBAR ============ */}
+      <header className="sticky top-0 z-50 w-full bg-[#F1F5F9]/85 backdrop-blur-md border-b border-slate-200/50">
+        <div className="max-w-[1240px] mx-auto px-6 h-18 flex items-center justify-between gap-6">
           {/* Brand Logo & Name */}
-          <Link href="#top" className="flex items-center gap-3">
-            <div className="relative w-10 h-10 rounded-[11px] overflow-hidden shadow-sm flex-shrink-0">
+          <Link href="#top" className="flex items-center gap-3 group">
+            <div className="relative w-9 h-9 rounded-xl overflow-hidden shadow-xs flex-shrink-0 transition-transform group-hover:scale-105">
               <Image
                 src="/brand/aethriz-hero-logo.png"
                 alt="AETHRIZ logo"
-                width={40}
-                height={40}
+                width={36}
+                height={36}
                 className="w-full h-full object-cover"
                 priority
               />
             </div>
-            <span className="flex flex-col leading-none">
-              <span
-                className="font-semibold text-lg tracking-[0.14em] text-[#1D1F22]"
-                style={{ fontFamily: "'Inter Tight', sans-serif" }}
-              >
-                AETHRIZ
-              </span>
-              <span
-                className="text-[9.5px] tracking-[0.22em] text-[#C8161F] mt-[3px] font-mono"
-              >
-                BIO-HEALTH AI
-              </span>
+            <span
+              className="font-medium text-[16px] tracking-[0.16em] text-[#1D1F22] select-none"
+              style={{ fontFamily: "'Inter Tight', sans-serif" }}
+            >
+              AETHRIZ
             </span>
           </Link>
 
-          {/* Desktop Navigation with Mega Menus */}
-          <div className="ae-nav items-center gap-1 text-[15px] hidden md:flex">
-            {/* Platform Dropdown */}
-            <div className="ae-dd relative">
-              <button
-                type="button"
-                className="ae-ddbtn"
-                aria-haspopup="true"
-              >
-                Platform
-                <svg
-                  aria-hidden="true"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </button>
-              <div
-                className="ae-menu"
-                style={{
-                  width: "500px",
-                  gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                }}
-              >
-                <Link href="/health-analysis">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M3 12h4l3-8 4 16 3-8h4" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">AI Health</span>
-                    <span className="ae-md">
-                      Personal insights from your health data
-                    </span>
-                  </span>
-                </Link>
-                <Link href="/food-scanner">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M7 12h10" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">Food Scanner</span>
-                    <span className="ae-md">
-                      Scan a meal, see what it means for you
-                    </span>
-                  </span>
-                </Link>
-                <Link href="/body-explorer">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <circle cx="12" cy="4.5" r="2.5" />
-                      <path d="M12 7v7M8 9.5l4 1.5 4-1.5M9.5 21l2.5-7 2.5 7" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">3D Anatomy</span>
-                    <span className="ae-md">
-                      Explore your health, organ by organ
-                    </span>
-                  </span>
-                </Link>
-                <Link href="#how">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <circle cx="5" cy="6" r="2" />
-                      <circle cx="19" cy="18" r="2" />
-                      <path d="M7 6h6a4 4 0 0 1 0 8h-2a4 4 0 0 0 0 8h6" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">How it works</span>
-                    <span className="ae-md">
-                      From report to everyday action
-                    </span>
-                  </span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Care Dropdown */}
-            <div className="ae-dd relative">
-              <button
-                type="button"
-                className="ae-ddbtn"
-                aria-haspopup="true"
-              >
-                Care
-                <svg
-                  aria-hidden="true"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </button>
-              <div className="ae-menu" style={{ width: "300px" }}>
-                <Link href="/doctors">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M6 3v6a4 4 0 0 0 8 0V3" />
-                      <path d="M10 13v2a5 5 0 0 0 10 0v-2" />
-                      <circle cx="20" cy="11" r="2" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">Doctors</span>
-                    <span className="ae-md">
-                      Connect with qualified specialists
-                    </span>
-                  </span>
-                </Link>
-                <Link href="/booking">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <rect x="3" y="5" width="18" height="16" rx="3" />
-                      <path d="M8 3v4M16 3v4M3 10h18M9 15l2 2 4-4" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">Bookings</span>
-                    <span className="ae-md">
-                      Schedule tests and appointments
-                    </span>
-                  </span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Company Dropdown */}
-            <div className="ae-dd relative">
-              <button
-                type="button"
-                className="ae-ddbtn"
-                aria-haspopup="true"
-              >
-                Company
-                <svg
-                  aria-hidden="true"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </button>
-              <div
-                className="ae-menu"
-                style={{
-                  width: "460px",
-                  gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                }}
-              >
-                <Link href="#mission">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <circle cx="12" cy="12" r="9" />
-                      <circle cx="12" cy="12" r="5" />
-                      <circle cx="12" cy="12" r="1" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">Mission</span>
-                    <span className="ae-md">Why we are building for Bharat</span>
-                  </span>
-                </Link>
-                <Link href="/articles">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z" />
-                      <path d="M4 21V5M9 8h5" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">Stories</span>
-                    <span className="ae-md">Real people, real health journeys</span>
-                  </span>
-                </Link>
-                <Link href="/join-team">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <circle cx="9" cy="8" r="3.5" />
-                      <path d="M2.5 20c1-3.5 3.5-5 6.5-5s5.5 1.5 6.5 5" />
-                      <path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 15c1.8.6 2.7 2.2 3 5" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">Join Team</span>
-                    <span className="ae-md">Build the future of health AI</span>
-                  </span>
-                </Link>
-                <Link href="#faq">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <circle cx="12" cy="12" r="9" />
-                      <path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17v.01" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">FAQ</span>
-                    <span className="ae-md">Answers to common questions</span>
-                  </span>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Action Buttons & Mobile Toggle */}
-          <div className="flex items-center gap-2">
+          {/* Navigation Links */}
+          <nav
+            aria-label="Main"
+            className="hidden md:flex items-center gap-8 lg:gap-10 text-[14.5px] font-medium text-[#545B61]"
+          >
             <Link
-              href="/contact"
-              className="ae-btn hidden sm:inline-flex items-center gap-2 min-h-[44px] px-5 rounded-full bg-[rgba(29,31,34,0.06)] shadow-[inset_0_0_0_1px_rgba(29,31,34,0.06)] text-[#1D1F22] text-[15px] font-medium"
+              href="#services"
+              className="hover:text-[#1D1F22] transition-colors"
+            >
+              Platform
+            </Link>
+            <Link
+              href="#how"
+              className="hover:text-[#1D1F22] transition-colors"
+            >
+              How it works
+            </Link>
+            <Link
+              href="#mission"
+              className="hover:text-[#1D1F22] transition-colors"
+            >
+              Mission
+            </Link>
+            <Link
+              href="#faq"
+              className="hover:text-[#1D1F22] transition-colors"
+            >
+              FAQ
+            </Link>
+          </nav>
+
+          {/* Right Actions */}
+          <div className="flex items-center gap-3">
+            {/* Contact / Mail Icon Button */}
+            <Link
+              href="#contact"
+              title="Contact us"
+              className="w-10 h-10 rounded-full flex items-center justify-center text-[#545B61] hover:text-[#1D1F22] hover:bg-black/5 transition-all"
             >
               <svg
                 aria-hidden="true"
-                width="18"
-                height="18"
+                width="19"
+                height="19"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.6"
+                strokeWidth="1.8"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
                 <rect x="3" y="5" width="18" height="14" rx="3" />
                 <path d="M3.5 7l8.5 6 8.5-6" />
               </svg>
-              Contact
             </Link>
 
+            {/* Pre-register pastel pill button with diagonal arrow */}
             <Link
-              href="/login"
-              className="ae-btn ae-btn-dark inline-flex items-center gap-2 min-h-[44px] px-5 sm:px-6 rounded-full text-white text-[15px] font-medium shadow-[0_8px_20px_rgba(29,31,34,0.22),inset_0_1px_0_rgba(255,255,255,0.16)]"
+              href="#register"
+              className="ae-btn inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium text-[#1D1F22] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7),0_4px_14px_rgba(227,32,43,0.12)] hover:shadow-[0_6px_20px_rgba(227,32,43,0.2)] transition-all"
               style={{
-                background: "linear-gradient(180deg, #32363A 0%, #1D1F22 100%)",
+                background:
+                  "linear-gradient(100deg, #FFD3CF 0%, #F7E0EA 55%, #E9E4F5 100%)",
               }}
             >
-              <span>Sign in</span>
+              <span>Pre-register</span>
               <svg
                 aria-hidden="true"
-                width="14"
-                height="14"
+                width="12"
+                height="12"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.4"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
@@ -441,90 +132,89 @@ export default function LandingPage() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/70 text-[#1D1F22] border border-white/80 shadow-sm"
+              className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/70 text-[#1D1F22] border border-slate-200/60 shadow-xs"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                >
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                >
                   <path d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               )}
             </button>
           </div>
+        </div>
 
-          {/* Mobile Dropdown Menu Panel */}
-          {mobileMenuOpen && (
-            <div className="w-full md:hidden pt-4 pb-2 border-t border-slate-200/60 mt-3 grid grid-cols-2 gap-2 text-sm animate-in fade-in zoom-in-95 duration-200">
-              <Link
-                href="/health-analysis"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-3 bg-white/80 rounded-xl flex items-center gap-2 text-[#1D1F22] font-medium shadow-xs"
+        {/* Mobile Dropdown Menu Panel */}
+        {mobileMenuOpen && (
+          <div className="md:hidden px-6 pb-4 pt-2 border-t border-slate-200/50 bg-[#F1F5F9]/95 backdrop-blur-md flex flex-col gap-2 text-sm animate-in fade-in duration-150">
+            <Link
+              href="#services"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-3 bg-white/80 rounded-xl font-medium text-[#1D1F22] shadow-xs"
+            >
+              Platform
+            </Link>
+            <Link
+              href="#how"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-3 bg-white/80 rounded-xl font-medium text-[#1D1F22] shadow-xs"
+            >
+              How it works
+            </Link>
+            <Link
+              href="#mission"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-3 bg-white/80 rounded-xl font-medium text-[#1D1F22] shadow-xs"
+            >
+              Mission
+            </Link>
+            <Link
+              href="#faq"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-3 bg-white/80 rounded-xl font-medium text-[#1D1F22] shadow-xs"
+            >
+              FAQ
+            </Link>
+            <Link
+              href="#contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-3 bg-white/80 rounded-xl font-medium text-[#1D1F22] shadow-xs flex items-center justify-between"
+            >
+              <span>Contact</span>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
               >
-                <span className="w-2 h-2 rounded-full bg-[#C8161F]" />
-                AI Health
-              </Link>
-              <Link
-                href="/food-scanner"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-3 bg-white/80 rounded-xl flex items-center gap-2 text-[#1D1F22] font-medium shadow-xs"
-              >
-                <span className="w-2 h-2 rounded-full bg-[#10B981]" />
-                Food Scanner
-              </Link>
-              <Link
-                href="/body-explorer"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-3 bg-white/80 rounded-xl flex items-center gap-2 text-[#1D1F22] font-medium shadow-xs"
-              >
-                <span className="w-2 h-2 rounded-full bg-[#3B82F6]" />
-                3D Anatomy
-              </Link>
-              <Link
-                href="/doctors"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-3 bg-white/80 rounded-xl flex items-center gap-2 text-[#1D1F22] font-medium shadow-xs"
-              >
-                <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
-                Doctors
-              </Link>
-              <Link
-                href="/booking"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-3 bg-white/80 rounded-xl flex items-center gap-2 text-[#1D1F22] font-medium shadow-xs"
-              >
-                <span className="w-2 h-2 rounded-full bg-[#F59E0B]" />
-                Bookings
-              </Link>
-              <Link
-                href="#how"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-3 bg-white/80 rounded-xl flex items-center gap-2 text-[#1D1F22] font-medium shadow-xs"
-              >
-                <span className="w-2 h-2 rounded-full bg-slate-600" />
-                How It Works
-              </Link>
-              <Link
-                href="/contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-3 bg-white/80 rounded-xl flex items-center gap-2 text-[#1D1F22] font-medium shadow-xs"
-              >
-                <span className="w-2 h-2 rounded-full bg-slate-400" />
-                Contact
-              </Link>
-              <Link
-                href="#register"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-3 bg-[#1D1F22] text-white rounded-xl flex items-center justify-center font-medium shadow-xs"
-              >
-                Pre-register
-              </Link>
-            </div>
-          )}
-        </nav>
+                <rect x="3" y="5" width="18" height="14" rx="3" />
+                <path d="M3.5 7l8.5 6 8.5-6" />
+              </svg>
+            </Link>
+          </div>
+        )}
       </header>
 
       {/* ============ HERO SECTION ============ */}
