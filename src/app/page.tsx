@@ -708,7 +708,7 @@ export default function LandingPage() {
 
               {/* 3D ELLIPTICAL SCANNING RING - REAR ARC (Passes BEHIND the human body in 3D!) */}
               <div
-                className="ae-scanring absolute left-1/2 top-[40px] w-[340px] h-[74px] pointer-events-none z-[6]"
+                className="ae-scanring absolute left-1/2 top-[24px] w-[340px] h-[74px] pointer-events-none z-[6]"
               >
                 <svg viewBox="0 0 340 74" className="w-full h-full overflow-visible">
                   <defs>
@@ -753,7 +753,7 @@ export default function LandingPage() {
               </div>
 
               {/* Photorealistic Muscular Human Anatomy Body (relative z-[10]) */}
-              <div className="ae-sway2 relative z-[10] left-1/2 bottom-[62px] w-[238px] h-[516px] -ml-[119px]">
+              <div className="ae-sway2 relative z-[10] w-[238px] h-[516px]">
                 <svg
                   viewBox="0 0 240 520"
                   width="100%"
@@ -1050,7 +1050,7 @@ export default function LandingPage() {
 
               {/* 3D ELLIPTICAL SCANNING RING - FRONT ARC (Passes IN FRONT OF the human body in 3D!) */}
               <div
-                className="ae-scanring absolute left-1/2 top-[40px] w-[340px] h-[74px] pointer-events-none z-[16]"
+                className="ae-scanring absolute left-1/2 top-[24px] w-[340px] h-[74px] pointer-events-none z-[16]"
               >
                 <svg viewBox="0 0 340 74" className="w-full h-full overflow-visible">
                   <defs>

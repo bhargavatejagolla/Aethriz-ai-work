@@ -212,7 +212,7 @@
 @keyframes ae-sway2 { 0%, 100% { transform: rotateY(-16deg) translateY(0); } 50% { transform: rotateY(16deg) translateY(-8px); } }
 @keyframes ae-scanring {
   0% {
-    transform: translate3d(-50%, 450px, 0);
+    transform: translate3d(-50%, 480px, 0);
     opacity: 0.95;
   }
   50% {
@@ -220,7 +220,7 @@
     opacity: 0.95;
   }
   100% {
-    transform: translate3d(-50%, 450px, 0);
+    transform: translate3d(-50%, 480px, 0);
     opacity: 0.95;
   }
 }
