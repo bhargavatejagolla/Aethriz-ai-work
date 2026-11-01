@@ -145,22 +145,6 @@ export default function RegisterPage() {
             </span>
           </Link>
 
-          {/* Center Links */}
-          <div className="hidden md:flex items-center gap-7 text-[14.5px] font-medium text-[#545B61]">
-            <Link href="/" className="hover:text-[#1D1F22] transition-colors">
-              AI Health
-            </Link>
-            <Link href="/" className="hover:text-[#1D1F22] transition-colors">
-              Analysis
-            </Link>
-            <Link href="/" className="hover:text-[#1D1F22] transition-colors">
-              Doctors
-            </Link>
-            <Link href="/" className="hover:text-[#1D1F22] transition-colors">
-              Bookings
-            </Link>
-          </div>
-
           {/* Right Action: Sign in */}
           <div className="flex items-center gap-3">
             <span className="hidden sm:inline text-xs text-[#64748B] font-medium">Have an account?</span>
