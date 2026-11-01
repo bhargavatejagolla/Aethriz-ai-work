@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { getSession, UserProfile } from "@/lib/auth";
+import PatientNavbar from "@/components/navigation/PatientNavbar";
 
 interface FoodPreset {
   id: string;
@@ -187,93 +188,8 @@ export default function FoodScannerPage() {
         className="hidden"
       />
 
-      {/* ============ TOP FLOATING NAVBAR MATCHING EXACT MOCKUP ============ */}
-      <header className="sticky top-4 z-40 px-4 sm:px-6">
-        <nav
-          aria-label="Main"
-          className="relative max-w-[1100px] mx-auto p-2 pl-4 sm:pl-5 flex items-center justify-between gap-3 rounded-full border border-white/80 shadow-[0_20px_50px_rgba(220,120,140,0.12),0_2px_8px_rgba(29,31,34,0.04),inset_0_1.5px_0_rgba(255,255,255,0.95)]"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.78) 50%, rgba(255,255,255,0.90) 100%)",
-            backdropFilter: "blur(28px) saturate(200%)",
-            WebkitBackdropFilter: "blur(28px) saturate(200%)",
-          }}
-        >
-          {/* Brand Logo & Name */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="relative w-8 h-8 rounded-[9px] overflow-hidden shadow-2xs flex-shrink-0 transition-transform group-hover:scale-105">
-              <Image
-                src="/brand/aethriz-hero-logo.png"
-                alt="AETHRIZ logo"
-                width={32}
-                height={32}
-                className="w-full h-full object-cover"
-                priority
-              />
-            </div>
-            <span
-              className="font-semibold text-[15.5px] tracking-[0.12em] text-[#1D1F22]"
-              style={{ fontFamily: "'Inter Tight', sans-serif" }}
-            >
-              AETHRIZ
-            </span>
-          </Link>
-
-          {/* Center Navigation Pills */}
-          <div className="hidden md:flex items-center gap-1 text-[13px] font-medium text-[#545B61]">
-            <Link
-              href="/dashboard"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="/health-analysis"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Health Analysis
-            </Link>
-            <Link
-              href="/doctors"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Doctors
-            </Link>
-            <Link
-              href="/booking"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Bookings
-            </Link>
-            <Link
-              href="/food-scanner"
-              className="px-4 py-1.5 rounded-full bg-white text-[#1D1F22] font-semibold shadow-xs border border-slate-200/60 transition-all"
-            >
-              Food Scanner
-            </Link>
-            <Link
-              href="/body-explorer"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Body Explorer
-            </Link>
-            <Link
-              href="/stories"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Articles
-            </Link>
-          </div>
-
-          {/* Right User Avatar */}
-          <Link
-            href="/profile"
-            className="w-8 h-8 rounded-full bg-[#FCECEE] border border-[#F6C6CC] text-[#7F1D1D] flex items-center justify-center font-bold text-xs shadow-2xs hover:scale-105 transition-transform"
-          >
-            {userInitials || "AK"}
-          </Link>
-        </nav>
-      </header>
+      {/* ============ STANDARD PATIENT NAVBAR ============ */}
+      <PatientNavbar activeTab="food-scanner" />
 
       {/* ============ MAIN VIEWPORT CONTAINER ============ */}
       <main className="max-w-[1060px] mx-auto px-4 sm:px-6 pt-8 sm:pt-12 space-y-6">

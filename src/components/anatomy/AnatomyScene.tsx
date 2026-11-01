@@ -64,12 +64,12 @@ export default function AnatomyScene({ atlas, state, onSelect, onProgress, onErr
     const scene = new T.Scene();
     const camera = new T.PerspectiveCamera(34, 1, 0.005, 100);
     const controls = new OrbitControls(camera, renderer.domElement);
-    camera.position.set(1.4, 1.05, 3.6);
-    controls.target.set(0, 0.85, 0);
+    camera.position.set(0, 0.88, 1.95);
+    controls.target.set(0, 0.88, 0);
     controls.enableDamping = true;
     controls.dampingFactor = 0.085;
-    controls.minDistance = 0.07;
-    controls.maxDistance = 40;
+    controls.minDistance = 0.5;
+    controls.maxDistance = 8;
     controls.maxPolarAngle = Math.PI * 0.96;
     controls.addEventListener('change', () => {
       dirty = true;
@@ -293,15 +293,12 @@ export default function AnatomyScene({ atlas, state, onSelect, onProgress, onErr
 
     const fit = (view: string, extent = 0) => {
       const mobile = el.clientWidth < 768;
-      const normalDistance = mobile
-        ? Math.max(4.5, (1.8 * el.clientHeight) / Math.max(160, el.clientHeight - 350) / (2 * Math.tan(T.MathUtils.degToRad(camera.fov / 2))))
-        : 3.8;
-      const reservedHeight = mobile ? 350 : 270;
-      const availableAspect = Math.max(0.35, (el.clientWidth - (mobile ? 40 : 340)) / Math.max(160, el.clientHeight - reservedHeight));
+      const normalDistance = mobile ? 2.4 : 1.95;
+      const reservedHeight = mobile ? 80 : 40;
+      const availableAspect = Math.max(0.35, el.clientWidth / Math.max(160, el.clientHeight - reservedHeight));
       const atlasDistance =
         (Math.max(packingHeight, packingWidth / availableAspect) / (2 * Math.tan(T.MathUtils.degToRad(camera.fov / 2)))) *
-        (el.clientHeight / Math.max(160, el.clientHeight - reservedHeight)) *
-        1.08;
+        1.05;
 
       const distance = T.MathUtils.lerp(normalDistance, Math.max(0.2, atlasDistance), extent);
       if (extent > 0.8) view = 'front';
@@ -314,7 +311,7 @@ export default function AnatomyScene({ atlas, state, onSelect, onProgress, onErr
           ? new T.Vector3(1, 0.02, 0)
           : new T.Vector3(0.35, 0.06, 1).normalize();
 
-      controls.target.set(extent > 0.1 && el.clientWidth > 767 ? -packingWidth * 0.12 : 0, extent > 0.1 || mobile ? 0.85 : 0.68, 0);
+      controls.target.set(0, 0.88, 0);
       camera.position.copy(controls.target).addScaledVector(direction, distance);
       controls.update();
       dirty = true;

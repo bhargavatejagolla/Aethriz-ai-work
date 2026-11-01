@@ -19,7 +19,7 @@ export default function LandingPage() {
   const [reveal, setReveal] = useState<number>(50);
   const [activeStep, setActiveStep] = useState<number>(4);
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
-  const [viewMode, setViewMode] = useState<"scan" | "3d">("scan");
+  const [viewMode, setViewMode] = useState<"scan" | "3d">("3d");
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [formData, setFormData] = useState({
@@ -87,280 +87,50 @@ export default function LandingPage() {
             </span>
           </Link>
 
-          {/* Desktop Navigation with Mega Menus */}
-          <div className="ae-nav items-center gap-1 text-[15px] hidden md:flex">
-            {/* Platform Dropdown */}
-            <div className="ae-dd relative">
-              <button
-                type="button"
-                className="ae-ddbtn"
-                aria-haspopup="true"
-              >
-                Platform
-                <svg
-                  aria-hidden="true"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </button>
-              <div
-                className="ae-menu"
-                style={{
-                  width: "500px",
-                  gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                }}
-              >
-                <Link href="#services">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M3 12h4l3-8 4 16 3-8h4" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">AI Health</span>
-                    <span className="ae-md">
-                      Personal insights from your health data
-                    </span>
-                  </span>
-                </Link>
-                <Link href="#how">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M7 12h10" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">Food Scanner</span>
-                    <span className="ae-md">
-                      Scan a meal, see what it means for you
-                    </span>
-                  </span>
-                </Link>
-                <Link href="#how">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <circle cx="12" cy="4.5" r="2.5" />
-                      <path d="M12 7v7M8 9.5l4 1.5 4-1.5M9.5 21l2.5-7 2.5 7" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">3D Anatomy</span>
-                    <span className="ae-md">
-                      Explore your health, organ by organ
-                    </span>
-                  </span>
-                </Link>
-                <Link href="#how">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">How it works</span>
-                    <span className="ae-md">Five steps from report to daily habit</span>
-                  </span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Care Dropdown */}
-            <div className="ae-dd relative">
-              <button
-                type="button"
-                className="ae-ddbtn"
-                aria-haspopup="true"
-              >
-                Care
-                <svg
-                  aria-hidden="true"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </button>
-              <div
-                className="ae-menu"
-                style={{
-                  width: "280px",
-                  gridTemplateColumns: "1fr",
-                }}
-              >
-                <Link href="#community">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                      <circle cx="9" cy="7" r="4" />
-                      <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">Doctors</span>
-                    <span className="ae-md">
-                      Specialists trained on your reports
-                    </span>
-                  </span>
-                </Link>
-                <Link href="#languages">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="2" y1="12" x2="22" y2="12" />
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">22+ Languages</span>
-                    <span className="ae-md">
-                      Care in your mother tongue
-                    </span>
-                  </span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Company Dropdown */}
-            <div className="ae-dd relative">
-              <button
-                type="button"
-                className="ae-ddbtn"
-                aria-haspopup="true"
-              >
-                Company
-                <svg
-                  aria-hidden="true"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </button>
-              <div
-                className="ae-menu"
-                style={{
-                  width: "280px",
-                  gridTemplateColumns: "1fr",
-                }}
-              >
-                <Link href="#mission">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M12 16v-4M12 8h.01" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">Mission</span>
-                    <span className="ae-md">Preventive health for 1.4 billion people</span>
-                  </span>
-                </Link>
-                <Link href="#contact">
-                  <span className="ae-mi">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                      <polyline points="22,6 12,13 2,6" />
-                    </svg>
-                  </span>
-                  <span>
-                    <span className="ae-mt">Contact</span>
-                    <span className="ae-md">Reach our clinical team</span>
-                  </span>
-                </Link>
-              </div>
-            </div>
+          {/* Direct Navigation Links to Features & Dashboard Sections */}
+          <div className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
+            <Link
+              href="/dashboard"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
+            >
+              AI Health
+            </Link>
+            <Link
+              href="/health-analysis"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
+            >
+              Analysis
+            </Link>
+            <Link
+              href="/doctors"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
+            >
+              Doctors
+            </Link>
+            <Link
+              href="/booking"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
+            >
+              Bookings
+            </Link>
+            <Link
+              href="/food-scanner"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
+            >
+              Food Scanner
+            </Link>
+            <Link
+              href="/body-explorer"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
+            >
+              Body Explorer
+            </Link>
+            <Link
+              href="/stories"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
+            >
+              Articles
+            </Link>
           </div>
 
           {/* Right Actions */}
@@ -449,33 +219,54 @@ export default function LandingPage() {
         {mobileMenuOpen && (
           <div className="md:hidden mt-3 max-w-[1180px] mx-auto p-4 rounded-3xl bg-white/95 backdrop-blur-xl border border-white/80 shadow-2xl flex flex-col gap-2 text-sm animate-in fade-in duration-200">
             <Link
-              href="#services"
+              href="/dashboard"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22] flex items-center justify-between"
+              className="p-3 bg-slate-50/80 rounded-2xl font-semibold text-[#1D1F22] flex items-center justify-between"
             >
-              <span>Platform</span>
-              <span className="text-xs text-[#C8161F] font-mono">BIO-AI</span>
+              <span>AI Health (Dashboard)</span>
+              <span className="text-xs text-[#C8161F] font-mono">LIVE</span>
             </Link>
             <Link
-              href="#how"
+              href="/health-analysis"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
-              How it works
+              Health Analysis
             </Link>
             <Link
-              href="#mission"
+              href="/doctors"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
-              Mission
+              Doctors
             </Link>
             <Link
-              href="#faq"
+              href="/booking"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
-              FAQ
+              Bookings
+            </Link>
+            <Link
+              href="/food-scanner"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
+            >
+              Food Scanner
+            </Link>
+            <Link
+              href="/body-explorer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
+            >
+              Body Explorer (3D)
+            </Link>
+            <Link
+              href="/stories"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
+            >
+              Articles & Insights
             </Link>
             <Link
               href="#contact"

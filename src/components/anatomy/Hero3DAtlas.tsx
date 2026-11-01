@@ -43,7 +43,7 @@ export default function Hero3DAtlas() {
 
     const scene = new T.Scene();
     const camera = new T.PerspectiveCamera(32, el.clientWidth / el.clientHeight, 0.01, 50);
-    camera.position.set(0, 0.92, 3.2);
+    camera.position.set(0, 0.90, 2.45);
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.target.set(0, 0.88, 0);
@@ -53,8 +53,7 @@ export default function Hero3DAtlas() {
     controls.minDistance = 1.2;
     controls.maxDistance = 6.0;
     controls.maxPolarAngle = Math.PI * 0.92;
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.8;
+    controls.autoRotate = false;
 
     // Lighting
     scene.add(new T.HemisphereLight(0xffffff, 0xb0b8c0, 1.2));

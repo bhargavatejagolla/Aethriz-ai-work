@@ -6,6 +6,8 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { getSession, clearSession, UserProfile } from "@/lib/auth";
+import PatientNavbar from "@/components/navigation/PatientNavbar";
+import { useLanguage } from "@/lib/language";
 
 const DashboardBodyMap3D = dynamic(
   () => import("@/components/anatomy/DashboardBodyMap3D"),
@@ -22,7 +24,7 @@ interface ChatMessage {
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<UserProfile | null>(null);
-  const [language, setLanguage] = useState<"en" | "hi">("en");
+  const [language, setLanguage] = useLanguage();
   const [activeBodyHotspot, setActiveBodyHotspot] = useState<"metabolic" | "heart" | "brain" | "thyroid">("metabolic");
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -59,9 +61,9 @@ export default function DashboardPage() {
     } else {
       // Default demo profile for seamless offline preview
       setUser({
-        id: "demo-aarav",
-        name: "Aarav Kapoor",
-        email: "aarav@aethriz.com",
+        id: "usr-pat-01",
+        name: "Priyadarshini Rao",
+        email: "patient@aethriz.com",
         role: "patient",
         diet: "Vegetarian",
         goals: ["Blood sugar", "Heart health"],
@@ -139,120 +141,15 @@ export default function DashboardPage() {
     }, 1000);
   };
 
-  const userName = user?.name?.split(" ")[0] || "Aarav";
+  const userName = user?.name?.split(" ")[0] || "Priyadarshini";
 
   return (
     <div className="min-h-screen bg-[#F4F6F9] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-14 relative overflow-x-hidden">
       {/* Signature Ambient Red Navbar Glow */}
       <div className="ae-top-nav-glow" />
-      {/* ============ TOP NAVBAR ============ */}
-      <header className="sticky top-4 z-40 px-4 sm:px-6">
-        <nav
-          aria-label="Main"
-          className="relative max-w-[1240px] mx-auto p-2 pl-4 sm:pl-5 flex items-center justify-between gap-3 rounded-full border border-white/80 shadow-[0_20px_50px_rgba(120,60,90,0.1),0_2px_8px_rgba(29,31,34,0.04),inset_0_1.5px_0_rgba(255,255,255,0.95)]"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.72) 50%, rgba(255,255,255,0.88) 100%)",
-            backdropFilter: "blur(28px) saturate(200%)",
-            WebkitBackdropFilter: "blur(28px) saturate(200%)",
-          }}
-        >
-          {/* Brand Logo & Name */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="relative w-8 h-8 rounded-[9px] overflow-hidden shadow-2xs flex-shrink-0 transition-transform group-hover:scale-105">
-              <Image
-                src="/brand/aethriz-hero-logo.png"
-                alt="AETHRIZ logo"
-                width={32}
-                height={32}
-                className="w-full h-full object-cover"
-                priority
-              />
-            </div>
-            <span className="flex flex-col leading-none">
-              <span
-                className="font-semibold text-[15.5px] tracking-[0.14em] text-[#1D1F22]"
-                style={{ fontFamily: "'Inter Tight', sans-serif" }}
-              >
-                AETHRIZ
-              </span>
-              <span className="text-[8.5px] tracking-[0.22em] text-[#C8161F] mt-[2px] font-mono">
-                BIO-HEALTH AI
-              </span>
-            </span>
-          </Link>
 
-          {/* Center Navigation Pills */}
-          <div className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
-            <Link
-              href="/dashboard"
-              className="px-3.5 py-1.5 rounded-full bg-white text-[#1D1F22] font-semibold shadow-xs transition-all"
-            >
-              AI Health
-            </Link>
-            <Link
-              href="/health-analysis"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Analysis
-            </Link>
-            <Link
-              href="/doctors"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Doctors
-            </Link>
-            <Link
-              href="/booking"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Bookings
-            </Link>
-            <Link
-              href="/food-scanner"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Food Scanner
-            </Link>
-            <Link
-              href="/body-explorer"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Body Explorer
-            </Link>
-            <Link
-              href="/stories"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Articles
-            </Link>
-          </div>
-
-          {/* Right Action: Profile Capsule & Logout */}
-          <div className="flex items-center gap-2">
-            <Link
-              href="/profile"
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FCECEE] hover:bg-[#F9DFE2] border border-[#F6C6CC] text-xs font-semibold text-[#1D1F22] transition-all cursor-pointer shadow-2xs"
-            >
-              <div className="w-6 h-6 rounded-full bg-[#E3202B] text-white flex items-center justify-center font-bold text-[10.5px]">
-                {userName.substring(0, 2).toUpperCase()}
-              </div>
-              <span className="hidden sm:inline font-medium">My profile</span>
-            </Link>
-
-            <button
-              type="button"
-              onClick={handleLogout}
-              title="Sign out"
-              className="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 hover:text-red-600 hover:bg-red-50 transition-all cursor-pointer"
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
-              </svg>
-            </button>
-          </div>
-        </nav>
-      </header>
+      {/* ============ STANDARD PATIENT NAVBAR ============ */}
+      <PatientNavbar activeTab="dashboard" />
 
       {/* ============ MAIN DASHBOARD CONTAINER ============ */}
       <main className="max-w-[1240px] mx-auto px-4 sm:px-6 pt-6 sm:pt-8 space-y-6">
@@ -261,13 +158,15 @@ export default function DashboardPage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <p className="text-xs font-medium text-[#64748B]">
-              Friday, 30 October · Last report analysed 2 days ago
+              {language === "hi"
+                ? "शुक्रवार, 30 अक्टूबर · अंतिम रिपोर्ट 2 दिन पहले विश्लेषित"
+                : "Friday, 30 October · Last report analysed 2 days ago"}
             </p>
             <h1
               className="text-3xl sm:text-4xl lg:text-[42px] font-semibold tracking-tight text-[#1D1F22] mt-1"
               style={{ fontFamily: "'Inter Tight', sans-serif" }}
             >
-              Good evening, {userName}.
+              {language === "hi" ? `शुभ संध्या, ${userName}।` : `Good evening, ${userName}.`}
             </h1>
           </div>
 
@@ -310,7 +209,7 @@ export default function DashboardPage() {
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
               </svg>
-              <span>Upload report</span>
+              <span>{language === "hi" ? "रिपोर्ट अपलोड करें" : "Upload report"}</span>
             </button>
           </div>
         </div>
@@ -327,9 +226,11 @@ export default function DashboardPage() {
               {/* CARD 1: HEALTH SCORE */}
               <div className="bg-white rounded-[28px] p-6 border border-slate-200/80 shadow-[0_12px_36px_rgba(29,31,34,0.04)] flex flex-col justify-between">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-semibold text-[#1D1F22]">Health score</h3>
+                  <h3 className="text-sm font-semibold text-[#1D1F22]">
+                    {language === "hi" ? "स्वास्थ्य स्कोर" : "Health score"}
+                  </h3>
                   <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
-                    +4 this month
+                    {language === "hi" ? "+4 इस माह" : "+4 this month"}
                   </span>
                 </div>
 
@@ -371,7 +272,9 @@ export default function DashboardPage() {
                         <span className="text-3xl font-extrabold tracking-tight text-[#1D1F22]">
                           86
                         </span>
-                        <span className="text-[11px] text-[#64748B] font-medium">of 100</span>
+                        <span className="text-[11px] text-[#64748B] font-medium">
+                          {language === "hi" ? "100 में से" : "of 100"}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -380,7 +283,7 @@ export default function DashboardPage() {
                   <div className="sm:col-span-7 space-y-3">
                     <div>
                       <div className="flex justify-between text-xs font-semibold mb-1">
-                        <span className="text-[#475569]">Metabolic</span>
+                        <span className="text-[#475569]">{language === "hi" ? "चयापचय" : "Metabolic"}</span>
                         <span className="text-[#E3202B]">72</span>
                       </div>
                       <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
@@ -390,7 +293,7 @@ export default function DashboardPage() {
 
                     <div>
                       <div className="flex justify-between text-xs font-semibold mb-1">
-                        <span className="text-[#475569]">Heart</span>
+                        <span className="text-[#475569]">{language === "hi" ? "हृदय" : "Heart"}</span>
                         <span className="text-amber-600">80</span>
                       </div>
                       <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
@@ -400,7 +303,7 @@ export default function DashboardPage() {
 
                     <div>
                       <div className="flex justify-between text-xs font-semibold mb-1">
-                        <span className="text-[#475569]">Nutrition</span>
+                        <span className="text-[#475569]">{language === "hi" ? "पोषण" : "Nutrition"}</span>
                         <span className="text-emerald-600">91</span>
                       </div>
                       <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
@@ -410,7 +313,7 @@ export default function DashboardPage() {
 
                     <div>
                       <div className="flex justify-between text-xs font-semibold mb-1">
-                        <span className="text-[#475569]">Sleep</span>
+                        <span className="text-[#475569]">{language === "hi" ? "नींद" : "Sleep"}</span>
                         <span className="text-emerald-600">88</span>
                       </div>
                       <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
@@ -430,17 +333,19 @@ export default function DashboardPage() {
               >
                 <div className="flex items-center justify-between mb-3 z-10">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-semibold text-[#1D1F22]">Body map</h3>
+                    <h3 className="text-sm font-semibold text-[#1D1F22]">
+                      {language === "hi" ? "बॉडी मैप" : "Body map"}
+                    </h3>
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#E3202B] bg-red-50 border border-red-200/60 px-2 py-0.5 rounded-full font-bold flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E3202B] ae-pulse" />
-                      <span>3D Atlas</span>
+                      <span>{language === "hi" ? "3D एटलस" : "3D Atlas"}</span>
                     </span>
                   </div>
                   <Link
                     href="/body-explorer"
                     className="text-[11px] font-semibold text-[#E3202B] hover:underline flex items-center gap-1"
                   >
-                    <span>Full Explorer</span>
+                    <span>{language === "hi" ? "संपूर्ण एक्सप्लोरर" : "Full Explorer"}</span>
                     <span>→</span>
                   </Link>
                 </div>
@@ -461,10 +366,10 @@ export default function DashboardPage() {
                       >
                         <span className="flex items-center gap-2 font-semibold text-[#1D1F22]">
                           <span className={`w-2.5 h-2.5 rounded-full bg-emerald-500 ${activeBodyHotspot === "brain" ? "ae-pulse-glow" : ""}`} />
-                          Brain & sleep
+                          {language === "hi" ? "मस्तिष्क और नींद" : "Brain & sleep"}
                         </span>
                         <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200/90 shadow-2xs">
-                          Stable
+                          {language === "hi" ? "स्थिर" : "Stable"}
                         </span>
                       </button>
                       {activeBodyHotspot === "brain" && (
@@ -485,10 +390,10 @@ export default function DashboardPage() {
                       >
                         <span className="flex items-center gap-2 font-semibold text-[#1D1F22]">
                           <span className={`w-2.5 h-2.5 rounded-full bg-amber-500 ${activeBodyHotspot === "heart" ? "ae-pulse-glow" : ""}`} />
-                          Heart
+                          {language === "hi" ? "हृदय" : "Heart"}
                         </span>
                         <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 font-bold border border-amber-300 shadow-2xs">
-                          Watch
+                          {language === "hi" ? "निगरानी" : "Watch"}
                         </span>
                       </button>
                       {activeBodyHotspot === "heart" && (
@@ -509,10 +414,10 @@ export default function DashboardPage() {
                       >
                         <span className="flex items-center gap-2 font-bold text-[#1D1F22]">
                           <span className="w-2.5 h-2.5 rounded-full bg-[#E3202B] ae-pulse-glow" />
-                          Metabolic
+                          {language === "hi" ? "चयापचय" : "Metabolic"}
                         </span>
                         <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-red-50 text-[#E3202B] font-bold border border-red-300 shadow-2xs">
-                          Borderline
+                          {language === "hi" ? "सीमावर्ती" : "Borderline"}
                         </span>
                       </button>
                       {activeBodyHotspot === "metabolic" && (
@@ -533,10 +438,10 @@ export default function DashboardPage() {
                       >
                         <span className="flex items-center gap-2 font-semibold text-[#1D1F22]">
                           <span className={`w-2.5 h-2.5 rounded-full bg-emerald-500 ${activeBodyHotspot === "thyroid" ? "ae-pulse-glow" : ""}`} />
-                          Thyroid
+                          {language === "hi" ? "थायरॉयड" : "Thyroid"}
                         </span>
                         <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200/90 shadow-2xs">
-                          Balanced
+                          {language === "hi" ? "संतुलित" : "Balanced"}
                         </span>
                       </button>
                       {activeBodyHotspot === "thyroid" && (
@@ -666,7 +571,9 @@ export default function DashboardPage() {
               <div className="bg-white rounded-[28px] p-6 border border-slate-200/80 shadow-[0_12px_36px_rgba(29,31,34,0.04)] flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-sm font-semibold text-[#1D1F22]">Today&apos;s plan</h3>
+                    <h3 className="text-sm font-semibold text-[#1D1F22]">
+                      {language === "hi" ? "आज की योजना" : "Today's plan"}
+                    </h3>
                     <span className="text-xs font-bold text-[#E3202B] font-mono">
                       {completedCount}/{tasks.length}
                     </span>
@@ -682,42 +589,51 @@ export default function DashboardPage() {
 
                   {/* Tasks list */}
                   <div className="space-y-2.5">
-                    {tasks.map((task) => (
-                      <button
-                        key={task.id}
-                        type="button"
-                        onClick={() => toggleTask(task.id)}
-                        className={`w-full text-left p-2.5 rounded-2xl flex items-start gap-3 transition-all cursor-pointer ${
-                          task.completed
-                            ? "bg-slate-50 border border-slate-200/60"
-                            : "bg-[#F8FAFC] border border-slate-200/90 hover:bg-slate-50"
-                        }`}
-                      >
-                        <div
-                          className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 transition-all ${
+                    {tasks.map((task) => {
+                      const taskText = language === "hi" ? (
+                        task.id === 1 ? { title: "20 मिनट सुबह की सैर", subtitle: "भोजन के बाद ग्लूकोज को नियंत्रित करता है" }
+                        : task.id === 2 ? { title: "15 मिनट धूप लें", subtitle: "सुबह 10 बजे से पहले, विटामिन डी के लिए" }
+                        : task.id === 3 ? { title: "फाइबर-युक्त दोपहर का भोजन", subtitle: "रोटी से पहले सलाद या हरी सब्ज़ी" }
+                        : { title: "रात 11 बजे तक सो जाएं", subtitle: "आपकी नींद का स्कोर बनाए रखता है" }
+                      ) : { title: task.title, subtitle: task.subtitle };
+
+                      return (
+                        <button
+                          key={task.id}
+                          type="button"
+                          onClick={() => toggleTask(task.id)}
+                          className={`w-full text-left p-2.5 rounded-2xl flex items-start gap-3 transition-all cursor-pointer ${
                             task.completed
-                              ? "bg-[#E3202B] text-white shadow-2xs"
-                              : "border-2 border-slate-300 bg-white"
+                              ? "bg-slate-50 border border-slate-200/60"
+                              : "bg-[#F8FAFC] border border-slate-200/90 hover:bg-slate-50"
                           }`}
                         >
-                          {task.completed && (
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
-                              <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                          )}
-                        </div>
-                        <div className="leading-tight">
-                          <h4
-                            className={`text-xs font-semibold ${
-                              task.completed ? "line-through text-slate-400" : "text-[#1D1F22]"
+                          <div
+                            className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 transition-all ${
+                              task.completed
+                                ? "bg-[#E3202B] text-white shadow-2xs"
+                                : "border-2 border-slate-300 bg-white"
                             }`}
                           >
-                            {task.title}
-                          </h4>
-                          <p className="text-[11px] text-[#64748B] mt-0.5">{task.subtitle}</p>
-                        </div>
-                      </button>
-                    ))}
+                            {task.completed && (
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
+                            )}
+                          </div>
+                          <div className="leading-tight">
+                            <h4
+                              className={`text-xs font-semibold ${
+                                task.completed ? "line-through text-slate-400" : "text-[#1D1F22]"
+                              }`}
+                            >
+                              {taskText.title}
+                            </h4>
+                            <p className="text-[11px] text-[#64748B] mt-0.5">{taskText.subtitle}</p>
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -745,7 +661,9 @@ export default function DashboardPage() {
                 </svg>
               </div>
               <div>
-                <h3 className="text-sm font-semibold tracking-wide">AETHRIZ Assistant</h3>
+                <h3 className="text-sm font-semibold tracking-wide">
+                  {language === "hi" ? "एथ्रिज असिस्टेंट" : "AETHRIZ Assistant"}
+                </h3>
                 <p className="text-[11px] text-white/60 flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                   Online · {language === "hi" ? "हिन्दी में उत्तर" : "answers in English"}
@@ -783,16 +701,18 @@ export default function DashboardPage() {
               )}
 
               <p className="text-[10px] text-white/40 text-center pt-2">
-                AETHRIZ supports awareness — it does not replace your doctor.
+                {language === "hi"
+                  ? "एथ्रिज स्वास्थ्य जागरूकता का समर्थन करता है — यह डॉक्टर का विकल्प नहीं है।"
+                  : "AETHRIZ supports awareness — it does not replace your doctor."}
               </p>
             </div>
 
             {/* Quick Suggestion Chips */}
             <div className="relative z-10 pt-2 pb-3 space-y-1.5">
               {[
-                "What does my HbA1c mean?",
-                "What should I eat tonight?",
-                "How is my vitamin D?",
+                language === "hi" ? "मेरे HbA1c का क्या मतलब है?" : "What does my HbA1c mean?",
+                language === "hi" ? "आज रात मुझे क्या खाना चाहिए?" : "What should I eat tonight?",
+                language === "hi" ? "मेरा विटामिन डी कैसा है?" : "How is my vitamin D?",
               ].map((chip) => (
                 <button
                   key={chip}
@@ -818,7 +738,11 @@ export default function DashboardPage() {
                   type="text"
                   value={inputQuestion}
                   onChange={(e) => setInputQuestion(e.target.value)}
-                  placeholder="Ask anything about your health..."
+                  placeholder={
+                    language === "hi"
+                      ? "अपनी रिपोर्ट, भोजन या नींद के बारे में पूछें…"
+                      : "Ask anything about your health..."
+                  }
                   className="w-full bg-transparent px-3 text-xs text-white placeholder:text-white/40 focus:outline-none"
                 />
                 <button

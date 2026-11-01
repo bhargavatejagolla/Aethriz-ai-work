@@ -34,14 +34,14 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
     const controls = controlsRef.current;
 
     let targetX = 0;
-    let targetZ = 2.75;
+    let targetZ = 2.35;
 
     if (view === "side") {
-      targetX = 2.75;
+      targetX = 2.35;
       targetZ = 0;
     } else if (view === "back") {
       targetX = 0;
-      targetZ = -2.75;
+      targetZ = -2.35;
     }
 
     const startX = camera.position.x;
@@ -94,7 +94,7 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
     // Scene & Camera
     const scene = new T.Scene();
     const camera = new T.PerspectiveCamera(32, el.clientWidth / el.clientHeight, 0.05, 50);
-    camera.position.set(0, 0.95, 2.75);
+    camera.position.set(0, 0.92, 2.35);
     cameraRef.current = camera;
 
     // OrbitControls
@@ -103,8 +103,7 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
     controls.enableZoom = false; // card layout stability
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.7;
+    controls.autoRotate = false;
     controls.minPolarAngle = Math.PI * 0.25;
     controls.maxPolarAngle = Math.PI * 0.75;
     controlsRef.current = controls;

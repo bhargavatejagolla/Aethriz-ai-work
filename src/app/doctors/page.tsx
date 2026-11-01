@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import PatientNavbar from "@/components/navigation/PatientNavbar";
 
 export interface Doctor {
   id: string;
@@ -251,105 +252,8 @@ export default function FindDoctorsPage() {
     <div className="min-h-screen bg-[#F4F5F8] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-24 relative overflow-x-hidden">
       {/* Signature Ambient Red Navbar Glow */}
       <div className="ae-top-nav-glow" />
-      {/* ============ TOP FLOATING NAVBAR MATCHING EXACT MOCKUP ============ */}
-      <header className="sticky top-4 z-40 px-4 sm:px-6">
-        <nav
-          aria-label="Main"
-          className="relative max-w-[1100px] mx-auto p-2 pl-4 sm:pl-5 flex items-center justify-between gap-3 rounded-full border border-white/80 shadow-[0_20px_50px_rgba(220,120,140,0.12),0_2px_8px_rgba(29,31,34,0.04),inset_0_1.5px_0_rgba(255,255,255,0.95)]"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.80) 50%, rgba(255,255,255,0.92) 100%)",
-            backdropFilter: "blur(28px) saturate(200%)",
-            WebkitBackdropFilter: "blur(28px) saturate(200%)",
-          }}
-        >
-          {/* Brand Logo & Name */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="relative w-8 h-8 rounded-[9px] overflow-hidden shadow-2xs flex-shrink-0 transition-transform group-hover:scale-105">
-              <Image
-                src="/brand/aethriz-hero-logo.png"
-                alt="AETHRIZ logo"
-                width={32}
-                height={32}
-                className="w-full h-full object-cover"
-                priority
-              />
-            </div>
-            <div className="flex flex-col">
-              <span
-                className="font-semibold text-[15.5px] tracking-[0.14em] text-[#1D1F22] leading-none"
-                style={{ fontFamily: "'Inter Tight', sans-serif" }}
-              >
-                AETHRIZ
-              </span>
-              <span className="text-[8px] font-mono tracking-widest text-[#E3202B] uppercase font-bold mt-0.5">
-                BIO-HEALTH AI
-              </span>
-            </div>
-          </Link>
-
-          {/* Center Navigation Pills */}
-          <div className="hidden md:flex items-center gap-1 text-[13px] font-medium text-[#545B61]">
-            <Link
-              href="/dashboard"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              AI Health
-            </Link>
-            <Link
-              href="/health-analysis"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Analysis
-            </Link>
-            <Link
-              href="/doctors"
-              className="px-4 py-1.5 rounded-full bg-white text-[#1D1F22] font-semibold shadow-xs border border-slate-200/70 transition-all"
-            >
-              Doctors
-            </Link>
-            <Link
-              href="/booking"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Bookings
-            </Link>
-            <Link
-              href="/food-scanner"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Food Scanner
-            </Link>
-            <Link
-              href="/body-explorer"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Body Explorer
-            </Link>
-            <Link
-              href="/stories"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Articles
-            </Link>
-          </div>
-
-          {/* Right User Avatar Pill Matching Exact Mockup */}
-          <Link
-            href="/profile"
-            className="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full bg-[#FCECEE] hover:bg-[#F9DDE1] border border-[#F6C6CC] transition-all cursor-pointer shadow-2xs group"
-          >
-            <div className="relative w-6 h-6 rounded-full bg-[#E3202B] text-white flex items-center justify-center font-bold text-[10px]">
-              AK
-              {/* Active Red Dot */}
-              <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#E3202B] border-2 border-white ring-1 ring-red-400" />
-            </div>
-            <span className="text-xs font-semibold text-[#7F1D1D] hidden sm:inline">
-              My profile
-            </span>
-          </Link>
-        </nav>
-      </header>
+      {/* ============ STANDARD PATIENT NAVBAR ============ */}
+      <PatientNavbar activeTab="doctors" />
 
       {/* ============ MAIN VIEWPORT CONTAINER ============ */}
       <main className="max-w-[1100px] mx-auto px-4 sm:px-6 pt-6 sm:pt-8 space-y-6">

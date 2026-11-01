@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { getSession, saveSession, clearSession, UserProfile } from "@/lib/auth";
+import PatientNavbar from "@/components/navigation/PatientNavbar";
 
 const GOALS_LIST = [
   "Blood sugar",
@@ -37,8 +38,8 @@ export default function MyProfilePage() {
   const [activeConsultTab, setActiveConsultTab] = useState<"upcoming" | "past">("upcoming");
 
   // Editable Profile Form Fields matching mockup
-  const [fullName, setFullName] = useState("Aarav Kapoor");
-  const [email, setEmail] = useState("aarav.k@example.com");
+  const [fullName, setFullName] = useState("Priyadarshini Rao");
+  const [email, setEmail] = useState("priyadarshini.r@example.com");
   const [phone, setPhone] = useState("+91 98765 43210");
   const [dob, setDob] = useState("14 Mar 1992");
   const [preferredLang, setPreferredLang] = useState("हिन्दी (Hindi)");
@@ -129,92 +130,8 @@ export default function MyProfilePage() {
         }}
       />
 
-      {/* ============ TOP FLOATING NAVBAR ============ */}
-      <header className="sticky top-4 z-40 px-4 sm:px-6">
-        <nav
-          aria-label="Main Navigation"
-          className="relative max-w-[1240px] mx-auto p-2 pl-4 sm:pl-5 flex items-center justify-between gap-3 rounded-full border border-white/80 shadow-[0_20px_50px_rgba(120,60,90,0.12),0_2px_8px_rgba(29,31,34,0.04),inset_0_1.5px_0_rgba(255,255,255,0.95)]"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.78) 50%, rgba(255,255,255,0.92) 100%)",
-            backdropFilter: "blur(28px) saturate(200%)",
-            WebkitBackdropFilter: "blur(28px) saturate(200%)",
-          }}
-        >
-          {/* Brand Logo & Name */}
-          <Link href="/dashboard" className="flex items-center gap-2.5 group">
-            <div className="relative w-8 h-8 rounded-[9px] overflow-hidden shadow-2xs flex-shrink-0 transition-transform group-hover:scale-105">
-              <Image
-                src="/brand/aethriz-hero-logo.png"
-                alt="AETHRIZ logo"
-                width={32}
-                height={32}
-                className="w-full h-full object-cover"
-                priority
-              />
-            </div>
-            <span
-              className="font-semibold text-[15.5px] tracking-[0.14em] text-[#1D1F22]"
-              style={{ fontFamily: "'Inter Tight', sans-serif" }}
-            >
-              AETHRIZ
-            </span>
-          </Link>
-
-          {/* Center Navigation Links */}
-          <div className="hidden lg:flex items-center gap-1 text-[13px] font-medium text-[#545B61]">
-            <Link
-              href="/dashboard"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="/health-analysis"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Health Analysis
-            </Link>
-            <Link
-              href="/food-scanner"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Food Scanner
-            </Link>
-            <Link
-              href="/body-explorer"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Body Explorer
-            </Link>
-            <Link
-              href="/doctors"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Doctors
-            </Link>
-            <Link
-              href="/dashboard"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Articles
-            </Link>
-          </div>
-
-          {/* Right Action: Active User Profile Capsule */}
-          <div className="flex items-center gap-2">
-            <Link
-              href="/profile"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E3202B] text-white text-xs font-semibold shadow-[0_8px_20px_rgba(227,32,43,0.25)] transition-all"
-            >
-              <div className="w-5 h-5 rounded-full bg-[#B91C1C] text-white flex items-center justify-center text-[10px] font-bold">
-                {initials}
-              </div>
-              <span>My profile</span>
-            </Link>
-          </div>
-        </nav>
-      </header>
+      {/* ============ STANDARD PATIENT NAVBAR ============ */}
+      <PatientNavbar />
 
       {/* ============ MAIN PROFILE CONTAINER ============ */}
       <main className="max-w-[1240px] mx-auto px-4 sm:px-6 pt-6 sm:pt-8 space-y-6">

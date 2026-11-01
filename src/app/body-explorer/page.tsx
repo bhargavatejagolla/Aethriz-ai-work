@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
+import PatientNavbar from "@/components/navigation/PatientNavbar";
 import {
   CLINICAL_DEFAULT_VISIBLE,
   SYSTEMS,
@@ -212,101 +213,9 @@ export default function BodyExplorerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F6F9] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-14">
-      {/* ============ TOP NAVBAR ============ */}
-      <header className="sticky top-4 z-40 px-4 sm:px-6">
-        <nav
-          aria-label="Main Navigation"
-          className="relative max-w-[1240px] mx-auto p-2 pl-4 sm:pl-5 flex items-center justify-between gap-3 rounded-full border border-white/80 shadow-[0_20px_50px_rgba(120,60,90,0.1),0_2px_8px_rgba(29,31,34,0.04),inset_0_1.5px_0_rgba(255,255,255,0.95)]"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.72) 50%, rgba(255,255,255,0.88) 100%)",
-            backdropFilter: "blur(28px) saturate(200%)",
-            WebkitBackdropFilter: "blur(28px) saturate(200%)",
-          }}
-        >
-          {/* Brand Logo & Name */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="relative w-8 h-8 rounded-[9px] overflow-hidden shadow-2xs flex-shrink-0 transition-transform group-hover:scale-105">
-              <Image
-                src="/brand/aethriz-hero-logo.png"
-                alt="AETHRIZ logo"
-                width={32}
-                height={32}
-                className="w-full h-full object-cover"
-                priority
-              />
-            </div>
-            <span className="flex flex-col leading-none">
-              <span
-                className="font-semibold text-[15.5px] tracking-[0.14em] text-[#1D1F22]"
-                style={{ fontFamily: "'Inter Tight', sans-serif" }}
-              >
-                AETHRIZ
-              </span>
-              <span className="text-[8.5px] tracking-[0.22em] text-[#C8161F] mt-[2px] font-mono">
-                BIO-HEALTH AI
-              </span>
-            </span>
-          </Link>
-
-          {/* Center Navigation Pills */}
-          <div className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
-            <Link
-              href="/dashboard"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              AI Health
-            </Link>
-            <Link
-              href="/health-analysis"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Analysis
-            </Link>
-            <Link
-              href="/doctors"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Doctors
-            </Link>
-            <Link
-              href="/booking"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Bookings
-            </Link>
-            <Link
-              href="/food-scanner"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Food Scanner
-            </Link>
-            <Link
-              href="/body-explorer"
-              className="px-3.5 py-1.5 rounded-full bg-white text-[#1D1F22] font-semibold shadow-xs transition-all"
-            >
-              Body Explorer
-            </Link>
-            <Link
-              href="/stories"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Articles
-            </Link>
-          </div>
-
-          {/* Right Action: User Avatar */}
-          <div className="flex items-center gap-2">
-            <Link
-              href="/profile"
-              className="w-8 h-8 rounded-full bg-[#FCECEE] hover:bg-[#F9DFE2] border border-[#F6C6CC] text-xs font-semibold text-[#1D1F22] flex items-center justify-center transition-all shadow-2xs"
-            >
-              AK
-            </Link>
-          </div>
-        </nav>
-      </header>
+    <div className="min-h-screen bg-[#F4F6F9] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-14 relative overflow-x-hidden">
+      {/* Standard Patient Navbar */}
+      <PatientNavbar activeTab="body-explorer" />
 
       {/* ============ MAIN BODY EXPLORER CONTAINER ============ */}
       <main className="max-w-[1240px] mx-auto px-4 sm:px-6 pt-6 sm:pt-8 space-y-6">
@@ -497,7 +406,7 @@ export default function BodyExplorerPage() {
             </div>
 
             {/* Real 3D Anatomy WebGL Scene from ashemag-human-atlas-1c38bf3 */}
-            <div className="relative my-auto w-full h-[460px] flex items-center justify-center rounded-2xl overflow-hidden">
+            <div className="relative my-auto w-full h-[560px] sm:h-[620px] flex items-center justify-center rounded-2xl overflow-hidden">
               {atlas ? (
                 <AnatomyScene
                   atlas={atlas}

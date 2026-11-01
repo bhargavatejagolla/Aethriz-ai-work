@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { clearSession } from "@/lib/auth";
+import DoctorNavbar from "@/components/navigation/DoctorNavbar";
 
 export default function DoctorPortalPage() {
   const router = useRouter();
@@ -20,119 +21,9 @@ export default function DoctorPortalPage() {
     <div className="min-h-screen bg-[#F4F6F9] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-14 relative overflow-x-hidden">
       {/* Signature Ambient Red Navbar Glow */}
       <div className="ae-top-nav-glow" />
-      {/* ============ TOP NAVBAR ============ */}
-      <header className="sticky top-4 z-40 px-4 sm:px-6">
-        <nav
-          aria-label="Doctor Portal Navigation"
-          className="relative max-w-[1240px] mx-auto p-2 pl-4 sm:pl-5 flex items-center justify-between gap-3 rounded-full border border-white/80 shadow-[0_20px_50px_rgba(120,60,90,0.1),0_2px_8px_rgba(29,31,34,0.04),inset_0_1.5px_0_rgba(255,255,255,0.95)]"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.72) 50%, rgba(255,255,255,0.88) 100%)",
-            backdropFilter: "blur(28px) saturate(200%)",
-            WebkitBackdropFilter: "blur(28px) saturate(200%)",
-          }}
-        >
-          {/* Brand Logo & Name with DOCTOR PORTAL badge */}
-          <Link href="/doctor-portal" className="flex items-center gap-2.5 group">
-            <div className="relative w-8 h-8 rounded-[9px] overflow-hidden shadow-2xs flex-shrink-0 transition-transform group-hover:scale-105">
-              <Image
-                src="/brand/aethriz-hero-logo.png"
-                alt="AETHRIZ logo"
-                width={32}
-                height={32}
-                className="w-full h-full object-cover"
-                priority
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <span
-                className="font-semibold text-[15.5px] tracking-[0.14em] text-[#1D1F22]"
-                style={{ fontFamily: "'Inter Tight', sans-serif" }}
-              >
-                AETHRIZ
-              </span>
-              <span className="px-2 py-0.5 rounded-md bg-[#1D1F22] text-white text-[9px] font-mono tracking-wider font-semibold uppercase">
-                Doctor Portal
-              </span>
-            </div>
-          </Link>
 
-          {/* Center Navigation Pills */}
-          <div className="hidden lg:flex items-center gap-1.5 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
-            <Link
-              href="/doctor-portal"
-              className="px-3.5 py-1.5 rounded-full bg-white text-[#1D1F22] font-semibold shadow-xs transition-all"
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="/doctor/patients"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Patients
-            </Link>
-            <Link
-              href="/doctor/appointments"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Appointments
-            </Link>
-            <Link
-              href="/doctor/nexus"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              AI Analysis
-            </Link>
-            <Link
-              href="/doctor/join"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Join the team
-            </Link>
-          </div>
-
-          {/* Right Action: Status, Notifications & Doctor Profile */}
-          <div className="flex items-center gap-3">
-            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              Available
-            </span>
-
-            <button
-              type="button"
-              title="Notifications"
-              className="relative p-2 rounded-full text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
-            >
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-              </svg>
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#E3202B]" />
-            </button>
-
-            <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
-              <div className="w-7 h-7 rounded-full bg-[#E3202B] text-white flex items-center justify-center font-bold text-xs">
-                AR
-              </div>
-              <div className="hidden sm:flex flex-col text-left">
-                <span className="text-xs font-bold leading-tight text-[#1D1F22]">Dr. Ananya Rao</span>
-                <span className="text-[10px] text-[#64748B]">Endocrinologist</span>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleLogout}
-              title="Sign out"
-              className="w-7 h-7 rounded-full flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all cursor-pointer"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
-              </svg>
-            </button>
-          </div>
-        </nav>
-      </header>
+      {/* ============ STANDARD DOCTOR NAVBAR ============ */}
+      <DoctorNavbar activeTab="dashboard" />
 
       {/* ============ MAIN DOCTOR DASHBOARD CONTAINER ============ */}
       <main className="max-w-[1240px] mx-auto px-4 sm:px-6 pt-6 sm:pt-8 space-y-6">

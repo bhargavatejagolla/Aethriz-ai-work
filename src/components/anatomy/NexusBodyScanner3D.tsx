@@ -33,14 +33,14 @@ export default function NexusBodyScanner3D({
     const controls = controlsRef.current;
 
     let targetX = 0;
-    let targetZ = 3.2;
+    let targetZ = 2.45;
 
     if (currentView === "side") {
-      targetX = 3.2;
+      targetX = 2.45;
       targetZ = 0;
     } else if (currentView === "back") {
       targetX = 0;
-      targetZ = -3.2;
+      targetZ = -2.45;
     }
 
     // Animate smoothly to new position
@@ -91,11 +91,11 @@ export default function NexusBodyScanner3D({
     // Scene & Camera
     const scene = new T.Scene();
     const camera = new T.PerspectiveCamera(32, el.clientWidth / el.clientHeight, 0.05, 50);
-    camera.position.set(0, 0.95, 3.2);
+    camera.position.set(0, 0.92, 2.45);
     cameraRef.current = camera;
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(0, 0.95, 0);
+    controls.target.set(0, 0.90, 0);
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
     controls.enableZoom = false; // preserve layout stability
@@ -112,34 +112,34 @@ export default function NexusBodyScanner3D({
     rimLight.position.set(2, 2, -2.5);
     scene.add(rimLight);
 
-    // Red Holographic Scanning Ellipses (encircling the body at thorax and abdomen)
+    // Red Holographic Scanning Ellipses (encircling the body horizontally at thorax and abdomen)
     const scanRingGroup = new T.Group();
 
     // Thorax ellipse
     const thoraxTorus = new T.Mesh(
-      new T.TorusGeometry(0.48, 0.009, 16, 64),
+      new T.TorusGeometry(0.38, 0.007, 16, 64),
       new T.MeshStandardMaterial({
         color: 0xe3202b,
         emissive: 0xff1e2b,
-        emissiveIntensity: 2.5,
-        roughness: 0.2,
+        emissiveIntensity: 2.8,
+        roughness: 0.15,
       })
     );
-    thoraxTorus.rotation.x = Math.PI / 2.1;
+    thoraxTorus.rotation.x = Math.PI / 2;
     thoraxTorus.position.y = 1.25;
     scanRingGroup.add(thoraxTorus);
 
     // Abdominal ellipse
     const abdomenTorus = new T.Mesh(
-      new T.TorusGeometry(0.42, 0.009, 16, 64),
+      new T.TorusGeometry(0.35, 0.007, 16, 64),
       new T.MeshStandardMaterial({
         color: 0xe3202b,
         emissive: 0xff1e2b,
-        emissiveIntensity: 2.2,
-        roughness: 0.2,
+        emissiveIntensity: 2.5,
+        roughness: 0.15,
       })
     );
-    abdomenTorus.rotation.x = Math.PI / 2.1;
+    abdomenTorus.rotation.x = Math.PI / 2;
     abdomenTorus.position.y = 0.98;
     scanRingGroup.add(abdomenTorus);
 
@@ -193,13 +193,23 @@ export default function NexusBodyScanner3D({
     // Stream meshes from ashemag-human-atlas
     loadAtlasModel(({ system, geometry }) => {
       if (disposed) return;
-      let colorHex = 0xf0b8b8; // soft translucent anatomical figure
-      let roughness = 0.55;
-      let metalness = 0.1;
+      let colorHex = 0xa85b50; // muscular terracotta
+      let roughness = 0.45;
+      let metalness = 0.15;
+      let opacity = 0.95;
 
       if (system === "cardiac") {
-        colorHex = 0xe3202b;
+        colorHex = 0xdc2626;
         roughness = 0.3;
+      } else if (system === "arterial") {
+        colorHex = 0xef4444;
+        roughness = 0.25;
+      } else if (system === "skeletal") {
+        colorHex = 0xd4c5a9;
+        roughness = 0.65;
+      } else if (system === "integumentary") {
+        colorHex = 0xfce7e7;
+        opacity = 0.45;
       }
 
       const mat = new T.MeshStandardMaterial({
@@ -207,8 +217,8 @@ export default function NexusBodyScanner3D({
         roughness,
         metalness,
         side: T.DoubleSide,
-        transparent: true,
-        opacity: 0.88,
+        transparent: opacity < 1,
+        opacity,
       });
 
       const mesh = new T.Mesh(geometry, mat);
