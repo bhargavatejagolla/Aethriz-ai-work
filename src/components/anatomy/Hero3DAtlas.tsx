@@ -42,11 +42,12 @@ export default function Hero3DAtlas() {
     el.appendChild(renderer.domElement);
 
     const scene = new T.Scene();
-    const camera = new T.PerspectiveCamera(32, el.clientWidth / el.clientHeight, 0.01, 50);
-    camera.position.set(0, 0.90, 2.45);
+    const camera = new T.PerspectiveCamera(34, el.clientWidth / el.clientHeight, 0.01, 50);
+    const isMobile = el.clientWidth < 640;
+    camera.position.set(0, 0.94, isMobile ? 3.65 : 3.25);
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(0, 0.88, 0);
+    controls.target.set(0, 0.92, 0);
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
     controls.enableZoom = true;
@@ -54,6 +55,7 @@ export default function Hero3DAtlas() {
     controls.maxDistance = 6.0;
     controls.maxPolarAngle = Math.PI * 0.92;
     controls.autoRotate = false;
+    controls.update();
 
     // Lighting
     scene.add(new T.HemisphereLight(0xffffff, 0xb0b8c0, 1.2));

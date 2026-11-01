@@ -90,8 +90,8 @@ export default function NexusBodyScanner3D({
 
     // Scene & Camera
     const scene = new T.Scene();
-    const camera = new T.PerspectiveCamera(32, el.clientWidth / el.clientHeight, 0.05, 50);
-    camera.position.set(0, 0.92, 2.45);
+    const camera = new T.PerspectiveCamera(34, el.clientWidth / el.clientHeight, 0.05, 50);
+    camera.position.set(0, 0.94, 3.0);
     cameraRef.current = camera;
 
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -101,6 +101,7 @@ export default function NexusBodyScanner3D({
     controls.enableZoom = false; // preserve layout stability
     controls.autoRotate = false;
     controlsRef.current = controls;
+    controls.update();
 
     // Lighting
     scene.add(new T.HemisphereLight(0xffffff, 0xb0b8c0, 1.4));

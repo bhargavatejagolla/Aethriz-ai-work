@@ -87,50 +87,50 @@ export default function LandingPage() {
             </span>
           </Link>
 
-          {/* Direct Navigation Links to Features & Dashboard Sections */}
+          {/* Direct In-Page Section Navigation Links */}
           <div className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
-            <Link
-              href="/dashboard"
+            <a
+              href="#services"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
             >
               AI Health
-            </Link>
-            <Link
-              href="/health-analysis"
+            </a>
+            <a
+              href="#analysis"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
             >
               Analysis
-            </Link>
-            <Link
-              href="/doctors"
+            </a>
+            <a
+              href="#doctors"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
             >
               Doctors
-            </Link>
-            <Link
-              href="/booking"
+            </a>
+            <a
+              href="#bookings"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
             >
               Bookings
-            </Link>
-            <Link
-              href="/food-scanner"
+            </a>
+            <a
+              href="#food-scanner"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
             >
               Food Scanner
-            </Link>
-            <Link
-              href="/body-explorer"
+            </a>
+            <a
+              href="#body-explorer"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
             >
               Body Explorer
-            </Link>
-            <Link
-              href="/stories"
+            </a>
+            <a
+              href="#articles"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
             >
               Articles
-            </Link>
+            </a>
           </div>
 
           {/* Right Actions */}
@@ -218,56 +218,56 @@ export default function LandingPage() {
         {/* Mobile Dropdown Menu Panel */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-3 max-w-[1180px] mx-auto p-4 rounded-3xl bg-white/95 backdrop-blur-xl border border-white/80 shadow-2xl flex flex-col gap-2 text-sm animate-in fade-in duration-200">
-            <Link
-              href="/dashboard"
+            <a
+              href="#services"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-semibold text-[#1D1F22] flex items-center justify-between"
             >
-              <span>AI Health (Dashboard)</span>
+              <span>AI Health</span>
               <span className="text-xs text-[#C8161F] font-mono">LIVE</span>
-            </Link>
-            <Link
-              href="/health-analysis"
+            </a>
+            <a
+              href="#analysis"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
-              Health Analysis
-            </Link>
-            <Link
-              href="/doctors"
+              Analysis
+            </a>
+            <a
+              href="#doctors"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
               Doctors
-            </Link>
-            <Link
-              href="/booking"
+            </a>
+            <a
+              href="#bookings"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
               Bookings
-            </Link>
-            <Link
-              href="/food-scanner"
+            </a>
+            <a
+              href="#food-scanner"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
               Food Scanner
-            </Link>
-            <Link
-              href="/body-explorer"
+            </a>
+            <a
+              href="#body-explorer"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
               Body Explorer (3D)
-            </Link>
-            <Link
-              href="/stories"
+            </a>
+            <a
+              href="#articles"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
               Articles & Insights
-            </Link>
+            </a>
             <Link
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
@@ -293,10 +293,11 @@ export default function LandingPage() {
         )}
       </header>
 
-      {/* ============ HERO SECTION ============ */}
+      {/* ============ HERO SECTION / BODY EXPLORER ============ */}
+      <div id="body-explorer" className="scroll-mt-28" />
       <section
         id="top"
-        className="relative max-w-[1240px] mx-auto px-6 pt-6 sm:pt-10 pb-12 sm:pb-20 flex flex-wrap items-center gap-8"
+        className="relative max-w-[1240px] mx-auto px-6 pt-6 sm:pt-10 pb-12 sm:pb-20 flex flex-wrap items-center gap-8 scroll-mt-28"
       >
         {/* Left Column: Headline & Value Proposition */}
         <div className="flex-[1.25_1_520px] min-w-0 relative z-10">
@@ -438,7 +439,7 @@ export default function LandingPage() {
         {/* Right Column: Hero 3D Anatomy Visual */}
         <div
           aria-hidden="true"
-          className="flex-1 basis-[460px] min-w-0 relative h-[620px] flex items-center justify-center [perspective:1200px]"
+          className="flex-1 basis-[460px] min-w-0 relative h-[640px] flex items-center justify-center [perspective:1200px]"
         >
           {/* Interactive View Switcher: Biometric Scan vs 3D WebGL Atlas from ashemag-human-atlas */}
           <div className="absolute top-0 right-2 z-30 flex items-center p-1 rounded-full bg-white/80 backdrop-blur-md border border-white/90 shadow-sm text-xs font-medium">
@@ -484,7 +485,7 @@ export default function LandingPage() {
 
           {viewMode === "3d" ? (
             /* Interactive 3D WebGL Three.js Atlas powered by BodyParts3D from ashemag-human-atlas */
-            <div className="relative w-full h-[580px] z-10 flex items-center justify-center">
+            <div className="relative w-full h-full min-h-[620px] z-10 flex items-center justify-center">
               <Hero3DAtlas />
             </div>
           ) : (
@@ -1179,10 +1180,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ============ BEFORE / AFTER: DRAG TO REVEAL ============ */}
+      {/* ============ BEFORE / AFTER: DRAG TO REVEAL (AI HEALTH) ============ */}
+      <div id="ai-health" className="scroll-mt-28" />
       <section
         id="services"
-        className="ae-rv max-w-[1240px] mx-auto px-6"
+        className="ae-rv max-w-[1240px] mx-auto px-6 scroll-mt-28"
       >
         <div className="relative rounded-[40px] overflow-hidden bg-[#E9EDF1] shadow-[0_30px_60px_rgba(29,31,34,0.06)] select-none">
           {/* BEFORE Layer (Lab Report) */}
@@ -1562,8 +1564,9 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ============ DARK STATS & 3D NEURAL GLOBE ============ */}
-      <section className="ae-rv max-w-[1240px] mx-auto px-6 pt-20 sm:pt-28">
+      {/* ============ DARK STATS & 3D NEURAL GLOBE (ANALYSIS) ============ */}
+      <div id="analysis" className="scroll-mt-28" />
+      <section className="ae-rv max-w-[1240px] mx-auto px-6 pt-20 sm:pt-28 scroll-mt-28">
         <div className="relative overflow-hidden rounded-[40px] bg-[#121316] text-white p-8 sm:p-14 lg:p-20">
           {/* Red Glow Backdrop */}
           <div
@@ -1784,8 +1787,9 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ============ BEYOND STANDARD HEALTHCARE ============ */}
-      <section className="ae-rv max-w-[1240px] mx-auto px-6 pt-20 sm:pt-28 flex flex-wrap gap-14 sm:gap-16 items-center">
+      {/* ============ BEYOND STANDARD HEALTHCARE & DOCTORS ============ */}
+      <div id="doctors" className="scroll-mt-28" />
+      <section className="ae-rv max-w-[1240px] mx-auto px-6 pt-20 sm:pt-28 flex flex-wrap gap-14 sm:gap-16 items-center scroll-mt-28">
         {/* Left Telemetry Card Stack */}
         <div
           className="flex-1 basis-[480px] min-w-0 relative rounded-[40px] p-8 sm:p-10 flex flex-col gap-3.5 overflow-hidden"
@@ -2485,10 +2489,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ============ HOW IT WORKS ============ */}
+      {/* ============ HOW IT WORKS / FOOD SCANNER & HABITS ============ */}
+      <div id="food-scanner" className="scroll-mt-28" />
       <section
         id="how"
-        className="ae-rv max-w-[1240px] mx-auto px-6 pt-20 sm:pt-28"
+        className="ae-rv max-w-[1240px] mx-auto px-6 pt-20 sm:pt-28 scroll-mt-28"
       >
         <div className="text-center">
           <p className="m-0 mb-4 text-sm text-[#545B61] font-semibold">
@@ -2752,10 +2757,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ============ MISSION & VISION FOR BHARAT ============ */}
+      {/* ============ MISSION & VISION FOR BHARAT / ARTICLES ============ */}
+      <div id="articles" className="scroll-mt-28" />
       <section
         id="mission"
-        className="ae-rv max-w-[1240px] mx-auto px-6 pt-20 sm:pt-28"
+        className="ae-rv max-w-[1240px] mx-auto px-6 pt-20 sm:pt-28 scroll-mt-28"
       >
         <p className="m-0 mb-4 text-sm text-[#545B61] font-semibold">Purpose</p>
         <h2
@@ -3033,10 +3039,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ============ EARLY ACCESS PRE-REGISTRATION FORM ============ */}
+      {/* ============ EARLY ACCESS PRE-REGISTRATION FORM & BOOKINGS ============ */}
+      <div id="bookings" className="scroll-mt-28" />
       <section
         id="register"
-        className="ae-rv max-w-[1240px] mx-auto px-6 pt-20 sm:pt-28"
+        className="ae-rv max-w-[1240px] mx-auto px-6 pt-20 sm:pt-28 scroll-mt-28"
       >
         <div
           id="contact"
