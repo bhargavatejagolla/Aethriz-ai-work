@@ -441,7 +441,7 @@ export default function DoctorPatientsPage() {
               AI Analysis
             </Link>
             <Link
-              href="/register"
+              href="/doctor/join"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
             >
               Join the team
