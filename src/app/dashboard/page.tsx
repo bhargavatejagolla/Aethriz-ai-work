@@ -6,6 +6,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { getSession, clearSession, UserProfile } from "@/lib/auth";
+import DashboardBodyMapSchematic from "@/components/anatomy/DashboardBodyMapSchematic";
 
 const DashboardBodyMap3D = dynamic(
   () => import("@/components/anatomy/DashboardBodyMap3D"),
@@ -24,6 +25,7 @@ export default function DashboardPage() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [language, setLanguage] = useState<"en" | "hi">("en");
   const [activeBodyHotspot, setActiveBodyHotspot] = useState<"metabolic" | "heart" | "brain" | "thyroid">("metabolic");
+  const [bodyMapMode, setBodyMapMode] = useState<"schematic" | "3d">("schematic");
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
@@ -432,9 +434,30 @@ export default function DashboardPage() {
                 <div className="flex items-center justify-between mb-3 z-10">
                   <div className="flex items-center gap-2">
                     <h3 className="text-sm font-semibold text-[#1D1F22]">Body map</h3>
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#E3202B] bg-red-50 border border-red-200/60 px-2 py-0.5 rounded-full font-bold">
-                      3D Atlas
-                    </span>
+                    <div className="flex items-center bg-slate-100 p-0.5 rounded-full text-[10px] font-semibold">
+                      <button
+                        type="button"
+                        onClick={() => setBodyMapMode("schematic")}
+                        className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${
+                          bodyMapMode === "schematic"
+                            ? "bg-white text-[#1D1F22] shadow-2xs"
+                            : "text-[#64748B] hover:text-[#1D1F22]"
+                        }`}
+                      >
+                        Schematic
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setBodyMapMode("3d")}
+                        className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${
+                          bodyMapMode === "3d"
+                            ? "bg-[#E3202B] text-white shadow-2xs"
+                            : "text-[#64748B] hover:text-[#1D1F22]"
+                        }`}
+                      >
+                        3D Atlas
+                      </button>
+                    </div>
                   </div>
                   <Link
                     href="/body-explorer"
@@ -547,10 +570,17 @@ export default function DashboardPage() {
 
                   {/* Right: Real 3D Volumetric Anatomy Canvas with Raycast Hotspots */}
                   <div className="col-span-6 sm:col-span-5 relative h-48 flex items-center justify-center">
-                    <DashboardBodyMap3D
-                      activeHotspot={activeBodyHotspot}
-                      onSelectHotspot={setActiveBodyHotspot}
-                    />
+                    {bodyMapMode === "schematic" ? (
+                      <DashboardBodyMapSchematic
+                        activeHotspot={activeBodyHotspot}
+                        onSelectHotspot={setActiveBodyHotspot}
+                      />
+                    ) : (
+                      <DashboardBodyMap3D
+                        activeHotspot={activeBodyHotspot}
+                        onSelectHotspot={setActiveBodyHotspot}
+                      />
+                    )}
                   </div>
                 </div>
 
