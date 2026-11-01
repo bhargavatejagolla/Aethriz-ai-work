@@ -14,90 +14,12 @@ interface Props {
   onSelectHotspot?: (hotspot: HotspotId) => void;
 }
 
-interface CachedMeshPayload {
-  groups: { system: string; geometry: T.BufferGeometry }[];
-}
-
-// Module-level cache for parsed geometry groups so page switching/re-renders are instant
-let cachedMeshes: CachedMeshPayload | null = null;
-let meshLoadPromise: Promise<CachedMeshPayload | null> | null = null;
-
-async function loadAtlasMeshes(signal?: AbortSignal) {
-  if (cachedMeshes) return cachedMeshes;
-  if (meshLoadPromise) return meshLoadPromise;
-
-  meshLoadPromise = (async () => {
-    try {
-      const atlasRes = await fetch("/models/atlas.json", { signal });
-      if (!atlasRes.ok) throw new Error("Could not load atlas.json");
-      const atlas: Atlas = await atlasRes.json();
-
-      const activeSystems = new Set(["muscular", "cardiac", "skeletal", "arterial"]);
-      const chunkIndices = Array.from(
-        new Set(
-          atlas.parts
-            .filter((p) => activeSystems.has(p.system))
-            .map((p) => p.chunk)
-        )
-      );
-
-      const systemGeoms = new Map<string, T.BufferGeometry[]>();
-
-      // Load prioritized chunks
-      for (const ci of chunkIndices) {
-        try {
-          const chunk = atlas.chunks[ci];
-          const compressed = !!chunk.gzip && typeof DecompressionStream !== "undefined";
-          const chunkRes = await fetch(compressed ? chunk.gzip! : chunk.url, { signal });
-          const buffer = await decodeModelResponse(chunkRes, chunk.bytes, compressed);
-
-          atlas.parts.forEach((p) => {
-            if (p.chunk !== ci || !activeSystems.has(p.system)) return;
-            const g = new T.BufferGeometry();
-            g.setAttribute(
-              "position",
-              new T.BufferAttribute(new Float32Array(buffer, p.positions, p.vertexCount * 3), 3)
-            );
-            g.setAttribute(
-              "normal",
-              new T.BufferAttribute(new Int16Array(buffer, p.normals, p.vertexCount * 3), 3, true)
-            );
-            g.setIndex(new T.BufferAttribute(new Uint32Array(buffer, p.indices, p.indexCount), 1));
-
-            const list = systemGeoms.get(p.system) || [];
-            list.push(g);
-            systemGeoms.set(p.system, list);
-          });
-        } catch (e) {
-          console.warn(`Chunk ${ci} loading skipped`, e);
-        }
-      }
-
-      const mergedGroups: { system: string; geometry: T.BufferGeometry }[] = [];
-      systemGeoms.forEach((geoms, system) => {
-        const merged = mergeGeometries(geoms, false);
-        if (merged) {
-          mergedGroups.push({ system, geometry: merged });
-        }
-      });
-
-      cachedMeshes = { groups: mergedGroups };
-      return cachedMeshes;
-    } catch (err) {
-      console.warn("Atlas load error:", err);
-      return null;
-    }
-  })();
-
-  return meshLoadPromise;
-}
-
 export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: Props) {
   const mountRef = useRef<HTMLDivElement>(null);
   const activeHotspotRef = useRef<HotspotId>(activeHotspot);
   const onSelectRef = useRef(onSelectHotspot);
-  const [loadPercent, setLoadPercent] = useState<number>(cachedMeshes ? 100 : 0);
-  const [isReady, setIsReady] = useState<boolean>(!!cachedMeshes);
+  const [loadPercent, setLoadPercent] = useState<number>(0);
+  const [isReady, setIsReady] = useState<boolean>(false);
 
   activeHotspotRef.current = activeHotspot;
   onSelectRef.current = onSelectHotspot;
@@ -131,19 +53,19 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
     renderer.toneMappingExposure = 1.25;
     el.appendChild(renderer.domElement);
 
-    // Scene & Camera
+    // Scene & Camera matching Hero3DAtlas
     const scene = new T.Scene();
     const camera = new T.PerspectiveCamera(32, el.clientWidth / el.clientHeight, 0.05, 50);
-    camera.position.set(0.1, 1.15, 2.5);
+    camera.position.set(0, 0.95, 3.1);
 
     // Controls
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(0, 0.95, 0);
+    controls.target.set(0, 0.9, 0);
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
     controls.enableZoom = false; // Keep dashboard card layout stable
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.7;
+    controls.autoRotateSpeed = 0.8;
     controls.minPolarAngle = Math.PI * 0.28;
     controls.maxPolarAngle = Math.PI * 0.72;
 
@@ -157,7 +79,7 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
     rimLight.position.set(2, 2, -2.5);
     scene.add(rimLight);
 
-    // Clinical Ground Pedestal
+    // Clinical Base Pedestal & Ground Ring
     const pedestal = new T.Mesh(
       new T.CylinderGeometry(0.55, 0.58, 0.02, 64),
       new T.MeshStandardMaterial({ color: 0x181a20, metalness: 0.2, roughness: 0.5 })
@@ -176,7 +98,7 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
     // Dynamic 3D Laser Scanning Torus Ring
     const scanRingGroup = new T.Group();
     const torusMesh = new T.Mesh(
-      new T.TorusGeometry(0.42, 0.012, 16, 64),
+      new T.TorusGeometry(0.44, 0.012, 16, 64),
       new T.MeshStandardMaterial({
         color: 0xe3202b,
         emissive: 0xff1e2b,
@@ -189,7 +111,7 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
     scanRingGroup.add(torusMesh);
 
     const laserDisk = new T.Mesh(
-      new T.RingGeometry(0.02, 0.42, 48),
+      new T.RingGeometry(0.02, 0.44, 48),
       new T.MeshBasicMaterial({
         color: 0xe3202b,
         transparent: true,
@@ -265,94 +187,102 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
     scene.add(hotspotGroup);
 
     // ==============================================================
-    // INSTANT PROCEDURAL ANATOMICAL SILHOUETTE (ZERO-DELAY DISPLAY)
+    // STREAM REAL 3D ANATOMICAL MESHES FROM ashemag-human-atlas
+    // (Streams in chunks incrementally without blocking!)
     // ==============================================================
-    const silhouetteGroup = new T.Group();
-    const silMat = new T.MeshStandardMaterial({
-      color: 0x9e5d52,
-      roughness: 0.45,
-      metalness: 0.15,
-      transparent: true,
-      opacity: 0.88,
-    });
+    const activeSystems = new Set(["muscular", "cardiac", "skeletal", "arterial"]);
 
-    // Sculpted anatomical segments
-    const headMesh = new T.Mesh(new T.SphereGeometry(0.12, 24, 24), silMat);
-    headMesh.position.set(0, 1.55, 0);
-    headMesh.scale.set(0.9, 1.15, 0.95);
-    silhouetteGroup.add(headMesh);
+    (async () => {
+      try {
+        const atlasRes = await fetch("/models/atlas.json", { signal: abort.signal });
+        if (!atlasRes.ok) throw new Error("Could not load atlas.json");
+        const atlas: Atlas = await atlasRes.json();
+        if (disposed) return;
 
-    const neckMesh = new T.Mesh(new T.CylinderGeometry(0.05, 0.065, 0.1, 16), silMat);
-    neckMesh.position.set(0, 1.39, 0);
-    silhouetteGroup.add(neckMesh);
+        // Group parts by chunk
+        const chunkIndices = Array.from(
+          new Set(
+            atlas.parts
+              .filter((p) => activeSystems.has(p.system))
+              .map((p) => p.chunk)
+          )
+        );
 
-    const chestMesh = new T.Mesh(new T.CylinderGeometry(0.19, 0.15, 0.28, 20), silMat);
-    chestMesh.position.set(0, 1.23, 0);
-    chestMesh.scale.set(1.15, 1, 0.85);
-    silhouetteGroup.add(chestMesh);
+        let loadedCount = 0;
 
-    const abdomenMesh = new T.Mesh(new T.CylinderGeometry(0.15, 0.17, 0.24, 20), silMat);
-    abdomenMesh.position.set(0, 0.99, 0);
-    abdomenMesh.scale.set(1.08, 1, 0.88);
-    silhouetteGroup.add(abdomenMesh);
+        for (const ci of chunkIndices) {
+          if (disposed) return;
+          const chunk = atlas.chunks[ci];
+          const compressed = !!chunk.gzip && typeof DecompressionStream !== "undefined";
+          const chunkRes = await fetch(compressed ? chunk.gzip! : chunk.url, {
+            signal: abort.signal,
+          });
+          const buffer = await decodeModelResponse(chunkRes, chunk.bytes, compressed);
+          if (disposed) return;
 
-    const pelvisMesh = new T.Mesh(new T.CylinderGeometry(0.17, 0.15, 0.16, 20), silMat);
-    pelvisMesh.position.set(0, 0.8, 0);
-    pelvisMesh.scale.set(1.12, 1, 0.9);
-    silhouetteGroup.add(pelvisMesh);
+          const groups = new Map<string, T.BufferGeometry[]>();
 
-    const legLeft = new T.Mesh(new T.CylinderGeometry(0.065, 0.04, 0.76, 16), silMat);
-    legLeft.position.set(-0.09, 0.38, 0);
-    silhouetteGroup.add(legLeft);
+          atlas.parts.forEach((p) => {
+            if (p.chunk !== ci || !activeSystems.has(p.system)) return;
+            const g = new T.BufferGeometry();
+            g.setAttribute(
+              "position",
+              new T.BufferAttribute(new Float32Array(buffer, p.positions, p.vertexCount * 3), 3)
+            );
+            g.setAttribute(
+              "normal",
+              new T.BufferAttribute(new Int16Array(buffer, p.normals, p.vertexCount * 3), 3, true)
+            );
+            g.setIndex(new T.BufferAttribute(new Uint32Array(buffer, p.indices, p.indexCount), 1));
 
-    const legRight = new T.Mesh(new T.CylinderGeometry(0.065, 0.04, 0.76, 16), silMat);
-    legRight.position.set(0.09, 0.38, 0);
-    silhouetteGroup.add(legRight);
+            const list = groups.get(p.system) || [];
+            list.push(g);
+            groups.set(p.system, list);
+          });
 
-    scene.add(silhouetteGroup);
+          groups.forEach((geoms, system) => {
+            const merged = mergeGeometries(geoms, false);
+            if (!merged) return;
 
-    // ==============================================================
-    // LOAD REAL 3D ANATOMICAL MESHES FROM ashemag-human-atlas
-    // ==============================================================
-    let atlasMeshGroup: T.Group | null = null;
+            let colorHex = 0xa85b50; // muscular terracotta
+            let roughness = 0.48;
+            let metalness = 0.12;
 
-    loadAtlasMeshes(abort.signal).then((cached) => {
-      if (disposed || !cached) return;
+            if (system === "cardiac") {
+              colorHex = 0xdc2626;
+              roughness = 0.35;
+            } else if (system === "skeletal") {
+              colorHex = 0xd4c5a9;
+              roughness = 0.65;
+            } else if (system === "arterial") {
+              colorHex = 0xef4444;
+              roughness = 0.3;
+            }
 
-      atlasMeshGroup = new T.Group();
-      cached.groups.forEach(({ system, geometry }) => {
-        let colorHex = 0xa85b50;
-        let roughness = 0.48;
-        let metalness = 0.12;
+            const mat = new T.MeshStandardMaterial({
+              color: colorHex,
+              roughness,
+              metalness,
+              side: T.DoubleSide,
+            });
 
-        if (system === "cardiac") {
-          colorHex = 0xdc2626;
-          roughness = 0.35;
-        } else if (system === "skeletal") {
-          colorHex = 0xd4c5a9;
-          roughness = 0.65;
-        } else if (system === "arterial") {
-          colorHex = 0xef4444;
-          roughness = 0.3;
+            const mesh = new T.Mesh(merged, mat);
+            scene.add(mesh);
+          });
+
+          loadedCount++;
+          if (!disposed) {
+            setLoadPercent(Math.round((loadedCount / chunkIndices.length) * 100));
+          }
         }
 
-        const mat = new T.MeshStandardMaterial({
-          color: colorHex,
-          roughness,
-          metalness,
-          side: T.DoubleSide,
-        });
-
-        const mesh = new T.Mesh(geometry, mat);
-        atlasMeshGroup!.add(mesh);
-      });
-
-      // Smoothly replace procedural silhouette with atlas meshes
-      scene.remove(silhouetteGroup);
-      scene.add(atlasMeshGroup);
-      setIsReady(true);
-      setLoadPercent(100);
-    });
+        if (!disposed) {
+          setIsReady(true);
+        }
+      } catch (e) {
+        console.warn("Atlas load finished or skipped", e);
+      }
+    })();
 
     // ==============================================================
     // INTERACTION: RAYCASTING ON 3D BODY BEACONS
@@ -444,31 +374,29 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
         (h.auraMesh.material as T.MeshBasicMaterial).opacity = isActive ? 0.55 : 0.15;
       });
 
-      // Gently track camera target towards active organ
-      controls.target.y += (targetY * 0.4 + 0.5 - controls.target.y) * 0.04;
-
       controls.update();
       renderer.render(scene, camera);
     };
 
     animate();
 
+    // Resize observer
     const handleResize = () => {
-      if (!el || disposed) return;
+      if (!el || !renderer || !camera || disposed) return;
       camera.aspect = el.clientWidth / el.clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(el.clientWidth, el.clientHeight);
     };
-
-    window.addEventListener("resize", handleResize);
+    const resizeObs = new ResizeObserver(handleResize);
+    resizeObs.observe(el);
 
     return () => {
       disposed = true;
       abort.abort();
       cancelAnimationFrame(animFrame);
+      resizeObs.disconnect();
       renderer.domElement.removeEventListener("click", handleClick);
       renderer.domElement.removeEventListener("mousemove", handlePointerMove);
-      window.removeEventListener("resize", handleResize);
       controls.dispose();
       renderer.dispose();
       if (el.contains(renderer.domElement)) {
@@ -478,19 +406,11 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
   }, []); // Run ONCE on mount!
 
   return (
-    <div className="relative w-full h-full min-h-[175px] flex items-center justify-center">
+    <div className="relative w-full h-full min-h-[185px] flex items-center justify-center">
       {/* 3D WebGL Canvas Host */}
       <div ref={mountRef} className="w-full h-full absolute inset-0 cursor-grab active:cursor-grabbing" />
 
-      {/* Syncing Status Indicator */}
-      {!isReady && loadPercent < 100 && (
-        <div className="absolute top-2 left-2 z-20 px-2 py-0.5 rounded-full bg-black/60 text-white font-mono text-[9px] flex items-center gap-1.5 backdrop-blur-xs">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#E3202B] animate-ping" />
-          <span>Synchronising Body Atlas</span>
-        </div>
-      )}
-
-      {/* Subtle Hologram Ground Flare */}
+      {/* Subtle Bottom Hologram Ground Flare */}
       <div
         className="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-6 rounded-full pointer-events-none"
         style={{
