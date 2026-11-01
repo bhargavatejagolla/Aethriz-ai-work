@@ -287,7 +287,7 @@ export default function FindDoctorsPage() {
           </Link>
 
           {/* Center Navigation Pills */}
-          <div className="hidden lg:flex items-center gap-1 text-[13px] font-medium text-[#545B61]">
+          <div className="hidden md:flex items-center gap-1 text-[13px] font-medium text-[#545B61]">
             <Link
               href="/dashboard"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"

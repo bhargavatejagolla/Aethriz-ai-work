@@ -232,6 +232,18 @@ export default function FoodScannerPage() {
               Health Analysis
             </Link>
             <Link
+              href="/doctors"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
+            >
+              Doctors
+            </Link>
+            <Link
+              href="/booking"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
+            >
+              Bookings
+            </Link>
+            <Link
               href="/food-scanner"
               className="px-4 py-1.5 rounded-full bg-white text-[#1D1F22] font-semibold shadow-xs border border-slate-200/60 transition-all"
             >
@@ -242,12 +254,6 @@ export default function FoodScannerPage() {
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
             >
               Body Explorer
-            </Link>
-            <Link
-              href="/doctors"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Doctors
             </Link>
             <Link
               href="/stories"

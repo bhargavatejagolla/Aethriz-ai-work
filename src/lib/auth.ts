@@ -23,7 +23,7 @@ export const MOCK_USERS: Record<string, { user: UserProfile; password: string; r
       role: "patient",
       diet: "Vegetarian",
       goals: ["Blood sugar", "Heart health"],
-      language: "हिन्दी",
+      language: "English",
     },
     password: "patient123",
     redirect: "/dashboard",

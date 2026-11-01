@@ -301,9 +301,6 @@ export default function HealthAnalysisPage() {
     const session = getSession();
     if (session) {
       setUser(session);
-      if (session.language && session.language.includes("हिन्दी")) {
-        setLanguage("hi");
-      }
     }
   }, []);
 
@@ -390,7 +387,7 @@ export default function HealthAnalysisPage() {
           </Link>
 
           {/* Center Navigation Pills */}
-          <div className="hidden lg:flex items-center gap-1.5 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
+          <div className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
             <Link
               href="/dashboard"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
@@ -416,6 +413,12 @@ export default function HealthAnalysisPage() {
               Bookings
             </Link>
             <Link
+              href="/food-scanner"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
+            >
+              Food Scanner
+            </Link>
+            <Link
               href="/body-explorer"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
             >
@@ -425,7 +428,7 @@ export default function HealthAnalysisPage() {
               href="/stories"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
             >
-              Stories
+              Articles
             </Link>
           </div>
 

@@ -58,9 +58,6 @@ export default function DashboardPage() {
     const session = getSession();
     if (session) {
       setUser(session);
-      if (session.language && session.language.includes("हिन्दी")) {
-        setLanguage("hi");
-      }
     } else {
       // Default demo profile for seamless offline preview
       setUser({
@@ -70,7 +67,7 @@ export default function DashboardPage() {
         role: "patient",
         diet: "Vegetarian",
         goals: ["Blood sugar", "Heart health"],
-        language: "हिन्दी",
+        language: "English",
       });
     }
   }, []);
@@ -186,7 +183,7 @@ export default function DashboardPage() {
           </Link>
 
           {/* Center Navigation Pills */}
-          <div className="hidden lg:flex items-center gap-1.5 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
+          <div className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
             <Link
               href="/dashboard"
               className="px-3.5 py-1.5 rounded-full bg-white text-[#1D1F22] font-semibold shadow-xs transition-all"

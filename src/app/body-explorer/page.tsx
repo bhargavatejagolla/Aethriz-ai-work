@@ -251,18 +251,30 @@ export default function BodyExplorerPage() {
           </Link>
 
           {/* Center Navigation Pills */}
-          <div className="hidden lg:flex items-center gap-1.5 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
+          <div className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
             <Link
               href="/dashboard"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
             >
-              Dashboard
+              AI Health
             </Link>
             <Link
               href="/health-analysis"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
             >
-              Health Analysis
+              Analysis
+            </Link>
+            <Link
+              href="/doctors"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
+            >
+              Doctors
+            </Link>
+            <Link
+              href="/booking"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
+            >
+              Bookings
             </Link>
             <Link
               href="/food-scanner"
@@ -275,12 +287,6 @@ export default function BodyExplorerPage() {
               className="px-3.5 py-1.5 rounded-full bg-white text-[#1D1F22] font-semibold shadow-xs transition-all"
             >
               Body Explorer
-            </Link>
-            <Link
-              href="/doctors"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Doctors
             </Link>
             <Link
               href="/stories"
