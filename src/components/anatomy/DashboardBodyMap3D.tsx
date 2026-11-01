@@ -3,9 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as T from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
-import { decodeModelResponse } from "./model-download";
-import { type Atlas } from "./anatomy";
+import { loadAtlasModel, type SystemGeometry } from "./atlas-loader";
 
 export type HotspotId = "brain" | "heart" | "metabolic" | "thyroid";
 
@@ -18,20 +16,60 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
   const mountRef = useRef<HTMLDivElement>(null);
   const activeHotspotRef = useRef<HotspotId>(activeHotspot);
   const onSelectRef = useRef(onSelectHotspot);
-  const [loadPercent, setLoadPercent] = useState<number>(0);
-  const [isReady, setIsReady] = useState<boolean>(false);
+  const cameraRef = useRef<T.PerspectiveCamera | null>(null);
+  const controlsRef = useRef<OrbitControls | null>(null);
+
+  const [activeView, setActiveView] = useState<"front" | "side" | "back">("front");
+  const [modelReady, setModelReady] = useState(false);
 
   activeHotspotRef.current = activeHotspot;
   onSelectRef.current = onSelectHotspot;
 
-  // Single mount effect: keep WebGL canvas alive across activeHotspot clicks!
+  // Smooth camera orientation transition when Front / Side / Back buttons are tapped
+  const handleViewChange = (view: "front" | "side" | "back") => {
+    setActiveView(view);
+    if (!cameraRef.current || !controlsRef.current) return;
+
+    const camera = cameraRef.current;
+    const controls = controlsRef.current;
+
+    let targetX = 0;
+    let targetZ = 2.75;
+
+    if (view === "side") {
+      targetX = 2.75;
+      targetZ = 0;
+    } else if (view === "back") {
+      targetX = 0;
+      targetZ = -2.75;
+    }
+
+    const startX = camera.position.x;
+    const startZ = camera.position.z;
+    let frame = 0;
+    const totalFrames = 22;
+
+    const transition = () => {
+      frame++;
+      const t = frame / totalFrames;
+      const ease = t * (2 - t);
+      camera.position.x = startX + (targetX - startX) * ease;
+      camera.position.z = startZ + (targetZ - startZ) * ease;
+      controls.update();
+
+      if (frame < totalFrames) {
+        requestAnimationFrame(transition);
+      }
+    };
+    transition();
+  };
+
   useEffect(() => {
     const el = mountRef.current;
     if (!el) return;
 
     let disposed = false;
     let animFrame = 0;
-    const abort = new AbortController();
 
     // WebGL Renderer
     let renderer: T.WebGLRenderer;
@@ -53,36 +91,38 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
     renderer.toneMappingExposure = 1.25;
     el.appendChild(renderer.domElement);
 
-    // Scene & Camera matching Hero3DAtlas
+    // Scene & Camera
     const scene = new T.Scene();
     const camera = new T.PerspectiveCamera(32, el.clientWidth / el.clientHeight, 0.05, 50);
-    camera.position.set(0, 0.95, 3.1);
+    camera.position.set(0, 0.95, 2.75);
+    cameraRef.current = camera;
 
-    // Controls
+    // OrbitControls
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(0, 0.9, 0);
+    controls.target.set(0, 0.88, 0);
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
-    controls.enableZoom = false; // Keep dashboard card layout stable
+    controls.enableZoom = false; // card layout stability
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.8;
-    controls.minPolarAngle = Math.PI * 0.28;
-    controls.maxPolarAngle = Math.PI * 0.72;
+    controls.autoRotateSpeed = 0.7;
+    controls.minPolarAngle = Math.PI * 0.25;
+    controls.maxPolarAngle = Math.PI * 0.75;
+    controlsRef.current = controls;
 
-    // Clinical Studio Lighting
+    // Studio Lighting
     scene.add(new T.HemisphereLight(0xffffff, 0xb0b8c0, 1.4));
-    const keyLight = new T.DirectionalLight(0xfff5f0, 2.2);
+    const keyLight = new T.DirectionalLight(0xfffaf6, 2.4);
     keyLight.position.set(-2, 3.5, 2.5);
     scene.add(keyLight);
 
-    const rimLight = new T.DirectionalLight(0xffe6e8, 2.0);
+    const rimLight = new T.DirectionalLight(0xffe6e6, 2.0);
     rimLight.position.set(2, 2, -2.5);
     scene.add(rimLight);
 
-    // Clinical Base Pedestal & Ground Ring
+    // Base Pedestal
     const pedestal = new T.Mesh(
       new T.CylinderGeometry(0.55, 0.58, 0.02, 64),
-      new T.MeshStandardMaterial({ color: 0x181a20, metalness: 0.2, roughness: 0.5 })
+      new T.MeshStandardMaterial({ color: 0x181a20, metalness: 0.25, roughness: 0.5 })
     );
     pedestal.position.y = -0.01;
     scene.add(pedestal);
@@ -129,9 +169,7 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
     scanRingGroup.position.y = 1.05;
     scene.add(scanRingGroup);
 
-    // ==============================================================
-    // INTERACTIVE HOTSPOT BEACONS (RAYCASTABLE & CLICKABLE)
-    // ==============================================================
+    // Interactive Hotspot Beacons (Raycastable)
     const hotspotGroup = new T.Group();
     const hotspotMeshes: { id: HotspotId; mesh: T.Mesh; auraMesh: T.Mesh; y: number }[] = [];
 
@@ -141,20 +179,18 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
       colorHex: number,
       radius: number
     ) => {
-      // Core sphere
       const core = new T.Mesh(
         new T.SphereGeometry(radius, 16, 16),
         new T.MeshStandardMaterial({
           color: colorHex,
           emissive: colorHex,
-          emissiveIntensity: 3.0,
+          emissiveIntensity: 2.8,
           roughness: 0.2,
         })
       );
       core.position.set(...pos);
       core.userData = { hotspotId: id };
 
-      // Outer aura ring/sphere
       const aura = new T.Mesh(
         new T.SphereGeometry(radius * 1.8, 16, 16),
         new T.MeshBasicMaterial({
@@ -174,119 +210,55 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
 
     // 1. Brain (Cranial) -> Emerald
     createBeacon("brain", [0, 1.55, 0.02], 0x10b981, 0.045);
-
     // 2. Thyroid (Cervical / Throat) -> Emerald
     createBeacon("thyroid", [0, 1.38, 0.04], 0x059669, 0.035);
-
     // 3. Heart (Thoracic / Cardiac) -> Amber
     createBeacon("heart", [-0.035, 1.22, 0.05], 0xf59e0b, 0.048);
-
     // 4. Metabolic (Abdominal / Liver) -> Crimson
     createBeacon("metabolic", [0.04, 1.05, 0.05], 0xe3202b, 0.052);
 
     scene.add(hotspotGroup);
 
-    // ==============================================================
-    // STREAM REAL 3D ANATOMICAL MESHES FROM ashemag-human-atlas
-    // (Streams in chunks incrementally without blocking!)
-    // ==============================================================
-    const activeSystems = new Set(["muscular", "cardiac", "skeletal", "arterial"]);
+    // Real 3D Anatomical Human Body Mesh Streamer
+    const anatomyGroup = new T.Group();
+    scene.add(anatomyGroup);
 
-    (async () => {
-      try {
-        const atlasRes = await fetch("/models/atlas.json", { signal: abort.signal });
-        if (!atlasRes.ok) throw new Error("Could not load atlas.json");
-        const atlas: Atlas = await atlasRes.json();
-        if (disposed) return;
+    const addSystemMesh = ({ system, geometry }: SystemGeometry) => {
+      if (disposed) return;
+      let colorHex = 0xa85b50; // muscular terracotta
+      let roughness = 0.48;
+      let metalness = 0.12;
 
-        // Group parts by chunk
-        const chunkIndices = Array.from(
-          new Set(
-            atlas.parts
-              .filter((p) => activeSystems.has(p.system))
-              .map((p) => p.chunk)
-          )
-        );
-
-        let loadedCount = 0;
-
-        for (const ci of chunkIndices) {
-          if (disposed) return;
-          const chunk = atlas.chunks[ci];
-          const compressed = !!chunk.gzip && typeof DecompressionStream !== "undefined";
-          const chunkRes = await fetch(compressed ? chunk.gzip! : chunk.url, {
-            signal: abort.signal,
-          });
-          const buffer = await decodeModelResponse(chunkRes, chunk.bytes, compressed);
-          if (disposed) return;
-
-          const groups = new Map<string, T.BufferGeometry[]>();
-
-          atlas.parts.forEach((p) => {
-            if (p.chunk !== ci || !activeSystems.has(p.system)) return;
-            const g = new T.BufferGeometry();
-            g.setAttribute(
-              "position",
-              new T.BufferAttribute(new Float32Array(buffer, p.positions, p.vertexCount * 3), 3)
-            );
-            g.setAttribute(
-              "normal",
-              new T.BufferAttribute(new Int16Array(buffer, p.normals, p.vertexCount * 3), 3, true)
-            );
-            g.setIndex(new T.BufferAttribute(new Uint32Array(buffer, p.indices, p.indexCount), 1));
-
-            const list = groups.get(p.system) || [];
-            list.push(g);
-            groups.set(p.system, list);
-          });
-
-          groups.forEach((geoms, system) => {
-            const merged = mergeGeometries(geoms, false);
-            if (!merged) return;
-
-            let colorHex = 0xa85b50; // muscular terracotta
-            let roughness = 0.48;
-            let metalness = 0.12;
-
-            if (system === "cardiac") {
-              colorHex = 0xdc2626;
-              roughness = 0.35;
-            } else if (system === "skeletal") {
-              colorHex = 0xd4c5a9;
-              roughness = 0.65;
-            } else if (system === "arterial") {
-              colorHex = 0xef4444;
-              roughness = 0.3;
-            }
-
-            const mat = new T.MeshStandardMaterial({
-              color: colorHex,
-              roughness,
-              metalness,
-              side: T.DoubleSide,
-            });
-
-            const mesh = new T.Mesh(merged, mat);
-            scene.add(mesh);
-          });
-
-          loadedCount++;
-          if (!disposed) {
-            setLoadPercent(Math.round((loadedCount / chunkIndices.length) * 100));
-          }
-        }
-
-        if (!disposed) {
-          setIsReady(true);
-        }
-      } catch (e) {
-        console.warn("Atlas load finished or skipped", e);
+      if (system === "cardiac") {
+        colorHex = 0xdc2626;
+        roughness = 0.35;
+      } else if (system === "skeletal") {
+        colorHex = 0xd4c5a9;
+        roughness = 0.65;
+      } else if (system === "arterial") {
+        colorHex = 0xef4444;
+        roughness = 0.3;
       }
-    })();
 
-    // ==============================================================
-    // INTERACTION: RAYCASTING ON 3D BODY BEACONS
-    // ==============================================================
+      const mat = new T.MeshStandardMaterial({
+        color: colorHex,
+        roughness,
+        metalness,
+        side: T.DoubleSide,
+      });
+
+      const mesh = new T.Mesh(geometry, mat);
+      anatomyGroup.add(mesh);
+    };
+
+    // Load from central model cache / progressive stream
+    loadAtlasModel((item) => {
+      addSystemMesh(item);
+    }).then(() => {
+      if (!disposed) setModelReady(true);
+    });
+
+    // Raycast Interaction
     const raycaster = new T.Raycaster();
     const mouse = new T.Vector2();
 
@@ -325,9 +297,7 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
     renderer.domElement.addEventListener("click", handleClick);
     renderer.domElement.addEventListener("mousemove", handlePointerMove);
 
-    // ==============================================================
-    // ANIMATION LOOP (PERSISTENT & BUTTERY-SMOOTH)
-    // ==============================================================
+    // Animation Loop
     const clock = new T.Clock();
 
     const animate = () => {
@@ -380,19 +350,18 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
 
     animate();
 
-    // Resize observer
     const handleResize = () => {
-      if (!el || !renderer || !camera || disposed) return;
+      if (!el || disposed) return;
       camera.aspect = el.clientWidth / el.clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(el.clientWidth, el.clientHeight);
     };
+
     const resizeObs = new ResizeObserver(handleResize);
     resizeObs.observe(el);
 
     return () => {
       disposed = true;
-      abort.abort();
       cancelAnimationFrame(animFrame);
       resizeObs.disconnect();
       renderer.domElement.removeEventListener("click", handleClick);
@@ -403,14 +372,32 @@ export default function DashboardBodyMap3D({ activeHotspot, onSelectHotspot }: P
         el.removeChild(renderer.domElement);
       }
     };
-  }, []); // Run ONCE on mount!
+  }, []);
 
   return (
-    <div className="relative w-full h-full min-h-[185px] flex items-center justify-center">
+    <div className="relative w-full h-full min-h-[220px] flex items-center justify-center">
       {/* 3D WebGL Canvas Host */}
       <div ref={mountRef} className="w-full h-full absolute inset-0 cursor-grab active:cursor-grabbing" />
 
-      {/* Subtle Bottom Hologram Ground Flare */}
+      {/* View Angle Selector Buttons (Front / Side / Back) */}
+      <div className="absolute top-1 right-1 z-20 flex items-center bg-white/80 backdrop-blur-md p-0.5 rounded-full border border-slate-200/60 shadow-2xs text-[10px] font-semibold">
+        {(["front", "side", "back"] as const).map((view) => (
+          <button
+            key={view}
+            type="button"
+            onClick={() => handleViewChange(view)}
+            className={`px-2 py-0.5 rounded-full capitalize transition-all cursor-pointer ${
+              activeView === view
+                ? "bg-[#1D1F22] text-white shadow-2xs"
+                : "text-[#64748B] hover:text-[#1D1F22]"
+            }`}
+          >
+            {view}
+          </button>
+        ))}
+      </div>
+
+      {/* Subtle Hologram Ground Flare */}
       <div
         className="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-6 rounded-full pointer-events-none"
         style={{

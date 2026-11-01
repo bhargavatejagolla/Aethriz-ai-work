@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import * as T from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { loadAtlasModel, type SystemGeometry } from "./atlas-loader";
 
 interface Props {
   viewMode: "Front" | "Back" | "Side";
@@ -149,101 +150,56 @@ export default function BodyExplorer3DViewer({
     scene.add(scanRing);
 
     // ==========================================
-    // 3D HUMAN ANATOMICAL MODEL
+    // REAL 3D HUMAN ANATOMICAL MODEL FROM ATLAS
     // ==========================================
     const bodyGroup = new T.Group();
     bodyGroupRef.current = bodyGroup;
+    scene.add(bodyGroup);
 
-    // Material dynamically adapts to chosen system layer
-    let bodyMat: T.Material;
-    if (systemLayer === "Skeletal") {
-      bodyMat = new T.MeshStandardMaterial({
-        color: 0xe2d9ba,
-        roughness: 0.45,
-        metalness: 0.1,
+    // Filter systems based on user selection
+    const activeSystems = new Set(
+      systemLayer === "Skeletal"
+        ? ["skeletal"]
+        : systemLayer === "Muscle"
+        ? ["muscular"]
+        : systemLayer === "Organ"
+        ? ["cardiac", "arterial"]
+        : ["muscular", "cardiac", "skeletal", "arterial"]
+    );
+
+    const addSystemMesh = ({ system, geometry }: SystemGeometry) => {
+      if (disposed) return;
+      if (!activeSystems.has(system)) return;
+
+      let colorHex = 0xa85b50; // muscular terracotta
+      let roughness = 0.48;
+      let metalness = 0.12;
+
+      if (system === "cardiac") {
+        colorHex = 0xdc2626;
+        roughness = 0.35;
+      } else if (system === "skeletal") {
+        colorHex = 0xd4c5a9;
+        roughness = 0.65;
+      } else if (system === "arterial") {
+        colorHex = 0xef4444;
+        roughness = 0.3;
+      }
+
+      const mat = new T.MeshStandardMaterial({
+        color: colorHex,
+        roughness,
+        metalness,
+        side: T.DoubleSide,
       });
-    } else if (systemLayer === "Muscle") {
-      bodyMat = new T.MeshStandardMaterial({
-        color: 0xa85b50,
-        roughness: 0.35,
-        metalness: 0.15,
-      });
-    } else if (systemLayer === "Organ") {
-      bodyMat = new T.MeshPhysicalMaterial({
-        color: 0xffdada,
-        roughness: 0.25,
-        metalness: 0.05,
-        transmission: 0.7,
-        transparent: true,
-        opacity: 0.75,
-      });
-    } else {
-      // Surface layer
-      bodyMat = new T.MeshPhysicalMaterial({
-        color: 0xffdcdb,
-        roughness: 0.22,
-        metalness: 0.05,
-        transmission: 0.65,
-        thickness: 0.55,
-        transparent: true,
-        opacity: 0.88,
-        ior: 1.34,
-      });
-    }
 
-    // Head
-    const headGeo = new T.SphereGeometry(0.125, 32, 32);
-    headGeo.scale(0.9, 1.15, 0.95);
-    const head = new T.Mesh(headGeo, bodyMat);
-    head.position.set(0, 1.55, 0);
-    bodyGroup.add(head);
-
-    // Neck
-    const neckGeo = new T.CylinderGeometry(0.052, 0.065, 0.1, 24);
-    const neck = new T.Mesh(neckGeo, bodyMat);
-    neck.position.set(0, 1.39, 0);
-    bodyGroup.add(neck);
-
-    // Chest & Abdomen
-    const chestGeo = new T.CylinderGeometry(0.19, 0.16, 0.32, 32);
-    chestGeo.scale(1.15, 1, 0.72);
-    const chest = new T.Mesh(chestGeo, bodyMat);
-    chest.position.set(0, 1.2, 0);
-    bodyGroup.add(chest);
-
-    const abdomenGeo = new T.CylinderGeometry(0.155, 0.175, 0.26, 32);
-    abdomenGeo.scale(1.1, 1, 0.7);
-    const abdomen = new T.Mesh(abdomenGeo, bodyMat);
-    abdomen.position.set(0, 0.93, 0);
-    bodyGroup.add(abdomen);
-
-    // Pelvis
-    const pelvisGeo = new T.CylinderGeometry(0.175, 0.14, 0.16, 32);
-    pelvisGeo.scale(1.1, 1, 0.75);
-    const pelvis = new T.Mesh(pelvisGeo, bodyMat);
-    pelvis.position.set(0, 0.74, 0);
-    bodyGroup.add(pelvis);
-
-    // Limbs Builder
-    const addLimb = (x: number, y: number, z: number, rotZ: number, len: number, rT: number, rB: number) => {
-      const g = new T.CylinderGeometry(rT, rB, len, 24);
-      const m = new T.Mesh(g, bodyMat);
-      m.position.set(x, y, z);
-      m.rotation.z = rotZ;
-      bodyGroup.add(m);
+      const mesh = new T.Mesh(geometry, mat);
+      bodyGroup.add(mesh);
     };
 
-    // Arms
-    addLimb(-0.25, 1.18, 0, 0.14, 0.32, 0.05, 0.042);
-    addLimb(0.25, 1.18, 0, -0.14, 0.32, 0.05, 0.042);
-    addLimb(-0.29, 0.88, 0.02, 0.08, 0.32, 0.04, 0.032);
-    addLimb(0.29, 0.88, 0.02, -0.08, 0.32, 0.04, 0.032);
-
-    // Legs
-    addLimb(-0.11, 0.48, 0, 0.04, 0.42, 0.068, 0.052);
-    addLimb(0.11, 0.48, 0, -0.04, 0.42, 0.068, 0.052);
-    addLimb(-0.115, 0.16, 0, 0.01, 0.38, 0.05, 0.038);
-    addLimb(0.115, 0.16, 0, -0.01, 0.38, 0.05, 0.038);
+    loadAtlasModel((item) => {
+      addSystemMesh(item);
+    }, activeSystems);
 
     // Hotspot Nodes
     // Right Shoulder Node (Focus issue)
@@ -279,8 +235,6 @@ export default function BodyExplorer3DViewer({
     );
     heartMesh.position.set(-0.035, 1.22, 0.045);
     bodyGroup.add(heartMesh);
-
-    scene.add(bodyGroup);
 
     // Animation Loop
     let clock = new T.Clock();

@@ -38,7 +38,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans bg-[#F1F5F9] text-[#1D1F22] antialiased selection:bg-[#E3202B] selection:text-white">
+      <body className="min-h-full flex flex-col font-sans bg-[#F1F5F9] text-[#1D1F22] antialiased selection:bg-[#E3202B] selection:text-white relative">
+        {/* Signature Ethereal Ambient Red Navbar Glow Aura across ALL pages */}
+        <div className="ae-top-nav-glow" aria-hidden="true" />
         {children}
       </body>
     </html>

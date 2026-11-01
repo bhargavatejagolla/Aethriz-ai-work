@@ -3,9 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as T from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
-import { decodeModelResponse } from "./model-download";
-import { type Atlas } from "./anatomy";
+import { loadAtlasModel, type SystemGeometry } from "./atlas-loader";
 
 export type NexusView = "front" | "side" | "back";
 
@@ -193,87 +191,33 @@ export default function NexusBodyScanner3D({
     scene.add(hotspotGroup);
 
     // Stream meshes from ashemag-human-atlas
-    (async () => {
-      try {
-        const atlasRes = await fetch("/models/atlas.json", { signal: abort.signal });
-        if (!atlasRes.ok) throw new Error("Could not load atlas.json");
-        const atlas: Atlas = await atlasRes.json();
-        if (disposed) return;
+    loadAtlasModel(({ system, geometry }) => {
+      if (disposed) return;
+      let colorHex = 0xf0b8b8; // soft translucent anatomical figure
+      let roughness = 0.55;
+      let metalness = 0.1;
 
-        const activeSystems = new Set(["muscular", "cardiac", "skeletal"]);
-        const chunkIndices = Array.from(
-          new Set(
-            atlas.parts
-              .filter((p) => activeSystems.has(p.system))
-              .map((p) => p.chunk)
-          )
-        );
-
-        for (const ci of chunkIndices) {
-          if (disposed) return;
-          const chunk = atlas.chunks[ci];
-          const compressed = !!chunk.gzip && typeof DecompressionStream !== "undefined";
-          const chunkRes = await fetch(compressed ? chunk.gzip! : chunk.url, {
-            signal: abort.signal,
-          });
-          const buffer = await decodeModelResponse(chunkRes, chunk.bytes, compressed);
-          if (disposed) return;
-
-          const groups = new Map<string, T.BufferGeometry[]>();
-
-          atlas.parts.forEach((p) => {
-            if (p.chunk !== ci || !activeSystems.has(p.system)) return;
-            const g = new T.BufferGeometry();
-            g.setAttribute(
-              "position",
-              new T.BufferAttribute(new Float32Array(buffer, p.positions, p.vertexCount * 3), 3)
-            );
-            g.setAttribute(
-              "normal",
-              new T.BufferAttribute(new Int16Array(buffer, p.normals, p.vertexCount * 3), 3, true)
-            );
-            g.setIndex(new T.BufferAttribute(new Uint32Array(buffer, p.indices, p.indexCount), 1));
-
-            const list = groups.get(p.system) || [];
-            list.push(g);
-            groups.set(p.system, list);
-          });
-
-          groups.forEach((geoms, system) => {
-            const merged = mergeGeometries(geoms, false);
-            if (!merged) return;
-
-            let colorHex = 0xf0b8b8; // soft translucent anatomical figure
-            let roughness = 0.55;
-            let metalness = 0.1;
-
-            if (system === "cardiac") {
-              colorHex = 0xe3202b;
-              roughness = 0.3;
-            }
-
-            const mat = new T.MeshStandardMaterial({
-              color: colorHex,
-              roughness,
-              metalness,
-              side: T.DoubleSide,
-              transparent: true,
-              opacity: 0.88,
-            });
-
-            const mesh = new T.Mesh(merged, mat);
-            scene.add(mesh);
-          });
-        }
-
-        if (!disposed) {
-          setHasAtlasLoaded(true);
-        }
-      } catch (err) {
-        // Fallback gracefully to schematic
-        console.warn("Atlas chunk load finished or aborted", err);
+      if (system === "cardiac") {
+        colorHex = 0xe3202b;
+        roughness = 0.3;
       }
-    })();
+
+      const mat = new T.MeshStandardMaterial({
+        color: colorHex,
+        roughness,
+        metalness,
+        side: T.DoubleSide,
+        transparent: true,
+        opacity: 0.88,
+      });
+
+      const mesh = new T.Mesh(geometry, mat);
+      scene.add(mesh);
+    }).then(() => {
+      if (!disposed) {
+        setHasAtlasLoaded(true);
+      }
+    });
 
     // Animation Loop
     const clock = new T.Clock();
