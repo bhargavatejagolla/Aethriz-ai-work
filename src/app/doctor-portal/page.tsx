@@ -1,16 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { clearSession } from "@/lib/auth";
+import { clearSession, getSession } from "@/lib/auth";
 import DoctorNavbar from "@/components/navigation/DoctorNavbar";
 
 export default function DoctorPortalPage() {
   const router = useRouter();
   const [triageAcknowledged, setTriageAcknowledged] = useState(false);
   const [activeTab, setActiveTab] = useState<"dashboard" | "patients" | "appointments">("dashboard");
+
+  useEffect(() => {
+    const session = getSession();
+    if (session && session.role === "patient") {
+      router.push("/dashboard");
+    }
+  }, [router]);
 
   const handleLogout = () => {
     clearSession();

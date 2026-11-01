@@ -48,14 +48,14 @@ export default function PatientNavbar({ activeTab }: Props) {
     router.push("/login");
   };
 
-  const initials = user?.name
-    ? user.name
-        .split(" ")
-        .map((n) => n[0])
-        .join("")
-        .toUpperCase()
-        .slice(0, 2)
-    : "PR";
+  const cleanName = (user?.name || "Priyadarshini Rao").replace(/^Dr\.?\s+/i, "");
+  const initials = cleanName
+    .split(" ")
+    .filter(Boolean)
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2) || "PR";
 
   return (
     <header className="sticky top-3 sm:top-4 z-40 px-3 sm:px-6 w-full relative">
@@ -208,13 +208,15 @@ export default function PatientNavbar({ activeTab }: Props) {
 
           {/* User Profile Pill Capsule */}
           <Link
-            href="/profile"
+            href={user?.role === "doctor" ? "/doctor-portal" : "/profile"}
             className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FCECEE] hover:bg-[#F9DFE2] border border-[#F6C6CC] text-xs font-semibold text-[#1D1F22] transition-all cursor-pointer shadow-2xs group"
           >
             <div className="w-6 h-6 rounded-full bg-[#E3202B] text-white flex items-center justify-center font-bold text-[10.5px] transition-transform group-hover:scale-105">
               {initials}
             </div>
-            <span className="hidden sm:inline font-medium">My profile</span>
+            <span className="hidden sm:inline font-medium">
+              {user?.role === "doctor" ? "Doctor Portal" : "My profile"}
+            </span>
           </Link>
 
           {/* Logout Button */}

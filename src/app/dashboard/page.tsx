@@ -57,6 +57,10 @@ export default function DashboardPage() {
   useEffect(() => {
     const session = getSession();
     if (session) {
+      if (session.role === "doctor") {
+        router.push("/doctor-portal");
+        return;
+      }
       setUser(session);
     } else {
       // Default demo profile for seamless offline preview

@@ -3,7 +3,9 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import DoctorNavbar from "@/components/navigation/DoctorNavbar";
+import { getSession } from "@/lib/auth";
 
 interface AppointmentSlot {
   id: string;
@@ -259,7 +261,15 @@ const APPOINTMENTS: AppointmentSlot[] = [
 ];
 
 export default function DoctorAppointmentsPage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<"timeline" | "triage">("timeline");
+
+  useEffect(() => {
+    const session = getSession();
+    if (session && session.role === "patient") {
+      router.push("/booking");
+    }
+  }, [router]);
   const [selectedId, setSelectedId] = useState<string>("apt-4"); // Default Aarav Kapoor
   const [waitTimer, setWaitTimer] = useState<number>(134); // 02:14
   const [isMicMuted, setIsMicMuted] = useState(false);

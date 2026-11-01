@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import DoctorNavbar from "@/components/navigation/DoctorNavbar";
+import { getSession } from "@/lib/auth";
 
 type Severity = "Attention" | "Watch" | "Optimal";
 
@@ -300,7 +302,15 @@ const PATIENTS: Patient[] = [
 ];
 
 export default function DoctorPatientsPage() {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const session = getSession();
+    if (session && session.role === "patient") {
+      router.push("/dashboard");
+    }
+  }, [router]);
   const [filterSeverity, setFilterSeverity] = useState<"All" | Severity>("All");
   const [selectedPatientId, setSelectedPatientId] = useState<string>("AE-30418");
   const [flaggedPatients, setFlaggedPatients] = useState<Record<string, boolean>>({});

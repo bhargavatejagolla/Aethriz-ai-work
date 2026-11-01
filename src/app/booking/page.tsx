@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, Suspense, useMemo } from "react";
+import React, { useState, useEffect, Suspense, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import PatientNavbar from "@/components/navigation/PatientNavbar";
+import { getSession } from "@/lib/auth";
 
 interface DoctorSummary {
   id: string;
@@ -201,6 +202,13 @@ const TIME_SLOTS = {
 
 function BookingPageContent() {
   const router = useRouter();
+
+  useEffect(() => {
+    const session = getSession();
+    if (session?.role === "doctor") {
+      router.push("/doctor/appointments");
+    }
+  }, [router]);
   const searchParams = useSearchParams();
   const paramDoctorId = searchParams.get("doctor") || "ananya-rao";
   const paramType = searchParams.get("type");

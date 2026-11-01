@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useState, Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import PatientNavbar from "@/components/navigation/PatientNavbar";
+import DoctorNavbar from "@/components/navigation/DoctorNavbar";
+import { getSession } from "@/lib/auth";
 
 interface DoctorFullProfile {
   id: string;
@@ -292,6 +294,14 @@ function DoctorProfileInner() {
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [messageText, setMessageText] = useState("");
   const [messageSent, setMessageSent] = useState(false);
+  const [isDoctorSession, setIsDoctorSession] = useState(false);
+
+  useEffect(() => {
+    const session = getSession();
+    if (session?.role === "doctor") {
+      setIsDoctorSession(true);
+    }
+  }, []);
 
   const activeFee = consultFormat === "video" ? doctor.videoFee : doctor.clinicFee;
 
@@ -310,8 +320,12 @@ function DoctorProfileInner() {
     <div className="min-h-screen bg-[#F4F5F8] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-24 relative overflow-x-hidden">
       {/* Signature Ambient Red Navbar Glow */}
       <div className="ae-top-nav-glow" />
-      {/* Standard Patient Navbar */}
-      <PatientNavbar activeTab="doctors" />
+      {/* Context-aware Navbar: Doctor portal for doctors, Patient navbar for patients/public */}
+      {isDoctorSession ? (
+        <DoctorNavbar activeTab="dashboard" />
+      ) : (
+        <PatientNavbar activeTab="doctors" />
+      )}
 
       {/* ============ MAIN VIEWPORT CONTAINER ============ */}
       <main className="max-w-[1060px] mx-auto px-4 sm:px-6 pt-5 sm:pt-7 space-y-6">
@@ -320,11 +334,11 @@ function DoctorProfileInner() {
         <div className="flex items-center justify-between text-xs">
           <div className="flex items-center gap-2">
             <Link
-              href="/doctors"
+              href={isDoctorSession ? "/doctor-portal" : "/doctors"}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-slate-200/80 text-[#1D1F22] hover:bg-slate-50 transition-all font-semibold shadow-2xs"
             >
               <span>←</span>
-              <span>Back to doctors</span>
+              <span>{isDoctorSession ? "Back to Doctor Portal" : "Back to doctors"}</span>
             </Link>
             <span className="text-[#94A3B8]">
               Doctors / <span className="text-[#475569] font-medium">{doctor.name}</span>

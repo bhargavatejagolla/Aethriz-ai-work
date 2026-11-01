@@ -301,10 +301,14 @@ export default function HealthAnalysisPage() {
 
   useEffect(() => {
     const session = getSession();
+    if (session?.role === "doctor") {
+      router.push("/doctor/nexus");
+      return;
+    }
     if (session) {
       setUser(session);
     }
-  }, []);
+  }, [router]);
 
   const toggleAccordion = (id: string) => {
     setExpandedId((prev) => (prev === id ? null : id));

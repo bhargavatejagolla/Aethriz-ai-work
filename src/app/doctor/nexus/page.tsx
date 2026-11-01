@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import { NexusView } from "@/components/anatomy/NexusBodyScanner3D";
 import DoctorNavbar from "@/components/navigation/DoctorNavbar";
+import { getSession } from "@/lib/auth";
 
 const NexusBodyScanner3D = dynamic(
   () => import("@/components/anatomy/NexusBodyScanner3D"),
@@ -27,7 +29,15 @@ const INITIAL_TRIAGE: TriageItem[] = [
 ];
 
 export default function DoctorNexusPage() {
+  const router = useRouter();
   const [selectedCohort, setSelectedCohort] = useState<"All" | "Metabolic" | "Cardiovascular" | "Thyroid">("All");
+
+  useEffect(() => {
+    const session = getSession();
+    if (session && session.role === "patient") {
+      router.push("/health-analysis");
+    }
+  }, [router]);
   const [cameraView, setCameraView] = useState<NexusView>("front");
   const [activeOrgan, setActiveOrgan] = useState<"brain" | "lungs" | "heart" | "metabolic" | null>("heart");
   const [triageList, setTriageList] = useState<TriageItem[]>(INITIAL_TRIAGE);

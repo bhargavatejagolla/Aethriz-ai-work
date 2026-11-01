@@ -17,7 +17,7 @@ export const MOCK_USERS: Record<string, { user: UserProfile; password: string; r
   "patient@aethriz.com": {
     user: {
       id: "usr-pat-01",
-      name: "Priyadarshini Mishra",
+      name: "Priyadarshini Rao",
       email: "patient@aethriz.com",
       phone: "+91 98765 43210",
       role: "patient",
@@ -30,12 +30,12 @@ export const MOCK_USERS: Record<string, { user: UserProfile; password: string; r
   },
   "doctor@aethriz.com": {
     user: {
-      id: "doc-arv-01",
-      name: "Dr. Arvind Swaminathan, MD",
+      id: "doc-ananya-01",
+      name: "Dr. Ananya Rao",
       email: "doctor@aethriz.com",
       phone: "+91 98111 22334",
       role: "doctor",
-      specialty: "Interventional Cardiology & Preventive AI",
+      specialty: "Endocrinology & Metabolic Health",
       language: "English",
     },
     password: "doctor123",
