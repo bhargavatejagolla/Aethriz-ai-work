@@ -387,7 +387,7 @@ export default function LandingPage() {
             </Link>
 
             <Link
-              href="#register"
+              href="/login"
               className="ae-btn-dark inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium text-white shadow-[0_8px_20px_rgba(14,15,17,0.25),inset_0_1px_0_rgba(255,255,255,0.2)]"
               style={{
                 background: "linear-gradient(180deg, #32363A 0%, #1D1F22 100%)",
@@ -486,6 +486,16 @@ export default function LandingPage() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <rect x="3" y="5" width="18" height="14" rx="3" />
                 <path d="M3.5 7l8.5 6 8.5-6" />
+              </svg>
+            </Link>
+            <Link
+              href="/login"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-3 bg-[#1D1F22] text-white rounded-2xl font-medium flex items-center justify-between mt-1 shadow-sm"
+            >
+              <span>Sign in</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <path d="M7 17L17 7M17 7H7M17 7V17" />
               </svg>
             </Link>
           </div>

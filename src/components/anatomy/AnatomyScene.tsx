@@ -219,8 +219,8 @@ export default function AnatomyScene({ atlas, state, onSelect, onProgress, onErr
         );
         shader.fragmentShader = shader.fragmentShader.replace(
           '#include <color_fragment>',
-          // Highlight selected structures in radiant bio-cyan
-          '#include <color_fragment>\ndiffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.15, 0.95, 0.75), partSelected * 0.85);'
+          // Highlight selected structures in radiant AETHRIZ crimson
+          '#include <color_fragment>\ndiffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.92, 0.12, 0.18), partSelected * 0.9);'
         );
       };
       materials.push(m);

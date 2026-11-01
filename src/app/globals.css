@@ -259,6 +259,42 @@
 .ae-btn:hover { transform: translateY(-2px); color: #1D1F22; }
 .ae-btn-dark:hover { color: #FFFFFF; }
 
+@keyframes ae-pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(227, 32, 43, 0.7);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 8px rgba(227, 32, 43, 0);
+  }
+}
+.ae-pulse-glow {
+  animation: ae-pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes ae-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.ae-fade-in {
+  animation: ae-fade-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes ae-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.ae-shimmer {
+  animation: ae-shimmer 2.5s infinite;
+}
+
 .ae-hot {
   position: absolute;
   width: 12px;
