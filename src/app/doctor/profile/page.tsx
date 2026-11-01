@@ -306,7 +306,9 @@ function DoctorProfileInner() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F5F8] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-24">
+    <div className="min-h-screen bg-[#F4F5F8] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-24 relative overflow-x-hidden">
+      {/* Signature Ambient Red Navbar Glow */}
+      <div className="ae-top-nav-glow" />
       {/* ============ TOP FLOATING NAVBAR MATCHING MOCKUP ============ */}
       <header className="sticky top-4 z-40 px-4 sm:px-6">
         <nav

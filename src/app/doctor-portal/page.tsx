@@ -17,7 +17,9 @@ export default function DoctorPortalPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F6F9] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-14">
+    <div className="min-h-screen bg-[#F4F6F9] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-14 relative overflow-x-hidden">
+      {/* Signature Ambient Red Navbar Glow */}
+      <div className="ae-top-nav-glow" />
       {/* ============ TOP NAVBAR ============ */}
       <header className="sticky top-4 z-40 px-4 sm:px-6">
         <nav

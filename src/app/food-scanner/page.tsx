@@ -175,7 +175,9 @@ export default function FoodScannerPage() {
     .toUpperCase();
 
   return (
-    <div className="min-h-screen bg-[#F4F5F8] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-20">
+    <div className="min-h-screen bg-[#F4F5F8] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-20 relative overflow-x-hidden">
+      {/* Signature Ambient Red Navbar Glow */}
+      <div className="ae-top-nav-glow" />
       {/* Hidden file input */}
       <input
         type="file"
