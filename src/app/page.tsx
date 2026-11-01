@@ -87,49 +87,49 @@ export default function LandingPage() {
             </span>
           </Link>
 
-          {/* Direct In-Page Section Navigation Links */}
+          {/* Direct In-Page Section Navigation Links matching landing page sections */}
           <div className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
             <a
-              href="#services"
+              href="#overview"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
             >
-              AI Health
+              Overview
             </a>
             <a
-              href="#analysis"
+              href="#action-plan"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
             >
-              Analysis
+              Action Plan
             </a>
             <a
-              href="#doctors"
+              href="#technology"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
             >
-              Doctors
+              Technology
             </a>
             <a
-              href="#bookings"
+              href="#telemetry"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
             >
-              Bookings
+              Telemetry
             </a>
             <a
-              href="#food-scanner"
+              href="#how-it-works"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
             >
-              Food Scanner
+              How It Works
             </a>
             <a
-              href="#body-explorer"
+              href="#mission"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
             >
-              Body Explorer
+              Mission
             </a>
             <a
-              href="#articles"
+              href="#faq"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
             >
-              Articles
+              FAQ
             </a>
           </div>
 
@@ -219,54 +219,54 @@ export default function LandingPage() {
         {mobileMenuOpen && (
           <div className="md:hidden mt-3 max-w-[1180px] mx-auto p-4 rounded-3xl bg-white/95 backdrop-blur-xl border border-white/80 shadow-2xl flex flex-col gap-2 text-sm animate-in fade-in duration-200">
             <a
-              href="#services"
+              href="#overview"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-semibold text-[#1D1F22] flex items-center justify-between"
             >
-              <span>AI Health</span>
-              <span className="text-xs text-[#C8161F] font-mono">LIVE</span>
+              <span>Overview</span>
+              <span className="text-xs text-[#C8161F] font-mono">HERO</span>
             </a>
             <a
-              href="#analysis"
+              href="#action-plan"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
-              Analysis
+              Action Plan
             </a>
             <a
-              href="#doctors"
+              href="#technology"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
-              Doctors
+              Technology
             </a>
             <a
-              href="#bookings"
+              href="#telemetry"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
-              Bookings
+              Telemetry
             </a>
             <a
-              href="#food-scanner"
+              href="#how-it-works"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
-              Food Scanner
+              How It Works
             </a>
             <a
-              href="#body-explorer"
+              href="#mission"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
-              Body Explorer (3D)
+              Mission & Vision
             </a>
             <a
-              href="#articles"
+              href="#faq"
               onClick={() => setMobileMenuOpen(false)}
               className="p-3 bg-slate-50/80 rounded-2xl font-medium text-[#1D1F22]"
             >
-              Articles & Insights
+              FAQ
             </a>
             <Link
               href="#contact"
@@ -293,7 +293,8 @@ export default function LandingPage() {
         )}
       </header>
 
-      {/* ============ HERO SECTION / BODY EXPLORER ============ */}
+      {/* ============ HERO SECTION / OVERVIEW ============ */}
+      <div id="overview" className="scroll-mt-28" />
       <div id="body-explorer" className="scroll-mt-28" />
       <section
         id="top"
@@ -1180,7 +1181,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ============ BEFORE / AFTER: DRAG TO REVEAL (AI HEALTH) ============ */}
+      {/* ============ BEFORE / AFTER: DRAG TO REVEAL (ACTION PLAN) ============ */}
+      <div id="action-plan" className="scroll-mt-28" />
       <div id="ai-health" className="scroll-mt-28" />
       <section
         id="services"
@@ -1564,7 +1566,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ============ DARK STATS & 3D NEURAL GLOBE (ANALYSIS) ============ */}
+      {/* ============ DARK STATS & 3D NEURAL GLOBE (TECHNOLOGY) ============ */}
+      <div id="technology" className="scroll-mt-28" />
       <div id="analysis" className="scroll-mt-28" />
       <section className="ae-rv max-w-[1240px] mx-auto px-6 pt-20 sm:pt-28 scroll-mt-28">
         <div className="relative overflow-hidden rounded-[40px] bg-[#121316] text-white p-8 sm:p-14 lg:p-20">
@@ -1787,7 +1790,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ============ BEYOND STANDARD HEALTHCARE & DOCTORS ============ */}
+      {/* ============ BEYOND STANDARD HEALTHCARE & TELEMETRY ============ */}
+      <div id="telemetry" className="scroll-mt-28" />
       <div id="doctors" className="scroll-mt-28" />
       <section className="ae-rv max-w-[1240px] mx-auto px-6 pt-20 sm:pt-28 flex flex-wrap gap-14 sm:gap-16 items-center scroll-mt-28">
         {/* Left Telemetry Card Stack */}
@@ -2489,7 +2493,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ============ HOW IT WORKS / FOOD SCANNER & HABITS ============ */}
+      {/* ============ HOW IT WORKS / PIPELINE ============ */}
+      <div id="how-it-works" className="scroll-mt-28" />
       <div id="food-scanner" className="scroll-mt-28" />
       <section
         id="how"
@@ -2885,7 +2890,7 @@ export default function LandingPage() {
       {/* ============ FAQ ACCORDION ============ */}
       <section
         id="faq"
-        className="ae-rv max-w-[880px] mx-auto px-6 pt-20 sm:pt-28"
+        className="ae-rv max-w-[880px] mx-auto px-6 pt-20 sm:pt-28 scroll-mt-28"
       >
         <h2
           className="m-0 mb-10 text-center font-light text-[clamp(36px,4.4vw,58px)] tracking-tight text-[#1D1F22]"
