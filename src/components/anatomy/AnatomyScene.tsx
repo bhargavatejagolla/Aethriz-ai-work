@@ -64,13 +64,14 @@ export default function AnatomyScene({ atlas, state, onSelect, onProgress, onErr
     const scene = new T.Scene();
     const camera = new T.PerspectiveCamera(34, 1, 0.005, 100);
     const controls = new OrbitControls(camera, renderer.domElement);
-    camera.position.set(0, 0.88, 1.95);
-    controls.target.set(0, 0.88, 0);
+    camera.position.set(0, 0.94, 3.15);
+    controls.target.set(0, 0.92, 0);
     controls.enableDamping = true;
     controls.dampingFactor = 0.085;
     controls.minDistance = 0.5;
     controls.maxDistance = 8;
     controls.maxPolarAngle = Math.PI * 0.96;
+    controls.update();
     controls.addEventListener('change', () => {
       dirty = true;
     });
@@ -293,7 +294,7 @@ export default function AnatomyScene({ atlas, state, onSelect, onProgress, onErr
 
     const fit = (view: string, extent = 0) => {
       const mobile = el.clientWidth < 768;
-      const normalDistance = mobile ? 2.4 : 1.95;
+      const normalDistance = mobile ? 3.45 : 3.15;
       const reservedHeight = mobile ? 80 : 40;
       const availableAspect = Math.max(0.35, el.clientWidth / Math.max(160, el.clientHeight - reservedHeight));
       const atlasDistance =
@@ -311,7 +312,7 @@ export default function AnatomyScene({ atlas, state, onSelect, onProgress, onErr
           ? new T.Vector3(1, 0.02, 0)
           : new T.Vector3(0.35, 0.06, 1).normalize();
 
-      controls.target.set(0, 0.88, 0);
+      controls.target.set(0, 0.92, 0);
       camera.position.copy(controls.target).addScaledVector(direction, distance);
       controls.update();
       dirty = true;

@@ -77,17 +77,18 @@ export default function BodyExplorer3DViewer({
     el.appendChild(renderer.domElement);
 
     const scene = new T.Scene();
-    const camera = new T.PerspectiveCamera(32, el.clientWidth / el.clientHeight, 0.05, 50);
-    camera.position.set(0, 1.0, 3.2);
+    const camera = new T.PerspectiveCamera(34, el.clientWidth / el.clientHeight, 0.05, 50);
+    camera.position.set(0, 0.94, 3.25);
     cameraRef.current = camera;
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(0, 0.9, 0);
+    controls.target.set(0, 0.92, 0);
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
     controls.minDistance = 1.0;
     controls.maxDistance = 6.0;
     controls.maxPolarAngle = Math.PI * 0.92;
+    controls.update();
     controlsRef.current = controls;
 
     // Lights
@@ -286,7 +287,7 @@ export default function BodyExplorer3DViewer({
   }, [systemLayer]);
 
   return (
-    <div className="relative w-full h-[520px] flex items-center justify-center">
+    <div className="relative w-full h-[600px] flex items-center justify-center">
       <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
 
       {/* Floating Target Node Callout */}
