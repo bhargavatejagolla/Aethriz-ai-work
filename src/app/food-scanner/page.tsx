@@ -15,7 +15,6 @@ interface FoodPreset {
   healthScore: number;
   glycemicIndex: number;
   giRating: "Low" | "Medium" | "High";
-  giRatingHi: "कम (सुरक्षित)" | "मध्यम" | "उच्च (सतर्क)";
   calories: number;
   protein: number;
   carbs: number;
@@ -23,25 +22,22 @@ interface FoodPreset {
   fiber: number;
   sugar: number;
   allergens: string[];
-  allergensHi: string[];
   healthyIngredients: string[];
   additives: { code: string; name: string; safety: "safe" | "caution" | "avoid"; note: string }[];
   clinicalVerdict: string;
-  clinicalVerdictHi: string;
 }
 
 const PRESET_FOODS: FoodPreset[] = [
   {
-    id: "granola",
+    id: "label-scan",
     name: "Almond & Flax Seed Granola",
     nameHi: "बादाम एवं अलसी ग्रेनोला",
-    category: "Packaged Food Label",
+    category: "Packaged Snack / Breakfast",
     fileName: "label_scan.jpg",
     fileSize: "340 KB",
     healthScore: 84,
     glycemicIndex: 38,
     giRating: "Low",
-    giRatingHi: "कम (सुरक्षित)",
     calories: 220,
     protein: 8.5,
     carbs: 24.0,
@@ -49,25 +45,22 @@ const PRESET_FOODS: FoodPreset[] = [
     fiber: 6.2,
     sugar: 4.5,
     allergens: ["Tree nuts (Almonds)"],
-    allergensHi: ["ड्राई फ्रूट्स (बादाम)"],
     healthyIngredients: ["Rolled whole oats", "Raw California almonds", "Golden flaxseeds", "Chia seeds", "Organic cinnamon"],
     additives: [
       { code: "E306", name: "Natural Tocopherols (Vitamin E)", safety: "safe", note: "Plant-derived antioxidant protecting healthy oils" }
     ],
-    clinicalVerdict: "Excellent choice for your metabolic profile. High beta-glucan soluble fiber prevents post-meal glucose spikes and supports LDL reduction.",
-    clinicalVerdictHi: "आपकी मेटाबॉलिक स्थिति के लिए उत्तम विकल्प। घुलनशील फाइबर ब्लड शुगर स्पाइक को रोकता है और बैड कोलेस्ट्रॉल कम करने में सहायक है।"
+    clinicalVerdict: "Clean formulation with high beta-glucan soluble fiber that prevents postprandial glucose spikes and supports optimal lipid metabolism."
   },
   {
-    id: "dal-plate",
+    id: "thali-scan",
     name: "Dal Tadka with Brown Rice & Bhindi Sabzi",
     nameHi: "दाल तड़का, ब्राउन राइस एवं भिंडी सब्जी",
     category: "Home Cooked Meal Plate",
-    fileName: "meal_plate_scan.jpg",
+    fileName: "thali_photo.jpg",
     fileSize: "480 KB",
     healthScore: 92,
     glycemicIndex: 42,
     giRating: "Low",
-    giRatingHi: "कम (सुरक्षित)",
     calories: 385,
     protein: 16.4,
     carbs: 52.0,
@@ -75,62 +68,55 @@ const PRESET_FOODS: FoodPreset[] = [
     fiber: 9.6,
     sugar: 2.1,
     allergens: ["None detected"],
-    allergensHi: ["कोई एलर्जी कारक नहीं"],
-    healthyIngredients: ["Moong & Toor dal", "Brown basmati rice", "Fresh okra (bhindi)", "Turmeric & cumin", "Cold pressed mustard oil"],
+    healthyIngredients: ["Moong & Toor dal", "Brown basmati rice", "Fresh okra (bhindi)", "Turmeric & cumin", "Cold-pressed mustard oil"],
     additives: [],
-    clinicalVerdict: "Perfect balanced Indian plate. 2:1 ratio of sabzi to rice aligns with your 30-day nutrition plan to steady HbA1c.",
-    clinicalVerdictHi: "पूरी तरह संतुलित भारतीय थाली। सब्जियों और दाल का यह अनुपात ब्लड शुगर को स्थिर रखने के लिए बिल्कुल उपयुक्त है।"
+    clinicalVerdict: "Exemplary balanced Indian plate. 2:1 ratio of vegetables and lentils to grains aligns with your glucose stability and HbA1c target."
   },
   {
-    id: "protein-bar",
-    name: "Chocolate Fudge Whey Protein Bar",
-    nameHi: "चॉकलेट वे प्रोटीन बार",
-    category: "Packaged Snack",
-    fileName: "protein_bar_label.jpg",
+    id: "snack-scan",
+    name: "Roasted Makhana (Foxnuts) with Himalayan Pink Salt",
+    nameHi: "भुना हुआ मखाना (सेंधा नमक)",
+    category: "Natural Superfood Snack",
+    fileName: "makhana_packet.jpg",
     fileSize: "290 KB",
-    healthScore: 68,
-    glycemicIndex: 54,
-    giRating: "Medium",
-    giRatingHi: "मध्यम",
-    calories: 260,
-    protein: 21.0,
-    carbs: 26.0,
-    fats: 7.2,
-    fiber: 3.5,
-    sugar: 8.2,
-    allergens: ["Milk (Whey)", "Soy lecithin"],
-    allergensHi: ["दूध (व्हे)", "सोया"],
-    healthyIngredients: ["Whey protein isolate", "Cocoa powder", "Almond butter"],
-    additives: [
-      { code: "E955", name: "Sucralose", safety: "caution", note: "Artificial non-caloric sweetener; may alter gut microbiome in sensitive individuals" },
-      { code: "E471", name: "Mono- and diglycerides of fatty acids", safety: "caution", note: "Emulsifier used for bar shelf texture" }
-    ],
-    clinicalVerdict: "High protein support for muscle synthesis, but watch the artificial sweeteners and emulsifiers. Consume occasionally.",
-    clinicalVerdictHi: "प्रोटीन की मात्रा अच्छी है, परंतु कृत्रिम मिठास होने के कारण सीमित मात्रा में ही सेवन करें।"
+    healthScore: 94,
+    glycemicIndex: 32,
+    giRating: "Low",
+    calories: 140,
+    protein: 4.8,
+    carbs: 22.0,
+    fats: 2.2,
+    fiber: 4.2,
+    sugar: 0.2,
+    allergens: ["None detected"],
+    healthyIngredients: ["Air-roasted fox nuts", "A2 Ghee (light mist)", "Himalayan rock salt", "Black pepper"],
+    additives: [],
+    clinicalVerdict: "Low glycemic, low sodium, and potassium-rich. An ideal afternoon snack that will not cause insulin or blood sugar surges."
   }
 ];
 
 export default function FoodScannerPage() {
   const [user, setUser] = useState<UserProfile | null>(null);
-  const [language, setLanguage] = useState<"en" | "hi">("en");
   
-  // Prompt & File State
-  const [selectedPreset, setSelectedPreset] = useState<FoodPreset>(PRESET_FOODS[0]);
+  // Attached file chip state matching exact mockup
   const [attachedFile, setAttachedFile] = useState<{ name: string; size: string } | null>({
     name: "label_scan.jpg",
     size: "340 KB",
   });
   const [userQuery, setUserQuery] = useState("");
+  const [selectedPreset, setSelectedPreset] = useState<FoodPreset>(PRESET_FOODS[0]);
 
-  // Scan Checkboxes (matching exact mockup)
+  // Exact 3 checkboxes from the mockup:
+  // Checked: Allergen scan, Diabetic glycaemic index
+  // Unchecked: Additive check
   const [allergenScan, setAllergenScan] = useState(true);
   const [glycemicScan, setGlycemicScan] = useState(true);
-  const [additiveCheck, setAdditiveCheck] = useState(true);
+  const [additiveCheck, setAdditiveCheck] = useState(false);
 
-  // Vision Analysis Execution
+  // Vision scanning simulation
   const [isScanning, setIsScanning] = useState(false);
   const [scanProgress, setScanProgress] = useState(0);
-  const [showAnalysisResults, setShowAnalysisResults] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -138,9 +124,6 @@ export default function FoodScannerPage() {
     const session = getSession();
     if (session) {
       setUser(session);
-      if (session.language && session.language.includes("हिन्दी")) {
-        setLanguage("hi");
-      }
     }
   }, []);
 
@@ -149,21 +132,21 @@ export default function FoodScannerPage() {
     const preset = PRESET_FOODS[presetIndex];
     setSelectedPreset(preset);
     setAttachedFile({ name: preset.fileName, size: preset.fileSize });
-    handleScan(preset);
+    handleRunScan(preset);
   };
 
-  const handleScan = (presetToUse = selectedPreset) => {
+  const handleRunScan = (presetToUse = selectedPreset) => {
     setIsScanning(true);
-    setScanProgress(20);
-    setShowAnalysisResults(false);
+    setScanProgress(25);
+    setShowResults(false);
 
-    const t1 = setTimeout(() => setScanProgress(55), 250);
-    const t2 = setTimeout(() => setScanProgress(88), 500);
+    const t1 = setTimeout(() => setScanProgress(60), 200);
+    const t2 = setTimeout(() => setScanProgress(90), 450);
     const t3 = setTimeout(() => {
       setScanProgress(100);
       setIsScanning(false);
-      setShowAnalysisResults(true);
-    }, 750);
+      setShowResults(true);
+    }, 700);
 
     return () => {
       clearTimeout(t1);
@@ -179,16 +162,21 @@ export default function FoodScannerPage() {
         name: file.name,
         size: `${Math.round(file.size / 1024)} KB`,
       });
-      // Switch preset or analyze
       setSelectedPreset(PRESET_FOODS[0]);
     }
   };
 
-  const userName = user?.name?.split(" ")[0] || "Aarav";
+  const userName = user?.name || "Aarav Kumar";
+  const userInitials = userName
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .substring(0, 2)
+    .toUpperCase();
 
   return (
     <div className="min-h-screen bg-[#F4F5F8] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-20">
-      {/* Hidden File Input */}
+      {/* Hidden file input */}
       <input
         type="file"
         ref={fileInputRef}
@@ -197,14 +185,14 @@ export default function FoodScannerPage() {
         className="hidden"
       />
 
-      {/* ============ TOP FLOATING NAVBAR ============ */}
+      {/* ============ TOP FLOATING NAVBAR MATCHING EXACT MOCKUP ============ */}
       <header className="sticky top-4 z-40 px-4 sm:px-6">
         <nav
           aria-label="Main"
-          className="relative max-w-[1240px] mx-auto p-2 pl-4 sm:pl-5 flex items-center justify-between gap-3 rounded-full border border-white/80 shadow-[0_20px_50px_rgba(120,60,90,0.1),0_2px_8px_rgba(29,31,34,0.04),inset_0_1.5px_0_rgba(255,255,255,0.95)]"
+          className="relative max-w-[1100px] mx-auto p-2 pl-4 sm:pl-5 flex items-center justify-between gap-3 rounded-full border border-white/80 shadow-[0_20px_50px_rgba(220,120,140,0.12),0_2px_8px_rgba(29,31,34,0.04),inset_0_1.5px_0_rgba(255,255,255,0.95)]"
           style={{
             background:
-              "linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.75) 50%, rgba(255,255,255,0.88) 100%)",
+              "linear-gradient(135deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.78) 50%, rgba(255,255,255,0.90) 100%)",
             backdropFilter: "blur(28px) saturate(200%)",
             WebkitBackdropFilter: "blur(28px) saturate(200%)",
           }}
@@ -221,48 +209,31 @@ export default function FoodScannerPage() {
                 priority
               />
             </div>
-            <span className="flex flex-col leading-none">
-              <span
-                className="font-semibold text-[15.5px] tracking-[0.14em] text-[#1D1F22]"
-                style={{ fontFamily: "'Inter Tight', sans-serif" }}
-              >
-                AETHRIZ
-              </span>
-              <span className="text-[8.5px] tracking-[0.22em] text-[#C8161F] mt-[2px] font-mono">
-                BIO-HEALTH AI
-              </span>
+            <span
+              className="font-semibold text-[15.5px] tracking-[0.12em] text-[#1D1F22]"
+              style={{ fontFamily: "'Inter Tight', sans-serif" }}
+            >
+              AETHRIZ
             </span>
           </Link>
 
           {/* Center Navigation Pills */}
-          <div className="hidden lg:flex items-center gap-1.5 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
+          <div className="hidden md:flex items-center gap-1 text-[13px] font-medium text-[#545B61]">
             <Link
               href="/dashboard"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
             >
-              AI Health
+              Dashboard
             </Link>
             <Link
               href="/health-analysis"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
             >
-              Analysis
-            </Link>
-            <Link
-              href="/doctors"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Doctors
-            </Link>
-            <Link
-              href="/booking"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
-            >
-              Bookings
+              Health Analysis
             </Link>
             <Link
               href="/food-scanner"
-              className="px-3.5 py-1.5 rounded-full bg-white text-[#1D1F22] font-semibold shadow-xs transition-all"
+              className="px-4 py-1.5 rounded-full bg-white text-[#1D1F22] font-semibold shadow-xs border border-slate-200/60 transition-all"
             >
               Food Scanner
             </Link>
@@ -273,6 +244,12 @@ export default function FoodScannerPage() {
               Body Explorer
             </Link>
             <Link
+              href="/doctors"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
+            >
+              Doctors
+            </Link>
+            <Link
               href="/stories"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/50 transition-all"
             >
@@ -280,212 +257,206 @@ export default function FoodScannerPage() {
             </Link>
           </div>
 
-          {/* Right Action: Language + Profile */}
-          <div className="flex items-center gap-2">
-            <div className="flex items-center bg-slate-100 p-0.5 rounded-full text-xs font-medium">
-              <button
-                type="button"
-                onClick={() => setLanguage("en")}
-                className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
-                  language === "en" ? "bg-white text-[#1D1F22] shadow-2xs font-semibold" : "text-[#64748B]"
-                }`}
-              >
-                EN
-              </button>
-              <button
-                type="button"
-                onClick={() => setLanguage("hi")}
-                className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
-                  language === "hi" ? "bg-white text-[#1D1F22] shadow-2xs font-semibold" : "text-[#64748B]"
-                }`}
-              >
-                हिन्दी
-              </button>
-            </div>
-
-            <Link
-              href="/profile"
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FCECEE] hover:bg-[#F9DFE2] border border-[#F6C6CC] text-xs font-semibold text-[#1D1F22] transition-all shadow-2xs"
-            >
-              <div className="w-6 h-6 rounded-full bg-[#E3202B] text-white flex items-center justify-center font-bold text-[10.5px]">
-                {userName.substring(0, 2).toUpperCase()}
-              </div>
-              <span className="hidden sm:inline font-medium">My profile</span>
-            </Link>
-          </div>
+          {/* Right User Avatar */}
+          <Link
+            href="/profile"
+            className="w-8 h-8 rounded-full bg-[#FCECEE] border border-[#F6C6CC] text-[#7F1D1D] flex items-center justify-center font-bold text-xs shadow-2xs hover:scale-105 transition-transform"
+          >
+            {userInitials || "AK"}
+          </Link>
         </nav>
       </header>
 
-      {/* ============ MAIN CONTAINER ============ */}
-      <main className="max-w-[1240px] mx-auto px-4 sm:px-6 pt-6 sm:pt-10 space-y-8">
+      {/* ============ MAIN VIEWPORT CONTAINER ============ */}
+      <main className="max-w-[1060px] mx-auto px-4 sm:px-6 pt-8 sm:pt-12 space-y-6">
         
-        {/* ============ HEADER SECTION MATCHING EXACT MOCKUP ============ */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 relative">
-          <div>
-            <p className="text-xs font-medium text-[#64748B] tracking-wide">
-              {language === "hi" ? "एआई स्वास्थ्य · खाद्य स्कैनर" : "AI Health · Food scanner"}
-            </p>
+        {/* ============ SUBHEADER MATCHING EXACT MOCKUP ============ */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-1.5 max-w-xl">
+            {/* Status Eyebrow */}
+            <div className="flex items-center gap-2 text-xs text-[#64748B]">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              <span className="font-semibold text-[#475569]">VISION ENGINE v2.4 READY</span>
+              <span>·</span>
+              <span>Indian food composition data synced</span>
+            </div>
+
+            {/* Main Title */}
             <h1
-              className="text-4xl sm:text-5xl font-semibold tracking-tight text-[#1D1F22] mt-1"
+              className="text-4xl sm:text-5xl font-light tracking-tight text-[#1D1F22] pt-1"
               style={{ fontFamily: "'Inter Tight', sans-serif" }}
             >
-              {language === "hi" ? "खाद्य स्कैनर।" : "Food scanner."}
+              AI Food Scanner.
             </h1>
-            <p className="text-sm sm:text-base text-[#64748B] mt-2">
-              {language === "hi"
-                ? "किसी भी खाद्य पदार्थ, थाली या पैकेज्ड लेबल को स्कैन करें।"
-                : "Scan any food, plate or packaged label."}
+
+            {/* Subtitle */}
+            <p className="text-sm text-[#475569] leading-relaxed pt-1">
+              Scan a packet, an ingredient list or a photo of your thali — and see what it means for you, not an average person.
             </p>
           </div>
 
-          {/* Right Floating 3D Crimson Pearl Sphere with Camera Reticle */}
-          <div className="relative w-28 h-28 flex items-center justify-center self-end md:self-auto flex-shrink-0">
-            {/* Viewfinder Reticle Frame */}
-            <div className="absolute inset-0 rounded-3xl border border-red-200/60 bg-white/40 backdrop-blur-md shadow-lg flex items-center justify-center">
-              {/* Corner brackets */}
-              <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-[#E3202B]" />
-              <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-[#E3202B]" />
-              <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-[#E3202B]" />
-              <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-[#E3202B]" />
-              
-              {/* 3D Radiant Red Sphere */}
-              <div
-                className="w-14 h-14 rounded-full shadow-[0_8px_20px_rgba(227,32,43,0.45)] flex items-center justify-center text-white ae-pulse-glow"
-                style={{
-                  background: "radial-gradient(circle at 35% 35%, #FF6469 0%, #E3202B 55%, #7F1D1D 100%)",
-                }}
-              >
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-                  <circle cx="12" cy="13" r="4" />
-                </svg>
-              </div>
+          {/* Private Analysis Pill Card */}
+          <div className="bg-white/95 rounded-2xl p-3.5 px-4 border border-slate-200/80 shadow-[0_4px_16px_rgba(29,31,34,0.03)] flex items-center gap-3 self-start md:self-auto flex-shrink-0">
+            <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <path d="M9 12l2 2 4-4" />
+              </svg>
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-[#1D1F22] leading-tight">Private analysis</h4>
+              <p className="text-[11px] text-[#64748B]">Photos are not kept after scanning</p>
             </div>
           </div>
         </div>
 
-        {/* ============ BIG CENTRAL AI VISION COMMAND CARD MATCHING EXACT MOCKUP ============ */}
-        <div className="bg-white rounded-[32px] p-8 sm:p-12 border border-slate-200/80 shadow-[0_20px_50px_rgba(29,31,34,0.05)] text-center relative overflow-hidden">
+        {/* ============ BIG CENTRAL AI VISION SCANNER CARD ============ */}
+        <div className="bg-white rounded-[36px] border border-slate-200/70 shadow-[0_20px_60px_rgba(29,31,34,0.04)] p-8 sm:p-14 text-center relative overflow-hidden">
           
-          {/* Subtle Background Glow */}
+          {/* Floating Left 3D Pearl Sphere (Soft Peach/Pink) */}
           <div
-            className="absolute left-1/2 -top-24 -translate-x-1/2 w-96 h-48 rounded-full pointer-events-none"
+            className="absolute left-8 sm:left-12 top-20 sm:top-24 w-24 sm:w-28 h-24 sm:h-28 rounded-full pointer-events-none shadow-[0_12px_32px_rgba(244,184,193,0.35)]"
             style={{
-              background: "radial-gradient(ellipse, rgba(227,32,43,0.08) 0%, transparent 70%)",
-              filter: "blur(40px)",
+              background: "radial-gradient(circle at 35% 35%, #FFF2F4 0%, #FED9DF 45%, #F5BAC3 100%)",
             }}
           />
 
-          {/* Centered Star Icon */}
-          <div className="flex justify-center mb-4">
-            <div className="w-10 h-10 rounded-full bg-red-50 text-[#E3202B] flex items-center justify-center text-lg shadow-2xs border border-red-100/80">
-              ✦
+          {/* Floating Right 3D Pearl Sphere (Soft Lavender) */}
+          <div
+            className="absolute right-8 sm:right-12 bottom-12 sm:bottom-16 w-32 sm:w-36 h-32 sm:h-36 rounded-full pointer-events-none shadow-[0_16px_40px_rgba(221,207,242,0.3)]"
+            style={{
+              background: "radial-gradient(circle at 35% 35%, #FCF9FE 0%, #EFE7FA 45%, #DFD2F3 100%)",
+            }}
+          />
+
+          {/* Center Scan Reticle Icon Badge */}
+          <div className="relative inline-block mb-6">
+            <div className="w-16 h-16 rounded-2xl bg-white border border-red-100 shadow-[0_10px_25px_rgba(227,32,43,0.14)] flex items-center justify-center text-[#E3202B]">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+                <line x1="7" y1="12" x2="17" y2="12" />
+                <line x1="7" y1="9" x2="17" y2="9" />
+                <line x1="7" y1="15" x2="17" y2="15" />
+              </svg>
             </div>
+            {/* Top-Right Red Dot Indicator */}
+            <span className="w-3 h-3 rounded-full bg-[#E3202B] absolute -top-1 -right-1 ring-2 ring-white shadow-xs" />
           </div>
 
-          {/* Centered Main Question */}
+          {/* Main Question Heading */}
           <h2
-            className="text-2xl sm:text-3xl lg:text-[34px] font-semibold text-[#1D1F22] tracking-tight max-w-2xl mx-auto leading-tight"
+            className="text-2xl sm:text-3xl lg:text-[32px] font-normal text-[#1D1F22] tracking-tight max-w-xl mx-auto leading-tight"
             style={{ fontFamily: "'Inter Tight', sans-serif" }}
           >
-            {language === "hi"
-              ? "आप अपने भोजन के बारे में क्या जानना चाहते हैं?"
-              : "What would you like to know about your food?"}
+            What would you like to know about your food?
           </h2>
 
-          <p className="text-xs sm:text-sm text-[#64748B] mt-2 max-w-lg mx-auto">
-            {language === "hi"
-              ? "तत्वों, स्वास्थ्य प्रभाव, हानिकारक एडिटिव्स या फोटो अपलोड करके पूछें।"
-              : "Ask about ingredients, health impact, additives or upload a photo."}
+          {/* Subtitle */}
+          <p className="text-xs sm:text-sm text-[#64748B] mt-2 mb-7 max-w-md mx-auto leading-relaxed">
+            Upload a food label, an ingredient list or a dish photo — or ask a question.
           </p>
 
-          {/* 3 Quick Action Chips */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 my-6">
+          {/* 3 Quick Action Chips Matching Exact Icons and Text */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
             <button
               type="button"
-              onClick={() => handleChipClick("Analyse this food label for diabetic safety and palm oil.", 0)}
-              className="px-4 py-2 rounded-full text-xs font-semibold bg-[#F8FAFC] text-[#475569] border border-slate-200/80 hover:bg-slate-100 hover:text-[#1D1F22] transition-all cursor-pointer shadow-2xs"
+              onClick={() => handleChipClick("Analyse this food label for diabetic safety, hidden palm oil, and glucose spike potential.", 0)}
+              className="px-4 py-2 rounded-full text-xs font-medium bg-white text-[#475569] border border-slate-200/90 hover:border-slate-300 hover:text-[#1D1F22] hover:bg-slate-50 transition-all cursor-pointer shadow-[0_2px_8px_rgba(29,31,34,0.03)] flex items-center gap-2"
             >
-              {language === "hi" ? "खाद्य लेबल का विश्लेषण करें" : "Analyse a food label"}
+              {/* Scan Reticle Icon */}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E3202B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+                <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+                <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+                <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+              </svg>
+              <span>Analyse a food label</span>
             </button>
 
             <button
               type="button"
-              onClick={() => handleChipClick("Explain all ingredients and check if there are hidden sugars or preservatives.", 0)}
-              className="px-4 py-2 rounded-full text-xs font-semibold bg-[#F8FAFC] text-[#475569] border border-slate-200/80 hover:bg-slate-100 hover:text-[#1D1F22] transition-all cursor-pointer shadow-2xs"
+              onClick={() => handleChipClick("Explain all ingredients, check for artificial emulsifiers, and flag potential allergens.", 0)}
+              className="px-4 py-2 rounded-full text-xs font-medium bg-white text-[#475569] border border-slate-200/90 hover:border-slate-300 hover:text-[#1D1F22] hover:bg-slate-50 transition-all cursor-pointer shadow-[0_2px_8px_rgba(29,31,34,0.03)] flex items-center gap-2"
             >
-              {language === "hi" ? "सामग्री को समझें" : "Explain the ingredients"}
+              {/* Chemistry Flask Icon */}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E3202B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10 2v7.31L4.1 19.3A2 2 0 0 0 5.8 22h12.4a2 2 0 0 0 1.7-2.7L14 9.31V2" />
+                <line x1="8" y1="2" x2="16" y2="2" />
+                <line x1="8.5" y1="14" x2="15.5" y2="14" />
+              </svg>
+              <span>Explain the ingredients</span>
             </button>
 
             <button
               type="button"
-              onClick={() => handleChipClick("Estimate calories and macro breakdown for this meal plate.", 1)}
-              className="px-4 py-2 rounded-full text-xs font-semibold bg-[#F8FAFC] text-[#475569] border border-slate-200/80 hover:bg-slate-100 hover:text-[#1D1F22] transition-all cursor-pointer shadow-2xs"
+              onClick={() => handleChipClick("Estimate calories and compare nutritional balance for this meal plate.", 1)}
+              className="px-4 py-2 rounded-full text-xs font-medium bg-white text-[#475569] border border-slate-200/90 hover:border-slate-300 hover:text-[#1D1F22] hover:bg-slate-50 transition-all cursor-pointer shadow-[0_2px_8px_rgba(29,31,34,0.03)] flex items-center gap-2"
             >
-              {language === "hi" ? "पोषण की तुलना करें" : "Compare nutrition"}
+              {/* Bar Chart Icon */}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E3202B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10" />
+                <line x1="12" y1="20" x2="12" y2="4" />
+                <line x1="6" y1="20" x2="6" y2="14" />
+              </svg>
+              <span>Compare nutrition</span>
             </button>
           </div>
 
-          {/* ============ PILL INPUT BAR MATCHING EXACT MOCKUP ============ */}
-          <div className="max-w-3xl mx-auto">
-            <div className="relative flex items-center bg-[#F8FAFC] border border-slate-200 rounded-full p-2 pl-4 shadow-sm hover:border-slate-300 transition-all focus-within:ring-2 focus-within:ring-[#E3202B]/20 focus-within:border-[#E3202B]">
+          {/* ============ SEARCH / PROMPT PILL CONTAINER ============ */}
+          <div className="max-w-3xl mx-auto relative z-10">
+            <div className="relative flex items-center bg-white border border-slate-200 rounded-full p-2 pl-3 shadow-[0_6px_20px_rgba(29,31,34,0.04)] focus-within:ring-2 focus-within:ring-[#E3202B]/20 focus-within:border-[#E3202B] transition-all">
               
-              {/* Paperclip / Image Attachment Trigger */}
+              {/* Camera Upload Button */}
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="text-slate-400 hover:text-slate-600 p-2 cursor-pointer flex-shrink-0 transition-colors"
-                title="Upload food photo or label"
+                className="w-10 h-10 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center flex-shrink-0 cursor-pointer transition-colors"
+                title="Upload or capture photo"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                  <circle cx="12" cy="13" r="4" />
                 </svg>
               </button>
 
-              {/* Attached File Chip */}
+              {/* Attached File Chip (e.g. label_scan.jpg 340 KB) */}
               {attachedFile && (
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-slate-200 text-xs text-[#1D1F22] font-semibold mr-2 flex-shrink-0 shadow-2xs">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E3202B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                    <circle cx="8.5" cy="8.5" r="1.5" />
-                    <polyline points="21 15 16 10 5 21" />
-                  </svg>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-50 text-[#E3202B] text-xs font-semibold mr-2 flex-shrink-0 border border-red-100/90 shadow-2xs">
                   <span>{attachedFile.name}</span>
-                  <span className="text-[10px] text-[#94A3B8] font-mono font-normal">
+                  <span className="text-[10.5px] font-mono text-[#E3202B]/70 font-normal">
                     {attachedFile.size}
                   </span>
                   <button
                     type="button"
                     onClick={() => setAttachedFile(null)}
-                    className="text-slate-400 hover:text-slate-600 ml-1 p-0.5 cursor-pointer"
+                    className="text-[#E3202B]/60 hover:text-[#E3202B] ml-0.5 p-0.5 cursor-pointer font-bold leading-none text-sm"
                   >
                     ×
                   </button>
                 </div>
               )}
 
-              {/* Natural Text Input */}
+              {/* Text Input with Mockup Placeholder */}
               <input
                 type="text"
                 value={userQuery}
                 onChange={(e) => setUserQuery(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") handleScan();
+                  if (e.key === "Enter") handleRunScan();
                 }}
-                placeholder={
-                  language === "hi"
-                    ? "पूछें: क्या यह बिस्किट डायबिटीज के लिए सुरक्षित है?"
-                    : "Ask anything about this food, ingredients, or health impact..."
-                }
+                placeholder="Ask about ingredients, allergens or nutrition..."
                 className="w-full bg-transparent text-sm text-[#1D1F22] placeholder:text-[#94A3B8] focus:outline-none px-2"
               />
 
-              {/* Black Circular Submit Button */}
+              {/* Red Circular Submit Arrow Button */}
               <button
                 type="button"
                 disabled={isScanning}
-                onClick={() => handleScan()}
-                className="w-11 h-11 rounded-full bg-[#1D1F22] hover:bg-black text-white flex items-center justify-center flex-shrink-0 shadow-md transition-all active:scale-95 cursor-pointer disabled:opacity-60"
+                onClick={() => handleRunScan()}
+                className="w-10 h-10 rounded-full bg-[#E3202B] hover:bg-[#C8161F] text-white flex items-center justify-center flex-shrink-0 shadow-md transition-all active:scale-95 cursor-pointer disabled:opacity-60"
                 title="Scan and analyse"
               >
                 {isScanning ? (
@@ -498,8 +469,9 @@ export default function FoodScannerPage() {
               </button>
             </div>
 
-            {/* 3 Checkbox Toggles Matching Exact Mockup */}
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-4 text-xs font-medium text-[#475569]">
+            {/* Checkbox Toggles Matching Exact Mockup */}
+            <div className="flex flex-wrap items-center justify-start sm:justify-center gap-6 mt-4 px-3 text-xs font-medium text-[#475569]">
+              {/* Allergen scan (Checked) */}
               <label className="flex items-center gap-2 cursor-pointer select-none">
                 <input
                   type="checkbox"
@@ -510,6 +482,7 @@ export default function FoodScannerPage() {
                 <span>Allergen scan</span>
               </label>
 
+              {/* Diabetic glycaemic index (Checked) */}
               <label className="flex items-center gap-2 cursor-pointer select-none">
                 <input
                   type="checkbox"
@@ -520,6 +493,7 @@ export default function FoodScannerPage() {
                 <span>Diabetic glycaemic index</span>
               </label>
 
+              {/* Additive check (Unchecked by default in mockup) */}
               <label className="flex items-center gap-2 cursor-pointer select-none">
                 <input
                   type="checkbox"
@@ -533,7 +507,7 @@ export default function FoodScannerPage() {
           </div>
 
           {/* ============ LIVE CLINICAL TELEMETRY RESULTS ============ */}
-          {showAnalysisResults && (
+          {showResults && (
             <div className="ae-fade-in space-y-6 pt-10 text-left border-t border-slate-100 mt-10">
               
               {/* Clinical Verdict Banner */}
@@ -548,11 +522,11 @@ export default function FoodScannerPage() {
                   </div>
 
                   <h3 className="text-2xl font-bold text-white tracking-tight">
-                    {language === "hi" ? selectedPreset.nameHi : selectedPreset.name}
+                    {selectedPreset.name}
                   </h3>
 
                   <p className="text-xs sm:text-sm text-white/80 leading-relaxed">
-                    {language === "hi" ? selectedPreset.clinicalVerdictHi : selectedPreset.clinicalVerdict}
+                    {selectedPreset.clinicalVerdict}
                   </p>
                 </div>
 
@@ -572,7 +546,7 @@ export default function FoodScannerPage() {
                       GI {selectedPreset.glycemicIndex}
                     </span>
                     <span className="text-[10px] text-white/70 block mt-1 uppercase font-mono">
-                      {language === "hi" ? selectedPreset.giRatingHi : `${selectedPreset.giRating} Glycemic`}
+                      {selectedPreset.giRating} Glycemic
                     </span>
                   </div>
                 </div>
@@ -623,7 +597,7 @@ export default function FoodScannerPage() {
                 <div className="p-5 rounded-2xl bg-[#F8FAFC] border border-slate-200/80 space-y-3">
                   <div className="flex items-center justify-between">
                     <h4 className="text-sm font-bold text-[#1D1F22]">
-                      {language === "hi" ? "प्राकृतिक सामग्रियां" : "Whole Ingredients"}
+                      Whole Ingredients
                     </h4>
                     <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold border border-emerald-200">
                       Clean Formulated
@@ -646,7 +620,7 @@ export default function FoodScannerPage() {
                 <div className="p-5 rounded-2xl bg-[#F8FAFC] border border-slate-200/80 space-y-3">
                   <div className="flex items-center justify-between">
                     <h4 className="text-sm font-bold text-[#1D1F22]">
-                      {language === "hi" ? "एडिटिव एवं एलर्जी जांच" : "Additive & Allergen Safety"}
+                      Additive & Allergen Safety
                     </h4>
                     <span className="text-[10px] font-mono text-[#E3202B] bg-red-50 px-2 py-0.5 rounded-full font-bold border border-red-200">
                       Clinical Scan
@@ -656,12 +630,10 @@ export default function FoodScannerPage() {
                   {/* Allergen */}
                   <div className="p-3 rounded-xl bg-white border border-slate-200 text-xs">
                     <span className="font-semibold text-[#1D1F22] block mb-1">
-                      {language === "hi" ? "पहचाने गए एलर्जी कारक:" : "Detected Allergens:"}
+                      Detected Allergens:
                     </span>
                     <span className="text-[#64748B]">
-                      {language === "hi"
-                        ? selectedPreset.allergensHi.join(", ")
-                        : selectedPreset.allergens.join(", ")}
+                      {selectedPreset.allergens.join(", ")}
                     </span>
                   </div>
 
@@ -694,10 +666,16 @@ export default function FoodScannerPage() {
 
         </div>
 
-        {/* ============ FOOTER DISCLAIMER BAR MATCHING EXACT MOCKUP ============ */}
-        <p className="text-center text-xs text-[#94A3B8]">
-          AETHRIZ Food Vision supports nutritional awareness. It does not replace medical advice, allergen guarantees or clinical dietary diagnosis.
-        </p>
+        {/* ============ BOTTOM NOTE BAR MATCHING EXACT MOCKUP ============ */}
+        <div className="bg-white/90 border border-slate-200/80 rounded-full px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#64748B] shadow-[0_2px_8px_rgba(29,31,34,0.02)]">
+          <p className="leading-snug">
+            <span className="font-bold text-[#E3202B]">Note:</span> Nutrition estimates and label readings are AI-assisted. They don&apos;t replace a dietitian&apos;s advice or a medical diagnosis.
+          </p>
+          <div className="flex items-center gap-1.5 text-emerald-700 font-medium flex-shrink-0">
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span>Photos are not stored</span>
+          </div>
+        </div>
 
       </main>
     </div>
