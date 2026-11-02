@@ -89,13 +89,13 @@ export default function PatientNavbar({ activeTab }: Props) {
         </Link>
 
         {/* Center Navigation Pills (7 core patient features) */}
-        <div className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-slate-100/80 border border-slate-200/60 text-[13px] font-medium text-[#545B61]">
+        <div className="hidden lg:flex items-center gap-1 text-[13px] font-medium text-[#545B61]">
           <Link
             href="/dashboard"
             className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
               activeTab === "dashboard"
-                ? "bg-white text-[#1D1F22] font-semibold shadow-xs"
-                : "hover:text-[#1D1F22] hover:bg-white/50"
+                ? "bg-white border border-slate-200/90 text-[#1D1F22] font-semibold shadow-2xs"
+                : "hover:text-[#1D1F22] hover:bg-slate-50"
             }`}
           >
             AI Health
@@ -104,8 +104,8 @@ export default function PatientNavbar({ activeTab }: Props) {
             href="/health-analysis"
             className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
               activeTab === "analysis"
-                ? "bg-white text-[#1D1F22] font-semibold shadow-xs"
-                : "hover:text-[#1D1F22] hover:bg-white/50"
+                ? "bg-white border border-slate-200/90 text-[#1D1F22] font-semibold shadow-2xs"
+                : "hover:text-[#1D1F22] hover:bg-slate-50"
             }`}
           >
             Analysis
@@ -114,8 +114,8 @@ export default function PatientNavbar({ activeTab }: Props) {
             href="/doctors"
             className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
               activeTab === "doctors"
-                ? "bg-white text-[#1D1F22] font-semibold shadow-xs"
-                : "hover:text-[#1D1F22] hover:bg-white/50"
+                ? "bg-white border border-slate-200/90 text-[#1D1F22] font-semibold shadow-2xs"
+                : "hover:text-[#1D1F22] hover:bg-slate-50"
             }`}
           >
             Doctors
@@ -124,8 +124,8 @@ export default function PatientNavbar({ activeTab }: Props) {
             href="/booking"
             className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
               activeTab === "bookings"
-                ? "bg-white text-[#1D1F22] font-semibold shadow-xs"
-                : "hover:text-[#1D1F22] hover:bg-white/50"
+                ? "bg-white border border-slate-200/90 text-[#1D1F22] font-semibold shadow-2xs"
+                : "hover:text-[#1D1F22] hover:bg-slate-50"
             }`}
           >
             Bookings
@@ -134,8 +134,8 @@ export default function PatientNavbar({ activeTab }: Props) {
             href="/food-scanner"
             className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
               activeTab === "food-scanner"
-                ? "bg-white text-[#1D1F22] font-semibold shadow-xs"
-                : "hover:text-[#1D1F22] hover:bg-white/50"
+                ? "bg-white border border-slate-200/90 text-[#1D1F22] font-semibold shadow-2xs"
+                : "hover:text-[#1D1F22] hover:bg-slate-50"
             }`}
           >
             Food Scanner
@@ -144,8 +144,8 @@ export default function PatientNavbar({ activeTab }: Props) {
             href="/body-explorer"
             className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
               activeTab === "body-explorer"
-                ? "bg-white text-[#1D1F22] font-semibold shadow-xs"
-                : "hover:text-[#1D1F22] hover:bg-white/50"
+                ? "bg-white border border-slate-200/90 text-[#1D1F22] font-semibold shadow-2xs"
+                : "hover:text-[#1D1F22] hover:bg-slate-50"
             }`}
           >
             Body Explorer
@@ -154,8 +154,8 @@ export default function PatientNavbar({ activeTab }: Props) {
             href="/stories"
             className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
               activeTab === "stories"
-                ? "bg-white text-[#1D1F22] font-semibold shadow-xs"
-                : "hover:text-[#1D1F22] hover:bg-white/50"
+                ? "bg-white border border-slate-200/90 text-[#1D1F22] font-semibold shadow-2xs"
+                : "hover:text-[#1D1F22] hover:bg-slate-50"
             }`}
           >
             Articles
@@ -165,13 +165,13 @@ export default function PatientNavbar({ activeTab }: Props) {
         {/* Right Action: Language Switcher, User Profile Capsule & Logout */}
         <div className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
           {/* Universal Language Switcher Pill */}
-          <div className="flex items-center bg-slate-100/90 border border-slate-200/80 p-0.5 rounded-full text-[11px] font-semibold">
+          <div className="flex items-center bg-white border border-slate-200/90 p-0.5 rounded-full text-[11px] font-semibold shadow-2xs">
             <button
               type="button"
               onClick={() => setLanguage("en")}
               className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
                 language === "en"
-                  ? "bg-white text-[#1D1F22] shadow-2xs font-bold"
+                  ? "bg-[#1D1F22] text-white shadow-2xs font-bold"
                   : "text-slate-500 hover:text-slate-900"
               }`}
             >

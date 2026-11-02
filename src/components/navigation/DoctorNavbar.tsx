@@ -54,13 +54,13 @@ export default function DoctorNavbar({ activeTab }: Props) {
         </div>
 
         {/* Center Navigation Links */}
-        <div className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-slate-100/80 border border-slate-200/60 text-[13px] font-medium text-[#545B61]">
+        <div className="hidden lg:flex items-center gap-1 text-[13px] font-medium text-[#545B61]">
           <Link
             href="/doctor-portal"
             className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
               activeTab === "dashboard"
-                ? "bg-white text-[#1D1F22] font-semibold shadow-xs"
-                : "hover:text-[#1D1F22] hover:bg-white/50"
+                ? "bg-white border border-slate-200/90 text-[#1D1F22] font-semibold shadow-2xs"
+                : "hover:text-[#1D1F22] hover:bg-slate-50"
             }`}
           >
             Dashboard
@@ -69,8 +69,8 @@ export default function DoctorNavbar({ activeTab }: Props) {
             href="/doctor/patients"
             className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
               activeTab === "patients"
-                ? "bg-white text-[#1D1F22] font-semibold shadow-xs"
-                : "hover:text-[#1D1F22] hover:bg-white/50"
+                ? "bg-white border border-slate-200/90 text-[#1D1F22] font-semibold shadow-2xs"
+                : "hover:text-[#1D1F22] hover:bg-slate-50"
             }`}
           >
             Patients
@@ -79,8 +79,8 @@ export default function DoctorNavbar({ activeTab }: Props) {
             href="/doctor/appointments"
             className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
               activeTab === "appointments"
-                ? "bg-white text-[#1D1F22] font-semibold shadow-xs"
-                : "hover:text-[#1D1F22] hover:bg-white/50"
+                ? "bg-white border border-slate-200/90 text-[#1D1F22] font-semibold shadow-2xs"
+                : "hover:text-[#1D1F22] hover:bg-slate-50"
             }`}
           >
             Appointments
@@ -89,8 +89,8 @@ export default function DoctorNavbar({ activeTab }: Props) {
             href="/doctor/nexus"
             className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
               activeTab === "nexus"
-                ? "bg-white text-[#1D1F22] font-semibold shadow-xs"
-                : "hover:text-[#1D1F22] hover:bg-white/50"
+                ? "bg-white border border-slate-200/90 text-[#1D1F22] font-semibold shadow-2xs"
+                : "hover:text-[#1D1F22] hover:bg-slate-50"
             }`}
           >
             AI Analysis
@@ -99,8 +99,8 @@ export default function DoctorNavbar({ activeTab }: Props) {
             href="/doctor/join"
             className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
               activeTab === "join"
-                ? "bg-white text-[#1D1F22] font-semibold shadow-xs"
-                : "hover:text-[#1D1F22] hover:bg-white/50"
+                ? "bg-white border border-slate-200/90 text-[#1D1F22] font-semibold shadow-2xs"
+                : "hover:text-[#1D1F22] hover:bg-slate-50"
             }`}
           >
             Join the team

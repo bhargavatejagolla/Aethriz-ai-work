@@ -112,13 +112,7 @@ export default function RegisterPage() {
       <header className="sticky top-4 z-40 px-4 sm:px-6">
         <nav
           aria-label="Main"
-          className="relative max-w-[1200px] mx-auto p-2.5 pl-4 sm:pl-5 flex items-center justify-between gap-4 rounded-full border border-white/80 shadow-[0_20px_50px_rgba(120,60,90,0.12),0_2px_8px_rgba(29,31,34,0.04),inset_0_1.5px_0_rgba(255,255,255,0.95)]"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0.75) 100%)",
-            backdropFilter: "blur(28px) saturate(200%)",
-            WebkitBackdropFilter: "blur(28px) saturate(200%)",
-          }}
+          className="relative max-w-[1280px] mx-auto p-2 sm:p-2.5 pl-4 sm:pl-5 flex items-center justify-between gap-4 rounded-full border border-slate-200/80 bg-white shadow-[0_4px_24px_rgba(29,31,34,0.04)]"
         >
           {/* Brand Logo & Name */}
           <Link href="/" className="flex items-center gap-3 group">

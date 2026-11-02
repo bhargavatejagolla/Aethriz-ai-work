@@ -66,46 +66,46 @@ export default function LandingPage() {
           </Link>
 
           {/* Direct In-Page Section Navigation Links matching landing page sections */}
-          <div className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-slate-100/80 border border-slate-200/60 text-[13px] font-medium text-[#545B61]">
+          <div className="hidden lg:flex items-center gap-1.5 text-[13.5px] font-medium text-[#545B61]">
             <a
               href="#overview"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-slate-100 transition-all cursor-pointer"
             >
               Overview
             </a>
             <a
               href="#action-plan"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-slate-100 transition-all cursor-pointer"
             >
               Action Plan
             </a>
             <a
               href="#technology"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-slate-100 transition-all cursor-pointer"
             >
               Technology
             </a>
             <a
               href="#telemetry"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-slate-100 transition-all cursor-pointer"
             >
               Telemetry
             </a>
             <a
               href="#how-it-works"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-slate-100 transition-all cursor-pointer"
             >
               How It Works
             </a>
             <a
               href="#mission"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-slate-100 transition-all cursor-pointer"
             >
               Mission
             </a>
             <a
               href="#faq"
-              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
+              className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-slate-100 transition-all cursor-pointer"
             >
               FAQ
             </a>
