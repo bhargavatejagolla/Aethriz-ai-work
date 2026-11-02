@@ -58,12 +58,18 @@ export default function DoctorPortalPage() {
             <p className="text-xs text-[#64748B] mt-1">
               Endocrinology & Metabolic Health · Video and in-clinic
             </p>
-            <p className="text-xs font-semibold text-[#1D1F22] mt-2 flex items-center gap-1.5">
-              <span>📅 Today: 6 consultations, 2 AI triage flags and 3 reports ready to sign off.</span>
-              <Link href="/doctor/nexus" className="text-[#E3202B] hover:underline font-bold">
+            <div className="text-xs font-semibold text-[#1D1F22] mt-2 flex flex-wrap items-center gap-1.5">
+              <svg className="w-3.5 h-3.5 text-[#E3202B] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <span>Today: 6 consultations, 2 AI triage flags and 3 reports ready to sign off.</span>
+              <Link href="/doctor/nexus" className="text-[#E3202B] hover:underline font-bold ml-1">
                 View triage queue →
               </Link>
-            </p>
+            </div>
           </div>
 
           {/* Right Top Status Cards */}
@@ -129,7 +135,10 @@ export default function DoctorPortalPage() {
           <div className="p-5 rounded-[24px] bg-white border border-slate-200/80 shadow-[0_8px_24px_rgba(29,31,34,0.03)] flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs font-medium text-[#64748B]">
               <span>REPORTS TO SIGN OFF</span>
-              <span className="text-slate-400">✏️</span>
+              <svg className="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+              </svg>
             </div>
             <div className="my-2">
               <div className="flex items-baseline gap-1.5">
@@ -147,14 +156,23 @@ export default function DoctorPortalPage() {
           <div className="p-5 rounded-[24px] bg-white border border-slate-200/80 shadow-[0_8px_24px_rgba(29,31,34,0.03)] flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs font-medium text-[#64748B]">
               <span>AI INSIGHTS READY</span>
-              <span className="text-[#E3202B]">✨</span>
+              <svg className="w-3.5 h-3.5 text-[#E3202B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+              </svg>
             </div>
             <div className="my-2">
               <div className="flex items-baseline gap-1.5">
                 <span className="text-3xl font-extrabold text-[#1D1F22]">14</span>
                 <span className="text-xs text-[#64748B]">patients</span>
               </div>
-              <span className="text-xs font-semibold text-[#E3202B]">⚠ 2 flagged for triage</span>
+              <div className="flex items-center gap-1 text-xs font-semibold text-[#E3202B]">
+                <svg className="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+                  <line x1="12" y1="9" x2="12" y2="13" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+                <span>2 flagged for triage</span>
+              </div>
             </div>
             <div className="h-1 rounded-full bg-slate-100 overflow-hidden mt-1">
               <div className="h-full bg-[#E3202B] rounded-full" style={{ width: "85%" }} />
@@ -247,7 +265,10 @@ export default function DoctorPortalPage() {
             <div className="p-6 rounded-[28px] bg-white border border-slate-200/80 shadow-[0_8px_24px_rgba(29,31,34,0.03)]">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-[#E3202B]">📹</span>
+                  <svg className="w-4 h-4 text-[#E3202B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polygon points="23 7 16 12 23 17 23 7" />
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                  </svg>
                   <h3 className="text-sm font-semibold text-[#1D1F22]">Upcoming consultations</h3>
                   <span className="text-xs text-[#64748B] hidden sm:inline">· AI summaries shared by patients</span>
                 </div>
@@ -501,26 +522,42 @@ export default function DoctorPortalPage() {
               </h3>
               <div className="grid grid-cols-2 gap-2.5">
                 <div className="p-3 rounded-2xl bg-[#F8FAFC] border border-slate-200/70 hover:bg-slate-100 transition-all cursor-pointer">
-                  <span className="text-base text-[#E3202B]">📄</span>
-                  <h4 className="text-xs font-bold text-[#1D1F22] mt-1">Sign off reports</h4>
+                  <svg className="w-4 h-4 text-[#E3202B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                  </svg>
+                  <h4 className="text-xs font-bold text-[#1D1F22] mt-1.5">Sign off reports</h4>
                   <p className="text-[10px] text-[#64748B]">3 ready</p>
                 </div>
 
                 <div className="p-3 rounded-2xl bg-[#F8FAFC] border border-slate-200/70 hover:bg-slate-100 transition-all cursor-pointer">
-                  <span className="text-base text-amber-600">📅</span>
-                  <h4 className="text-xs font-bold text-[#1D1F22] mt-1">Today&apos;s schedule</h4>
+                  <svg className="w-4 h-4 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                  <h4 className="text-xs font-bold text-[#1D1F22] mt-1.5">Today&apos;s schedule</h4>
                   <p className="text-[10px] text-[#64748B]">6 sessions</p>
                 </div>
 
                 <div className="p-3 rounded-2xl bg-[#F8FAFC] border border-slate-200/70 hover:bg-slate-100 transition-all cursor-pointer">
-                  <span className="text-base text-emerald-600">✍️</span>
-                  <h4 className="text-xs font-bold text-[#1D1F22] mt-1">Write article</h4>
+                  <svg className="w-4 h-4 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 20h9" />
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                  </svg>
+                  <h4 className="text-xs font-bold text-[#1D1F22] mt-1.5">Write article</h4>
                   <p className="text-[10px] text-[#64748B]">Draft saved</p>
                 </div>
 
                 <div className="p-3 rounded-2xl bg-[#F8FAFC] border border-slate-200/70 hover:bg-slate-100 transition-all cursor-pointer">
-                  <span className="text-base text-[#E3202B]">⚡</span>
-                  <h4 className="text-xs font-bold text-[#1D1F22] mt-1">Issue care plan</h4>
+                  <svg className="w-4 h-4 text-[#E3202B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                  </svg>
+                  <h4 className="text-xs font-bold text-[#1D1F22] mt-1.5">Issue care plan</h4>
                   <p className="text-[10px] text-[#64748B]">Diet & follow-up</p>
                 </div>
               </div>

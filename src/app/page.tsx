@@ -3,23 +3,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import dynamic from "next/dynamic";
-
-const Hero3DAtlas = dynamic(() => import("@/components/anatomy/Hero3DAtlas"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-3 text-xs text-[#545B61]">
-      <div className="w-8 h-8 rounded-full border-2 border-[#E3202B]/30 border-t-[#E3202B] animate-spin" />
-      <span>Loading 3D Anatomy Atlas...</span>
-    </div>
-  ),
-});
-
 export default function LandingPage() {
   const [reveal, setReveal] = useState<number>(50);
   const [activeStep, setActiveStep] = useState<number>(4);
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
-  const [viewMode, setViewMode] = useState<"scan" | "3d">("3d");
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [formData, setFormData] = useState({
@@ -38,49 +25,33 @@ export default function LandingPage() {
 
   return (
     <div className="bg-[#F1F5F9] text-[#1D1F22] font-sans text-base leading-normal antialiased overflow-x-hidden selection:bg-[#E3202B] selection:text-white min-h-screen">
-      {/* ============ STICKY GLASS NAVBAR ============ */}
-      <header className="sticky top-4 z-40 px-4">
+      {/* ============ UNIFIED STICKY GLASS NAVBAR ============ */}
+      <header className="sticky top-3 sm:top-4 z-40 px-3 sm:px-6 w-full relative">
         <nav
           aria-label="Main"
-          className="relative max-w-[1180px] mx-auto p-2.5 pl-4 sm:pl-5 flex items-center justify-between gap-4 flex-wrap rounded-full border border-white/70 shadow-[0_24px_60px_rgba(120,60,90,0.16),0_2px_8px_rgba(29,31,34,0.06),inset_0_1.5px_0_rgba(255,255,255,0.95),inset_0_-1px_0_rgba(255,255,255,0.35),inset_0_0_0_1px_rgba(255,255,255,0.18)]"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.48) 100%)",
-            backdropFilter: "blur(30px) saturate(220%) brightness(1.05)",
-            WebkitBackdropFilter: "blur(30px) saturate(220%) brightness(1.05)",
-          }}
+          className="relative max-w-[1280px] mx-auto p-2 sm:p-2.5 pl-4 sm:pl-5 flex items-center justify-between gap-3 rounded-full border border-slate-200/80 bg-white/95 backdrop-blur-xl shadow-[0_4px_24px_rgba(29,31,34,0.04)]"
         >
-          {/* Top highlight line */}
-          <span
-            aria-hidden="true"
-            className="absolute left-9 right-9 top-0 h-[1px] pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(255,255,255,0), #FFFFFF, rgba(255,255,255,0))",
-            }}
-          />
-
           {/* Brand Logo & Name */}
-          <Link href="#top" className="flex items-center gap-3">
-            <div className="relative w-10 h-10 rounded-[11px] overflow-hidden shadow-sm flex-shrink-0">
+          <Link href="#top" className="flex items-center gap-2.5 group flex-shrink-0">
+            <div className="relative w-8 h-8 rounded-[9px] overflow-hidden shadow-2xs flex-shrink-0 transition-transform group-hover:scale-105">
               <Image
                 src="/brand/aethriz-hero-logo.png"
                 alt="AETHRIZ logo"
-                width={40}
-                height={40}
+                width={32}
+                height={32}
                 className="w-full h-full object-cover"
                 priority
               />
             </div>
             <span className="flex flex-col leading-none">
               <span
-                className="font-semibold text-lg tracking-[0.14em] text-[#1D1F22]"
+                className="font-bold text-[16px] tracking-[0.14em] text-[#1D1F22]"
                 style={{ fontFamily: "'Inter Tight', sans-serif" }}
               >
                 AETHRIZ
               </span>
               <span
-                className="text-[9.5px] tracking-[0.22em] text-[#C8161F] mt-[3px] font-mono"
+                className="text-[8.5px] tracking-[0.22em] text-[#C8161F] mt-[2px] font-mono"
               >
                 BIO-HEALTH AI
               </span>
@@ -88,7 +59,7 @@ export default function LandingPage() {
           </Link>
 
           {/* Direct In-Page Section Navigation Links matching landing page sections */}
-          <div className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
+          <div className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-slate-100/80 border border-slate-200/60 text-[13px] font-medium text-[#545B61]">
             <a
               href="#overview"
               className="px-3.5 py-1.5 rounded-full hover:text-[#1D1F22] hover:bg-white/60 transition-all cursor-pointer"
@@ -344,7 +315,7 @@ export default function LandingPage() {
                   "linear-gradient(100deg, #FFD3CF 0%, #F7E0EA 55%, #E9E4F5 100%)",
               }}
             >
-              Pre-register now
+              Register now
               <svg
                 aria-hidden="true"
                 width="16"
@@ -442,33 +413,6 @@ export default function LandingPage() {
           aria-hidden="true"
           className="flex-1 basis-[460px] min-w-0 relative h-[640px] flex items-center justify-center [perspective:1200px]"
         >
-          {/* Interactive View Switcher: Biometric Scan vs 3D WebGL Atlas from ashemag-human-atlas */}
-          <div className="absolute top-0 right-2 z-30 flex items-center p-1 rounded-full bg-white/80 backdrop-blur-md border border-white/90 shadow-sm text-xs font-medium">
-            <button
-              type="button"
-              onClick={() => setViewMode("scan")}
-              className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
-                viewMode === "scan"
-                  ? "bg-[#1D1F22] text-white shadow-xs"
-                  : "text-[#545B61] hover:text-[#1D1F22]"
-              }`}
-            >
-              Biometric Scan
-            </button>
-            <button
-              type="button"
-              onClick={() => setViewMode("3d")}
-              className={`px-3 py-1 rounded-full flex items-center gap-1.5 transition-all cursor-pointer ${
-                viewMode === "3d"
-                  ? "bg-[#1D1F22] text-white shadow-xs"
-                  : "text-[#545B61] hover:text-[#1D1F22]"
-              }`}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#E3202B] ae-pulse" />
-              <span>Interactive 3D Atlas</span>
-            </button>
-          </div>
-
           {/* Radial Ambient Backing */}
           <div
             className="ae-glow absolute w-[560px] h-[560px] rounded-full pointer-events-none"
@@ -484,15 +428,9 @@ export default function LandingPage() {
             className="ae-ring2 absolute w-[450px] h-[450px] rounded-full border border-dashed border-[rgba(227,32,43,0.30)] pointer-events-none"
           />
 
-          {viewMode === "3d" ? (
-            /* Interactive 3D WebGL Three.js Atlas powered by BodyParts3D from ashemag-human-atlas */
-            <div className="relative w-full h-full min-h-[620px] z-10 flex items-center justify-center">
-              <Hero3DAtlas />
-            </div>
-          ) : (
-            /* Biometric Scan Mode with True 3D Dual-Layer Encircling Elliptical Scanner Ring */
-            <div className="relative w-full h-full flex items-center justify-center">
-              {/* Scanner Base Platform */}
+          {/* Instant Vector Anatomy Visual with 3D Depth-Encircling Laser Scanner */}
+          <div className="relative w-full h-full flex items-center justify-center">
+            {/* Scanner Base Platform */}
               <div className="absolute left-1/2 bottom-3.5 w-[420px] h-[110px] -ml-[210px] pointer-events-none">
                 <div
                   className="absolute inset-0 rounded-full shadow-[0_34px_60px_rgba(29,31,34,0.10)]"
@@ -903,7 +841,6 @@ export default function LandingPage() {
                 </svg>
               </div>
             </div>
-          )}
 
           {/* Floating Spheres Accents */}
           <div
@@ -3114,7 +3051,7 @@ export default function LandingPage() {
             </h2>
             <p className="mt-5 text-[17px] text-[#545B61]">
               Be among the first to experience AI-powered personalized health
-              guidance. Pre-register for exclusive early access — or send us a
+              guidance. Register for exclusive access — or send us a
               message.
             </p>
           </div>
@@ -3128,7 +3065,7 @@ export default function LandingPage() {
                 </svg>
               </div>
               <h3 className="text-2xl font-medium text-[#1E7A4C] mb-2" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
-                Pre-Registration Received!
+                Registration Received!
               </h3>
               <p className="text-[#32363A] text-[15px] leading-relaxed">
                 Thank you for joining our exclusive early access circle. Our clinical and engineering team will contact you with your personalized invite.
@@ -3234,7 +3171,7 @@ export default function LandingPage() {
                   type="submit"
                   className="ae-btn ae-btn-dark inline-flex items-center gap-2.5 min-h-[54px] px-9 rounded-full bg-[#1D1F22] text-white text-base font-medium cursor-pointer shadow-[0_12px_30px_rgba(29,31,34,0.18)]"
                 >
-                  Pre-register
+                  Register
                   <svg
                     aria-hidden="true"
                     width="16"
@@ -3284,7 +3221,7 @@ export default function LandingPage() {
                 fontFamily: "'Inter Tight', sans-serif",
               }}
             >
-              Pre-register for early access
+              Register for access
             </Link>
           </div>
 

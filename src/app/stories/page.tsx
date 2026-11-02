@@ -104,7 +104,7 @@ const ARTICLES: Article[] = [
     authorRole: "Neuro-Psychiatrist",
     authorAvatar: "FS",
     accentBg: "from-purple-100 to-violet-100 text-purple-900",
-    symbol: "☾",
+    symbol: "Z",
     body: [
       "Elevated evening cortisol blunts ghrelin satiety cues, triggering cravings for carbohydrates and ultra-processed comfort foods past 10 PM.",
       "Late calorie intake delays core body temperature drop, fragmenting REM and deep restorative sleep cycles.",
@@ -142,7 +142,7 @@ const ARTICLES: Article[] = [
     authorRole: "Metabolic Nutritionist",
     authorAvatar: "KR",
     accentBg: "from-rose-100 to-orange-100 text-rose-900",
-    symbol: "⚱",
+    symbol: "C",
     body: [
       "Demonizing white rice or wheat roti is rarely necessary or sustainable for lifelong glucose management in Indian households.",
       "The order of eating alters the glycemic curve drastically: eating cucumber, bhindi, or dal first creates a viscous fiber barrier that slows carbohydrate absorption by up to 35%.",
@@ -253,21 +253,6 @@ export default function HealthStoriesPage() {
   return (
     <div className="min-h-screen bg-[#F4F6F9] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-20 relative overflow-x-hidden">
       
-      {/* ============================================================== */}
-      {/* SIGNATURE TOP AMBIENT RED GLOW HALO                            */}
-      {/* ============================================================== */}
-      <div
-        aria-hidden="true"
-        className="fixed top-0 left-0 right-0 h-48 sm:h-56 pointer-events-none z-30 overflow-hidden"
-        style={{
-          background:
-            "radial-gradient(ellipse 65% 180px at 85% -20px, rgba(227, 32, 43, 0.35) 0%, rgba(254, 205, 211, 0.20) 42%, transparent 75%), " +
-            "radial-gradient(ellipse 65% 180px at 15% -20px, rgba(244, 63, 94, 0.28) 0%, rgba(254, 205, 211, 0.16) 42%, transparent 75%), " +
-            "radial-gradient(ellipse 80% 150px at 50% -20px, rgba(251, 113, 133, 0.22) 0%, rgba(254, 226, 226, 0.12) 48%, transparent 78%)",
-          filter: "blur(20px)",
-        }}
-      />
-
       {/* ============ STANDARD PATIENT NAVBAR ============ */}
       <PatientNavbar activeTab="stories" />
 
@@ -430,7 +415,7 @@ export default function HealthStoriesPage() {
                     authorRole: "Endocrinologist",
                     authorAvatar: "AR",
                     accentBg: "from-rose-100 to-amber-100 text-rose-900",
-                    symbol: "🚶",
+                    symbol: "W",
                     body: [
                       "When you take a brisk 10 to 15-minute walk within 30 minutes of eating, skeletal muscle contractions activate GLUT4 transporters to take up glucose directly from the bloodstream, completely bypassing the need for an insulin surge.",
                       "Continuous Glucose Monitoring (CGM) trials show that post-prandial glycemic excursions are reduced by an average of 22 to 34 mg/dL when a light stroll is completed after dinners.",
@@ -715,11 +700,15 @@ export default function HealthStoriesPage() {
                         onClick={() => toggleLike(story.id)}
                         className="flex items-center gap-1 hover:text-[#E3202B] transition-colors cursor-pointer"
                       >
-                        <span>♥</span>
+                        <svg className="w-3.5 h-3.5 fill-[#E3202B] text-[#E3202B]" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                        </svg>
                         <span>{story.likes + extraLikes}</span>
                       </button>
                       <span className="flex items-center gap-1">
-                        <span>💬</span>
+                        <svg className="w-3.5 h-3.5 text-[#94A3B8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg>
                         <span>{story.comments}</span>
                       </span>
                     </div>

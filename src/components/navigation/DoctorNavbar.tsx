@@ -23,24 +23,9 @@ export default function DoctorNavbar({ activeTab }: Props) {
 
   return (
     <header className="sticky top-3 sm:top-4 z-40 px-3 sm:px-6 w-full relative">
-      {/* Signature Ambient Red Navbar Glow Halo */}
-      <div
-        className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 w-[95vw] max-w-[1300px] h-32 -z-10 rounded-full"
-        style={{
-          background:
-            "radial-gradient(ellipse 65% 120px at 50% 40%, rgba(227, 32, 43, 0.28) 0%, rgba(254, 205, 211, 0.22) 50%, transparent 80%)",
-          filter: "blur(24px)",
-        }}
-      />
       <nav
         aria-label="Doctor Portal Navigation"
-        className="relative max-w-[1280px] mx-auto p-2 sm:p-2.5 pl-4 sm:pl-5 flex items-center justify-between gap-3 sm:gap-4 rounded-full border border-white/80 shadow-[0_20px_50px_rgba(120,60,90,0.08),0_2px_8px_rgba(29,31,34,0.03),inset_0_1.5px_0_rgba(255,255,255,0.95)]"
-        style={{
-          background:
-            "linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.72) 50%, rgba(255,255,255,0.88) 100%)",
-          backdropFilter: "blur(28px) saturate(200%)",
-          WebkitBackdropFilter: "blur(28px) saturate(200%)",
-        }}
+        className="relative max-w-[1280px] mx-auto p-2 sm:p-2.5 pl-4 sm:pl-5 flex items-center justify-between gap-3 sm:gap-4 rounded-full border border-slate-200/80 bg-white/95 backdrop-blur-xl shadow-[0_4px_24px_rgba(29,31,34,0.04)]"
       >
         {/* Left: Brand Logo & Doctor Portal Tag */}
         <div className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
@@ -69,7 +54,7 @@ export default function DoctorNavbar({ activeTab }: Props) {
         </div>
 
         {/* Center Navigation Links */}
-        <div className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-[13px] font-medium text-[#545B61]">
+        <div className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-slate-100/80 border border-slate-200/60 text-[13px] font-medium text-[#545B61]">
           <Link
             href="/doctor-portal"
             className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${

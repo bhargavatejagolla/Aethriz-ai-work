@@ -115,21 +115,6 @@ export default function MyProfilePage() {
   return (
     <div className="min-h-screen bg-[#F4F6F9] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-20 relative overflow-x-hidden">
       
-      {/* ============================================================== */}
-      {/* SIGNATURE TOP AMBIENT RED GLOW HALO                            */}
-      {/* ============================================================== */}
-      <div
-        aria-hidden="true"
-        className="fixed top-0 left-0 right-0 h-48 sm:h-56 pointer-events-none z-30 overflow-hidden"
-        style={{
-          background:
-            "radial-gradient(ellipse 65% 180px at 85% -20px, rgba(227, 32, 43, 0.35) 0%, rgba(254, 205, 211, 0.20) 42%, transparent 75%), " +
-            "radial-gradient(ellipse 65% 180px at 15% -20px, rgba(244, 63, 94, 0.28) 0%, rgba(254, 205, 211, 0.16) 42%, transparent 75%), " +
-            "radial-gradient(ellipse 80% 150px at 50% -20px, rgba(251, 113, 133, 0.22) 0%, rgba(254, 226, 226, 0.12) 48%, transparent 78%)",
-          filter: "blur(20px)",
-        }}
-      />
-
       {/* ============ STANDARD PATIENT NAVBAR ============ */}
       <PatientNavbar />
 
@@ -564,7 +549,9 @@ export default function MyProfilePage() {
                 <div className="p-3.5 rounded-2xl bg-[#FCFDFE] border border-slate-200/70 space-y-1">
                   <div className="flex items-center justify-between text-[10px] font-mono text-[#94A3B8] font-bold">
                     <span>DIET</span>
-                    <span>☾</span>
+                    <svg className="w-3.5 h-3.5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                    </svg>
                   </div>
                   <h4 className="text-xs font-bold text-[#1D1F22]">
                     Vegetarian · low-GI
@@ -578,7 +565,9 @@ export default function MyProfilePage() {
                 <div className="p-3.5 rounded-2xl bg-[#FCFDFE] border border-slate-200/70 space-y-1">
                   <div className="flex items-center justify-between text-[10px] font-mono text-[#94A3B8] font-bold">
                     <span>SLEEP TARGET</span>
-                    <span>☾</span>
+                    <svg className="w-3.5 h-3.5 text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
                   </div>
                   <h4 className="text-xs font-bold text-[#1D1F22]">
                     7–8 hours a night

@@ -87,21 +87,6 @@ export default function DoctorJoinPage() {
   return (
     <div className="min-h-screen bg-[#F4F5F8] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white pb-24 relative overflow-x-hidden">
       
-      {/* ============================================================== */}
-      {/* SIGNATURE TOP AMBIENT RED GLOW HALO                            */}
-      {/* ============================================================== */}
-      <div
-        aria-hidden="true"
-        className="fixed top-0 left-0 right-0 h-48 sm:h-56 pointer-events-none z-30 overflow-hidden"
-        style={{
-          background:
-            "radial-gradient(ellipse 65% 180px at 85% -20px, rgba(227, 32, 43, 0.38) 0%, rgba(254, 205, 211, 0.22) 42%, transparent 75%), " +
-            "radial-gradient(ellipse 65% 180px at 15% -20px, rgba(244, 63, 94, 0.30) 0%, rgba(254, 205, 211, 0.18) 42%, transparent 75%), " +
-            "radial-gradient(ellipse 80% 150px at 50% -20px, rgba(251, 113, 133, 0.24) 0%, rgba(254, 226, 226, 0.12) 48%, transparent 78%)",
-          filter: "blur(20px)",
-        }}
-      />
-
       {/* Decorative 3D Ambient Floating Spheres */}
       {/* Left Pale Pink Sphere */}
       <div

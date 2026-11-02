@@ -65,7 +65,7 @@ const ORGAN_DATABASE: Record<string, OrganDetail> = {
     system: "muscular",
     systemName: "Musculoskeletal System",
     color: "#E3202B",
-    icon: "🩺",
+    icon: "shoulder",
     badge: "Active focus · Pain 4/10",
     description: "Multi-axial glenohumeral ball-and-socket articulation stabilized by the supraspinatus, infraspinatus, teres minor, and subscapularis tendon cuff.",
     clinicalSignificance: "Site of repetitive desk-strain impingement, myofascial trigger points, and posture-induced tendon irritation.",
@@ -88,7 +88,7 @@ const ORGAN_DATABASE: Record<string, OrganDetail> = {
     system: "skeletal",
     systemName: "Skeletal Framework",
     color: "#D4C5A9",
-    icon: "🦴",
+    icon: "back",
     badge: "Pending review · Stiffness",
     description: "The 5 lordotic lumbar vertebrae supporting axial body weight and transmitting kinetic loads across the sacrum and pelvis.",
     clinicalSignificance: "High compressive stress zone; subject to morning disc stiffness, paraspinal spasm, and prolonged seated compression.",
@@ -111,7 +111,7 @@ const ORGAN_DATABASE: Record<string, OrganDetail> = {
     system: "cardiac",
     systemName: "Cardiovascular System",
     color: "#DC2626",
-    icon: "🫀",
+    icon: "heart",
     badge: "Stable rhythm · 72 bpm",
     description: "Four-chambered myogenic pump driving continuous pulmonary oxygenation and systemic systemic blood circulation through vascular channels.",
     clinicalSignificance: "Primary hemodynamic driver; monitored for pulse rhythm, endothelial shear stress, and coronary perfusion.",
@@ -134,7 +134,7 @@ const ORGAN_DATABASE: Record<string, OrganDetail> = {
     system: "nervous",
     systemName: "Central Nervous System",
     color: "#D97706",
-    icon: "🧠",
+    icon: "brain",
     badge: "Sleep sync · 7.2 hrs",
     description: "The neural processing center encompassing 86 billion neurons orchestrating circadian sleep-wake cycles, autonomic reflexes, and somatic perception.",
     clinicalSignificance: "Regulates nocturnal cortisol suppression, metabolic circadian clocks, and sympathetic/parasympathetic nervous balance.",
@@ -157,7 +157,7 @@ const ORGAN_DATABASE: Record<string, OrganDetail> = {
     system: "respiratory",
     systemName: "Respiratory System",
     color: "#0284C7",
-    icon: "🫁",
+    icon: "lungs",
     badge: "SpO2 98.9% · Optimal",
     description: "Bilateral spongy gas-exchange matrix providing ~100 m² of alveolar capillary surface area for oxygen uptake and carbon dioxide clearance.",
     clinicalSignificance: "Direct determinant of systemic oxygen saturation (SpO2) and acid-base metabolic compensation.",
@@ -180,7 +180,7 @@ const ORGAN_DATABASE: Record<string, OrganDetail> = {
     system: "digestive",
     systemName: "Metabolic & Digestive Matrix",
     color: "#B45309",
-    icon: "🌿",
+    icon: "metabolic",
     badge: "HbA1c 5.9% · Borderline",
     description: "Hepatic and pancreatic metabolic machinery regulating gluconeogenesis, glycogen storage, lipid clearance, and insulin secretion.",
     clinicalSignificance: "Core driver of insulin sensitivity, postprandial glucose surges, and non-alcoholic hepatic metabolic health.",
@@ -203,7 +203,7 @@ const ORGAN_DATABASE: Record<string, OrganDetail> = {
     system: "arterial",
     systemName: "Arterial Vasculature",
     color: "#EF4444",
-    icon: "🩸",
+    icon: "vascular",
     badge: "Flow velocity · Optimal",
     description: "High-pressure oxygenated conduit tree branching from the aortic arch to peripheral capillary beds supplying oxygen and nutrients.",
     clinicalSignificance: "Arterial stiffness and lipoprotein particle retention accelerate endothelial dysfunction.",
@@ -218,6 +218,132 @@ const ORGAN_DATABASE: Record<string, OrganDetail> = {
     doctorInitials: "AR",
   },
 };
+
+function StethoscopeIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
+      <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
+      <circle cx="20" cy="10" r="2" />
+    </svg>
+  );
+}
+
+function BoneIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 10c.7-.7 1.6-1 2.5-1a3.5 3.5 0 1 0-5 5c0 .9-.3 1.8-1 2.5l-6 6a3.5 3.5 0 0 0-5-5c.7-.7 1-1.6 1-2.5a3.5 3.5 0 0 0 5-5c0-.9.3-1.8 1-2.5l6-6a3.5 3.5 0 0 0 5 5c-.7.7-1 1.6-1 2.5z" />
+    </svg>
+  );
+}
+
+function HeartIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+    </svg>
+  );
+}
+
+function BrainIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.54Z" />
+      <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.54Z" />
+    </svg>
+  );
+}
+
+function LungsIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2v20M12 7l-4 4a5 5 0 0 0-1.5 3.5V17a4 4 0 0 0 4 4h1.5M12 7l4 4a5 5 0 0 1 1.5 3.5V17a4 4 0 0 1-4 4H12" />
+    </svg>
+  );
+}
+
+function MetabolicIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+      <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+    </svg>
+  );
+}
+
+function VascularIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" />
+    </svg>
+  );
+}
+
+function WholeBodyIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="4" r="2" />
+      <path d="M12 6v8M8 9h8M9 22l3-8 3 8" />
+    </svg>
+  );
+}
+
+function MicroscopeIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 18h8M3 22h18M14 22a7 7 0 1 0 0-14h-1M9 14h2M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z" />
+    </svg>
+  );
+}
+
+function ClipboardIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+    </svg>
+  );
+}
+
+function ZapIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+    </svg>
+  );
+}
+
+function LightbulbIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+      <path d="M9 18h6M10 22h4" />
+    </svg>
+  );
+}
+
+function renderOrganIcon(key: string, className = "w-4 h-4") {
+  switch (key) {
+    case "shoulder":
+    case "stethoscope":
+      return <StethoscopeIcon className={className} />;
+    case "back":
+    case "bone":
+      return <BoneIcon className={className} />;
+    case "heart":
+      return <HeartIcon className={className} />;
+    case "brain":
+      return <BrainIcon className={className} />;
+    case "lungs":
+      return <LungsIcon className={className} />;
+    case "metabolic":
+      return <MetabolicIcon className={className} />;
+    case "vascular":
+      return <VascularIcon className={className} />;
+    default:
+      return <HeartIcon className={className} />;
+  }
+}
 
 export default function BodyExplorerPage() {
   const [atlas, setAtlas] = useState<Atlas | null>(null);
@@ -590,7 +716,7 @@ export default function BodyExplorerPage() {
             </div>
 
             <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-slate-200/80 flex items-start gap-2.5 text-xs text-[#64748B]">
-              <span className="text-[#E3202B] mt-0.5 text-sm">💡</span>
+              <LightbulbIcon className="w-4 h-4 text-[#E3202B] flex-shrink-0 mt-0.5" />
               <p className="leading-snug">
                 <strong className="text-[#1D1F22]">Interactive Exploration:</strong> Tap directly on any muscle, bone, or organ in 3D to inspect its anatomical name, connected biomarkers, and clinical care plan.
               </p>
@@ -633,90 +759,98 @@ export default function BodyExplorerPage() {
                 <button
                   type="button"
                   onClick={() => handleSelectOrganPreset("whole")}
-                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeOrganKey === "whole"
                       ? "bg-[#1D1F22] text-white border-[#1D1F22] font-semibold"
                       : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-[#475569]"
                   }`}
                 >
-                  🧍 Whole Body (Full Frame)
+                  <WholeBodyIcon className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>Whole Body</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectOrganPreset("shoulder")}
-                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeOrganKey === "shoulder"
                       ? "bg-[#E3202B] text-white border-[#E3202B] font-semibold shadow-xs"
                       : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-[#475569]"
                   }`}
                 >
-                  🩺 Right Shoulder
+                  <StethoscopeIcon className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>Right Shoulder</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectOrganPreset("back")}
-                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeOrganKey === "back"
                       ? "bg-[#E3202B] text-white border-[#E3202B] font-semibold shadow-xs"
                       : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-[#475569]"
                   }`}
                 >
-                  🦴 Lumbar Spine
+                  <BoneIcon className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>Lumbar Spine</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectOrganPreset("heart")}
-                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeOrganKey === "heart"
                       ? "bg-[#E3202B] text-white border-[#E3202B] font-semibold shadow-xs"
                       : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-[#475569]"
                   }`}
                 >
-                  🫀 Heart & Cardia
+                  <HeartIcon className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>Heart & Cardia</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectOrganPreset("brain")}
-                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeOrganKey === "brain"
                       ? "bg-[#E3202B] text-white border-[#E3202B] font-semibold shadow-xs"
                       : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-[#475569]"
                   }`}
                 >
-                  🧠 Brain & Cranium
+                  <BrainIcon className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>Brain & Cranium</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectOrganPreset("lungs")}
-                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeOrganKey === "lungs"
                       ? "bg-[#E3202B] text-white border-[#E3202B] font-semibold shadow-xs"
                       : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-[#475569]"
                   }`}
                 >
-                  🫁 Lungs & SpO2
+                  <LungsIcon className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>Lungs & SpO2</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectOrganPreset("metabolic")}
-                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeOrganKey === "metabolic"
                       ? "bg-[#E3202B] text-white border-[#E3202B] font-semibold shadow-xs"
                       : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-[#475569]"
                   }`}
                 >
-                  🌿 Liver & Metabolic
+                  <MetabolicIcon className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>Liver & Metabolic</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectOrganPreset("vascular")}
-                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                  className={`flex-shrink-0 px-2.5 py-1 rounded-lg border transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeOrganKey === "vascular"
                       ? "bg-[#E3202B] text-white border-[#E3202B] font-semibold shadow-xs"
                       : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-[#475569]"
                   }`}
                 >
-                  🩸 Blood Vessels
+                  <VascularIcon className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>Blood Vessels</span>
                 </button>
               </div>
             </div>
@@ -830,24 +964,26 @@ export default function BodyExplorerPage() {
                 <button
                   type="button"
                   onClick={() => setRightPanelTab("guidance")}
-                  className={`py-2 px-1 rounded-xl transition-all cursor-pointer text-center ${
+                  className={`py-2 px-1 rounded-xl transition-all cursor-pointer text-center flex items-center justify-center gap-1.5 ${
                     rightPanelTab === "guidance"
                       ? "bg-white text-[#1D1F22] shadow-xs"
                       : "text-[#64748B] hover:text-[#1D1F22]"
                   }`}
                 >
-                  🩺 Doctor Plan ({completedCareCount}/{carePlan.length})
+                  <StethoscopeIcon className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>Doctor Plan ({completedCareCount}/{carePlan.length})</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setRightPanelTab("telemetry")}
-                  className={`py-2 px-1 rounded-xl transition-all cursor-pointer text-center ${
+                  className={`py-2 px-1 rounded-xl transition-all cursor-pointer text-center flex items-center justify-center gap-1.5 ${
                     rightPanelTab === "telemetry"
                       ? "bg-white text-[#1D1F22] shadow-xs"
                       : "text-[#64748B] hover:text-[#1D1F22]"
                   }`}
                 >
-                  🔬 Organ Insights
+                  <MicroscopeIcon className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>Organ Insights</span>
                 </button>
               </div>
 
@@ -876,7 +1012,8 @@ export default function BodyExplorerPage() {
                   {/* Clinical Assessment */}
                   <div className="space-y-1">
                     <span className="text-xs font-bold text-[#1D1F22] flex items-center gap-1.5">
-                      <span>📋</span> Clinical assessment
+                      <ClipboardIcon className="w-3.5 h-3.5 text-[#475569] flex-shrink-0" />
+                      <span>Clinical assessment</span>
                     </span>
                     <p className="text-xs text-[#475569] leading-relaxed">
                       {currentOrgan.key === "shoulder"
@@ -958,7 +1095,9 @@ export default function BodyExplorerPage() {
                       <h3 className="text-sm font-bold text-[#1D1F22]">{currentOrgan.name}</h3>
                       <p className="text-[11px] text-[#64748B] font-medium">{currentOrgan.vernacular}</p>
                     </div>
-                    <span className="text-xl">{currentOrgan.icon}</span>
+                    <div className="w-8 h-8 rounded-xl bg-red-50 text-[#E3202B] flex items-center justify-center border border-red-100/60 shadow-2xs">
+                      {renderOrganIcon(currentOrgan.icon, "w-4 h-4")}
+                    </div>
                   </div>
 
                   {/* System Tag */}
@@ -1005,7 +1144,8 @@ export default function BodyExplorerPage() {
                   {/* AI Clinical Action Protocol */}
                   <div className="p-3 rounded-2xl bg-red-50/70 border border-red-100 space-y-1 text-xs">
                     <span className="font-bold text-[#E3202B] flex items-center gap-1.5">
-                      <span>⚡</span> Clinical Next Step
+                      <ZapIcon className="w-3.5 h-3.5 text-[#E3202B] flex-shrink-0" />
+                      <span>Clinical Next Step</span>
                     </span>
                     <p className="text-[#1D1F22] text-[11.5px] leading-snug">
                       {currentOrgan.careRecommendation}

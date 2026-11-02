@@ -309,15 +309,6 @@ export default function DoctorAppointmentsPage() {
   return (
     <div className="min-h-screen bg-[#F5F6F8] text-[#1D1F22] flex flex-col font-sans selection:bg-[#E11D48]/15 selection:text-[#E11D48] relative overflow-x-hidden">
       
-      {/* Background Soft Ambient Light */}
-      <div
-        className="pointer-events-none fixed top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[360px] opacity-75 blur-[120px] -z-10"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(225, 29, 72, 0.18) 0%, rgba(254, 205, 211, 0.25) 45%, rgba(245, 246, 248, 0) 80%)",
-        }}
-      />
-
       {/* ==================== STANDARD DOCTOR NAVBAR ==================== */}
       <DoctorNavbar activeTab="appointments" />
 

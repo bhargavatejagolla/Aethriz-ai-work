@@ -89,37 +89,31 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#1D1F22] font-sans antialiased selection:bg-[#E3202B] selection:text-white flex flex-col justify-between">
       {/* ============ TOP FLOATING NAVBAR ============ */}
-      <header className="sticky top-4 z-40 px-4 sm:px-6">
+      <header className="sticky top-3 sm:top-4 z-40 px-3 sm:px-6 w-full">
         <nav
           aria-label="Main"
-          className="relative max-w-[1200px] mx-auto p-2.5 pl-4 sm:pl-5 flex items-center justify-between gap-4 rounded-full border border-white/80 shadow-[0_20px_50px_rgba(120,60,90,0.12),0_2px_8px_rgba(29,31,34,0.04),inset_0_1.5px_0_rgba(255,255,255,0.95)]"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0.65) 100%)",
-            backdropFilter: "blur(28px) saturate(200%)",
-            WebkitBackdropFilter: "blur(28px) saturate(200%)",
-          }}
+          className="relative max-w-[1280px] mx-auto p-2 sm:p-2.5 pl-4 sm:pl-5 flex items-center justify-between gap-4 rounded-full border border-slate-200/80 bg-white/95 backdrop-blur-xl shadow-[0_4px_24px_rgba(29,31,34,0.04)]"
         >
           {/* Brand Logo & Name */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-9 h-9 rounded-[10px] overflow-hidden shadow-xs flex-shrink-0 transition-transform group-hover:scale-105">
+            <div className="relative w-8 h-8 rounded-[9px] overflow-hidden shadow-2xs flex-shrink-0 transition-transform group-hover:scale-105">
               <Image
                 src="/brand/aethriz-hero-logo.png"
                 alt="AETHRIZ logo"
-                width={36}
-                height={36}
+                width={32}
+                height={32}
                 className="w-full h-full object-cover"
                 priority
               />
             </div>
             <span className="flex flex-col leading-none">
               <span
-                className="font-semibold text-[17px] tracking-[0.14em] text-[#1D1F22]"
+                className="font-bold text-[16px] tracking-[0.14em] text-[#1D1F22]"
                 style={{ fontFamily: "'Inter Tight', sans-serif" }}
               >
                 AETHRIZ
               </span>
-              <span className="text-[9px] tracking-[0.22em] text-[#C8161F] mt-[2px] font-mono">
+              <span className="text-[8.5px] tracking-[0.22em] text-[#C8161F] mt-[2px] font-mono">
                 BIO-HEALTH AI
               </span>
             </span>
@@ -130,10 +124,7 @@ export default function LoginPage() {
             <span className="hidden sm:inline text-xs text-[#64748B] font-medium">New here?</span>
             <Link
               href="/register"
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-semibold text-white shadow-[0_8px_20px_rgba(14,15,17,0.22)] hover:opacity-95 transition-all cursor-pointer"
-              style={{
-                background: "linear-gradient(180deg, #32363A 0%, #1D1F22 100%)",
-              }}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-semibold text-white shadow-xs hover:opacity-95 transition-all cursor-pointer bg-[#1D1F22]"
             >
               <span>Create account</span>
             </Link>
@@ -177,7 +168,10 @@ export default function LoginPage() {
                     onClick={() => fillMock("patient@aethriz.com")}
                     className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-[#1D1F22] hover:border-[#E3202B] hover:text-[#E3202B] shadow-2xs font-medium transition-all flex items-center gap-1.5 cursor-pointer"
                   >
-                    <span>👤</span>
+                    <svg className="w-3.5 h-3.5 text-[#64748B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                      <circle cx="12" cy="7" r="4" />
+                    </svg>
                     <span>Patient</span>
                   </button>
                   <button
@@ -185,7 +179,11 @@ export default function LoginPage() {
                     onClick={() => fillMock("doctor@aethriz.com")}
                     className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-[#1D1F22] hover:border-[#E3202B] hover:text-[#E3202B] shadow-2xs font-medium transition-all flex items-center gap-1.5 cursor-pointer"
                   >
-                    <span>🩺</span>
+                    <svg className="w-3.5 h-3.5 text-[#E3202B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
+                      <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
+                      <circle cx="20" cy="10" r="2" />
+                    </svg>
                     <span>Doctor</span>
                   </button>
                   <button
@@ -193,7 +191,9 @@ export default function LoginPage() {
                     onClick={() => fillMock("admin@aethriz.com")}
                     className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-[#1D1F22] hover:border-[#E3202B] hover:text-[#E3202B] shadow-2xs font-medium transition-all flex items-center gap-1.5 cursor-pointer"
                   >
-                    <span>🛡️</span>
+                    <svg className="w-3.5 h-3.5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
                     <span>Admin</span>
                   </button>
                   <button
@@ -201,7 +201,10 @@ export default function LoginPage() {
                     onClick={() => fillMock("nurse@aethriz.com")}
                     className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-[#1D1F22] hover:border-[#E3202B] hover:text-[#E3202B] shadow-2xs font-medium transition-all flex items-center gap-1.5 cursor-pointer"
                   >
-                    <span>🩹</span>
+                    <svg className="w-3.5 h-3.5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="3" y="3" width="18" height="18" rx="4" />
+                      <path d="M12 8v8M8 12h8" />
+                    </svg>
                     <span>Nurse</span>
                   </button>
                 </div>
@@ -302,7 +305,12 @@ export default function LoginPage() {
                       </label>
                       <div className="flex rounded-2xl bg-[#F8FAFC] border border-slate-200/90 overflow-hidden focus-within:ring-2 focus-within:ring-[#E3202B]/20 focus-within:border-[#E3202B]">
                         <span className="px-3.5 py-3 text-xs font-medium text-[#64748B] bg-slate-100/70 border-r border-slate-200 flex items-center gap-1.5">
-                          <span>🇮🇳</span>
+                          <svg className="w-4 h-3 rounded-xs overflow-hidden shadow-2xs flex-shrink-0" viewBox="0 0 30 20">
+                            <rect width="30" height="6.66" fill="#FF9933" />
+                            <rect y="6.66" width="30" height="6.66" fill="#FFFFFF" />
+                            <rect y="13.33" width="30" height="6.67" fill="#138808" />
+                            <circle cx="15" cy="10" r="2.2" fill="none" stroke="#000080" strokeWidth="0.6" />
+                          </svg>
                           <span>+91</span>
                         </span>
                         <input
