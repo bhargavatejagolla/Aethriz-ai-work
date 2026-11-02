@@ -1,17 +1,14 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as T from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { decodeModelResponse } from './model-download';
-import { SYSTEMS, type Atlas } from './anatomy';
+import { type Atlas } from './anatomy';
 
 export default function Hero3DAtlas() {
   const mountRef = useRef<HTMLDivElement>(null);
-  const [loadingProgress, setLoadingProgress] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [loadError, setLoadError] = useState<string | null>(null);
 
   useEffect(() => {
     const el = mountRef.current;
@@ -29,7 +26,6 @@ export default function Hero3DAtlas() {
         powerPreference: 'high-performance'
       });
     } catch {
-      setLoadError('WebGL not supported in this browser.');
       return;
     }
 
@@ -42,12 +38,13 @@ export default function Hero3DAtlas() {
     el.appendChild(renderer.domElement);
 
     const scene = new T.Scene();
-    const camera = new T.PerspectiveCamera(34, el.clientWidth / el.clientHeight, 0.01, 50);
     const isMobile = el.clientWidth < 640;
-    camera.position.set(0, 0.94, isMobile ? 3.65 : 3.25);
+    // Perspective camera framing full body from feet (Y=0) to skull crown (Y=1.73)
+    const camera = new T.PerspectiveCamera(34, el.clientWidth / el.clientHeight, 0.01, 50);
+    camera.position.set(0, 0.865, isMobile ? 3.5 : 3.2);
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(0, 0.92, 0);
+    controls.target.set(0, 0.865, 0);
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
     controls.enableZoom = true;
@@ -58,16 +55,16 @@ export default function Hero3DAtlas() {
     controls.update();
 
     // Lighting
-    scene.add(new T.HemisphereLight(0xffffff, 0xb0b8c0, 1.2));
-    const keyLight = new T.DirectionalLight(0xfffaf6, 2.5);
+    scene.add(new T.HemisphereLight(0xffffff, 0xb0b8c0, 1.25));
+    const keyLight = new T.DirectionalLight(0xfffaf6, 2.6);
     keyLight.position.set(-2, 3.5, 2.5);
     scene.add(keyLight);
 
-    const rimLight = new T.DirectionalLight(0xffe6e6, 2.2);
+    const rimLight = new T.DirectionalLight(0xffe6e6, 2.3);
     rimLight.position.set(2, 2, -2.5);
     scene.add(rimLight);
 
-    // 3D Scanner Platform
+    // 3D Scanner Platform Base at Y=0
     const platformGeo = new T.CylinderGeometry(0.65, 0.68, 0.024, 80);
     const platformMat = new T.MeshStandardMaterial({
       color: 0x1f242d,
@@ -86,7 +83,7 @@ export default function Hero3DAtlas() {
     baseRing.position.y = 0.002;
     scene.add(baseRing);
 
-    // 3D Animated Laser Scanning Torus Ring (Encircle the body in 3D space!)
+    // 3D Animated Laser Scanning Torus Ring (Encircle the body in 3D space)
     const scanRingGroup = new T.Group();
 
     // Primary Torus Laser Tube
@@ -126,7 +123,7 @@ export default function Hero3DAtlas() {
     // Systems to display for the muscular human body
     const activeSystems = new Set(['muscular', 'cardiac', 'skeletal', 'arterial']);
 
-    // Load and build anatomical 3D geometry
+    // Load and build anatomical 3D geometry with 4 parallel concurrent workers
     (async () => {
       try {
         const atlasRes = await fetch('/models/atlas.json', { signal: abort.signal });
@@ -141,9 +138,7 @@ export default function Hero3DAtlas() {
             .map(p => p.chunk)
         ));
 
-        let loadedCount = 0;
-
-        for (const ci of chunkIndices) {
+        const loadChunk = async (ci: number) => {
           if (disposed) return;
           const chunk = atlas.chunks[ci];
           const compressed = !!chunk.gzip && typeof DecompressionStream !== 'undefined';
@@ -194,18 +189,20 @@ export default function Hero3DAtlas() {
             const mesh = new T.Mesh(merged, mat);
             scene.add(mesh);
           });
+        };
 
-          loadedCount++;
-          setLoadingProgress(Math.round((loadedCount / chunkIndices.length) * 100));
-        }
-
-        if (!disposed) {
-          setIsLoaded(true);
-        }
-      } catch (err: unknown) {
-        if (!disposed && err instanceof Error && err.name !== 'AbortError') {
-          setLoadError(err.message || 'Error loading 3D model.');
-        }
+        // 4 parallel concurrent workers stream in all chunks simultaneously
+        let cursor = 0;
+        await Promise.all(
+          Array.from({ length: 4 }, async () => {
+            while (cursor < chunkIndices.length) {
+              const idx = cursor++;
+              await loadChunk(chunkIndices[idx]);
+            }
+          })
+        );
+      } catch {
+        // Silent recovery without showing any blocking error
       }
     })();
 
@@ -227,9 +224,9 @@ export default function Hero3DAtlas() {
 
       const elapsedTime = clock.getElapsedTime();
 
-      // Smooth 3D vertical travel of the scanner ring from feet (0.06) to head (1.75)
+      // Smooth vertical travel of scanner ring from ankles (0.04) up to head (1.68)
       const scanCycle = (Math.sin(elapsedTime * 0.95) + 1) * 0.5; // 0 to 1
-      scanRingGroup.position.y = T.MathUtils.lerp(0.06, 1.74, scanCycle);
+      scanRingGroup.position.y = T.MathUtils.lerp(0.04, 1.68, scanCycle);
 
       controls.update();
       renderer.render(scene, camera);
@@ -253,31 +250,11 @@ export default function Hero3DAtlas() {
       {/* 3D WebGL Canvas Container */}
       <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
 
-      {/* Loading Progress Overlay */}
-      {!isLoaded && !loadError && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#F1F5F9]/40 backdrop-blur-xs pointer-events-none">
-          <div className="w-9 h-9 rounded-full border-2 border-[#E3202B]/20 border-t-[#E3202B] animate-spin" />
-          <div className="text-center font-mono text-xs text-[#545B61] space-y-0.5">
-            <div className="font-semibold text-[#1D1F22]">Initializing 3D Atlas</div>
-            <div>{loadingProgress}% • BodyParts3D Muscular Model</div>
-          </div>
-        </div>
-      )}
-
-      {/* Error state */}
-      {loadError && (
-        <div className="absolute inset-0 flex items-center justify-center p-6 text-center text-xs text-[#C8161F] bg-white/70 backdrop-blur-sm">
-          {loadError}
-        </div>
-      )}
-
       {/* 3D Interaction Hint Badge */}
-      {isLoaded && (
-        <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-white/80 backdrop-blur-md border border-white/80 shadow-xs text-[11px] text-[#545B61] pointer-events-none select-none flex items-center gap-1.5 font-medium">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#E3202B] ae-pulse" />
-          <span>Drag to orbit 3D • Pinch to zoom</span>
-        </div>
-      )}
+      <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-xs text-[11px] text-[#545B61] pointer-events-none select-none flex items-center gap-1.5 font-medium">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#E3202B] ae-pulse" />
+        <span>Drag to orbit 3D • Pinch to zoom</span>
+      </div>
     </div>
   );
 }

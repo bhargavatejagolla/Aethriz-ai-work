@@ -3,6 +3,13 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const Hero3DAtlas = dynamic(
+  () => import("@/components/anatomy/Hero3DAtlas"),
+  { ssr: false }
+);
+
 export default function LandingPage() {
   const [reveal, setReveal] = useState<number>(50);
   const [activeStep, setActiveStep] = useState<number>(4);
@@ -29,7 +36,7 @@ export default function LandingPage() {
       <header className="sticky top-3 sm:top-4 z-40 px-3 sm:px-6 w-full relative">
         <nav
           aria-label="Main"
-          className="relative max-w-[1280px] mx-auto p-2 sm:p-2.5 pl-4 sm:pl-5 flex items-center justify-between gap-3 rounded-full border border-slate-200/80 bg-white/95 backdrop-blur-xl shadow-[0_4px_24px_rgba(29,31,34,0.04)]"
+          className="relative max-w-[1280px] mx-auto p-2 sm:p-2.5 pl-4 sm:pl-5 flex items-center justify-between gap-3 rounded-full border border-slate-200/80 bg-white shadow-[0_4px_24px_rgba(29,31,34,0.04)]"
         >
           {/* Brand Logo & Name */}
           <Link href="#top" className="flex items-center gap-2.5 group flex-shrink-0">
@@ -394,7 +401,7 @@ export default function LandingPage() {
         {/* Ambient Aurora Glow */}
         <div
           aria-hidden="true"
-          className="absolute left-0 right-0 -top-36 h-[300px] pointer-events-none filter blur-[46px]"
+          className="absolute left-0 right-0 top-16 h-[300px] pointer-events-none filter blur-[46px]"
         >
           <div
             className="ae-float-c absolute -left-10 top-10 w-[380px] h-[220px] rounded-full bg-[rgba(255,150,150,0.32)]"
@@ -410,7 +417,6 @@ export default function LandingPage() {
 
         {/* Right Column: Hero 3D Anatomy Visual */}
         <div
-          aria-hidden="true"
           className="flex-1 basis-[460px] min-w-0 relative h-[640px] flex items-center justify-center [perspective:1200px]"
         >
           {/* Radial Ambient Backing */}
@@ -428,419 +434,10 @@ export default function LandingPage() {
             className="ae-ring2 absolute w-[450px] h-[450px] rounded-full border border-dashed border-[rgba(227,32,43,0.30)] pointer-events-none"
           />
 
-          {/* Instant Vector Anatomy Visual with 3D Depth-Encircling Laser Scanner */}
-          <div className="relative w-full h-full flex items-center justify-center">
-            {/* Scanner Base Platform */}
-              <div className="absolute left-1/2 bottom-3.5 w-[420px] h-[110px] -ml-[210px] pointer-events-none">
-                <div
-                  className="absolute inset-0 rounded-full shadow-[0_34px_60px_rgba(29,31,34,0.10)]"
-                  style={{
-                    background:
-                      "radial-gradient(ellipse, rgba(255,255,255,0.95) 0%, rgba(255,214,210,0.55) 45%, rgba(255,214,210,0) 72%)",
-                  }}
-                />
-                <div className="absolute left-[16%] right-[16%] top-[16%] bottom-[16%] rounded-full border-[1.5px] border-[rgba(227,32,43,0.5)] bg-white/35" />
-                <div className="ae-plat absolute left-[16%] right-[16%] top-[16%] bottom-[16%] rounded-full border-[1.5px] border-[rgba(227,32,43,0.55)]" />
-                <div
-                  className="ae-plat absolute left-[16%] right-[16%] top-[16%] bottom-[16%] rounded-full border-[1.5px] border-[rgba(227,32,43,0.55)]"
-                  style={{ animationDelay: "-1.8s" }}
-                />
-              </div>
-
-              {/* 3D ELLIPTICAL SCANNING RING - REAR ARC (Passes BEHIND the human body in 3D!) */}
-              <div
-                className="ae-scanring absolute left-1/2 top-[24px] w-[340px] h-[74px] pointer-events-none z-[6]"
-              >
-                <svg viewBox="0 0 340 74" className="w-full h-full overflow-visible">
-                  <defs>
-                    <linearGradient id="ae-scan-back-grad" x1="0" y1="0" x2="1" y2="0">
-                      <stop offset="0%" stopColor="#E3202B" stopOpacity="0.85" />
-                      <stop offset="25%" stopColor="#C8161F" stopOpacity="0.6" />
-                      <stop offset="50%" stopColor="#A81018" stopOpacity="0.4" />
-                      <stop offset="75%" stopColor="#C8161F" stopOpacity="0.6" />
-                      <stop offset="100%" stopColor="#E3202B" stopOpacity="0.85" />
-                    </linearGradient>
-                    <filter id="ae-glow-back" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="3.5" result="blur" />
-                      <feMerge>
-                        <feMergeNode in="blur" />
-                        <feMergeNode in="SourceGraphic" />
-                      </feMerge>
-                    </filter>
-                  </defs>
-                  {/* Rear ambient laser glow behind body */}
-                  <path
-                    d="M 12 37 A 158 31 0 0 1 328 37"
-                    fill="none"
-                    stroke="rgba(227,32,43,0.32)"
-                    strokeWidth="8"
-                    filter="url(#ae-glow-back)"
-                  />
-                  {/* Rear laser ring track */}
-                  <path
-                    d="M 12 37 A 158 31 0 0 1 328 37"
-                    fill="none"
-                    stroke="url(#ae-scan-back-grad)"
-                    strokeWidth="2.8"
-                  />
-                  {/* Inner rear white laser filament */}
-                  <path
-                    d="M 16 37 A 154 28 0 0 1 324 37"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.6)"
-                    strokeWidth="1.2"
-                  />
-                </svg>
-              </div>
-
-              {/* Photorealistic Muscular Human Anatomy Body (relative z-[10]) */}
-              <div className="ae-sway2 relative z-[10] w-[238px] h-[516px]">
-                <svg
-                  viewBox="0 0 240 520"
-                  width="100%"
-                  height="100%"
-                  className="overflow-visible"
-                >
-                  <defs>
-                    <linearGradient
-                      id="ae-glass"
-                      gradientUnits="userSpaceOnUse"
-                      x1="30"
-                      y1="0"
-                      x2="210"
-                      y2="0"
-                    >
-                      <stop offset="0" stopColor="#EEE8F1" />
-                      <stop offset="0.3" stopColor="#FFFFFF" />
-                      <stop offset="0.52" stopColor="#FDFBFD" />
-                      <stop offset="0.8" stopColor="#F0E9F3" />
-                      <stop offset="1" stopColor="#E6DEEA" />
-                    </linearGradient>
-                    <linearGradient
-                      id="ae-shade"
-                      gradientUnits="userSpaceOnUse"
-                      x1="30"
-                      y1="0"
-                      x2="210"
-                      y2="0"
-                    >
-                      <stop offset="0" stopColor="#8C6E96" stopOpacity="0.28" />
-                      <stop offset="0.36" stopColor="#FFFFFF" stopOpacity="0" />
-                      <stop offset="0.64" stopColor="#FFFFFF" stopOpacity="0" />
-                      <stop offset="1" stopColor="#8C6E96" stopOpacity="0.32" />
-                    </linearGradient>
-
-                    {/* Volumetric Muscular Gradients */}
-                    <radialGradient id="ae-musc-pectoral-l" cx="45%" cy="38%" r="65%">
-                      <stop offset="0%" stopColor="#D96657" stopOpacity="0.9" />
-                      <stop offset="55%" stopColor="#B34438" stopOpacity="0.82" />
-                      <stop offset="100%" stopColor="#6E2016" stopOpacity="0.92" />
-                    </radialGradient>
-                    <radialGradient id="ae-musc-pectoral-r" cx="55%" cy="38%" r="65%">
-                      <stop offset="0%" stopColor="#D96657" stopOpacity="0.9" />
-                      <stop offset="55%" stopColor="#B34438" stopOpacity="0.82" />
-                      <stop offset="100%" stopColor="#6E2016" stopOpacity="0.92" />
-                    </radialGradient>
-                    <radialGradient id="ae-musc-ab-3d" cx="45%" cy="35%" r="65%">
-                      <stop offset="0%" stopColor="#CF5E50" stopOpacity="0.9" />
-                      <stop offset="60%" stopColor="#A83E32" stopOpacity="0.82" />
-                      <stop offset="100%" stopColor="#651B12" stopOpacity="0.92" />
-                    </radialGradient>
-                    <linearGradient id="ae-musc-oblique" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#C8584A" stopOpacity="0.85" />
-                      <stop offset="60%" stopColor="#A43A2E" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="#621810" stopOpacity="0.9" />
-                    </linearGradient>
-                    <linearGradient id="ae-musc-quad-3d" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#C45648" stopOpacity="0.88" />
-                      <stop offset="45%" stopColor="#A63C30" stopOpacity="0.82" />
-                      <stop offset="100%" stopColor="#5D150E" stopOpacity="0.92" />
-                    </linearGradient>
-                    <radialGradient id="ae-musc-deltoid" cx="40%" cy="30%" r="70%">
-                      <stop offset="0%" stopColor="#DB6859" stopOpacity="0.9" />
-                      <stop offset="60%" stopColor="#B44538" stopOpacity="0.82" />
-                      <stop offset="100%" stopColor="#6D2116" stopOpacity="0.92" />
-                    </radialGradient>
-                    <linearGradient id="ae-musc-calf-3d" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#C25244" stopOpacity="0.85" />
-                      <stop offset="50%" stopColor="#A33B2F" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="#5F1810" stopOpacity="0.9" />
-                    </linearGradient>
-
-                    <linearGradient id="ae-beamG" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0" stopColor="#E3202B" stopOpacity="0" />
-                      <stop offset="0.5" stopColor="#E3202B" stopOpacity="0.45" />
-                      <stop offset="1" stopColor="#E3202B" stopOpacity="0" />
-                    </linearGradient>
-                    <radialGradient id="ae-glowR">
-                      <stop offset="0" stopColor="#FF3B43" stopOpacity="0.75" />
-                      <stop offset="100%" stopColor="#FF3B43" stopOpacity="0" />
-                    </radialGradient>
-                    <clipPath id="ae-bclip">
-                      <ellipse cx="120" cy="40" rx="22" ry="27" />
-                      <path d="M110 64 C110 74 110 80 108 86 C96 90 84 93 74 99 C66 103 63 114 67 126 C71 138 76 152 77 166 C79 186 86 200 87 214 C88 228 80 240 79 256 C77 278 80 302 84 330 C87 352 87 364 86 376 C84 398 84 420 89 446 C92 462 94 472 94 482 C88 488 80 493 82 498 C86 503 100 503 106 500 C108 494 107 486 108 478 C110 450 112 420 111 396 C110 384 111 376 112 368 C114 340 117 310 120 288 C123 310 126 340 128 368 C129 376 130 384 129 396 C128 420 130 450 132 478 C133 486 132 494 134 500 C140 503 154 503 158 498 C160 493 152 488 146 482 C146 472 148 462 151 446 C156 420 156 398 154 376 C153 364 153 352 156 330 C160 302 163 278 161 256 C160 240 152 228 153 214 C154 200 161 186 163 166 C164 152 169 138 173 126 C177 114 174 103 166 99 C156 93 144 90 132 86 C130 80 130 74 130 64 Z" />
-                      <path d="M72 100 C62 104 56 116 56 132 C55 160 52 180 50 200 C47 225 43 250 40 280 C37 290 33 300 34 312 C35 322 41 326 45 322 C49 316 48 306 50 294 C54 270 58 244 62 218 C64 204 66 196 68 184 C70 170 74 152 76 138 Z" />
-                      <path d="M168 100 C178 104 184 116 184 132 C185 160 188 180 190 200 C193 225 197 250 200 280 C203 290 207 300 206 312 C205 322 199 326 195 322 C191 316 192 306 190 294 C186 270 182 244 178 218 C176 204 174 196 172 184 C170 170 166 152 164 138 Z" />
-                    </clipPath>
-                  </defs>
-
-                  {/* Frosted Glass Silhouette */}
-                  <g
-                    opacity="0.95"
-                    style={{
-                      filter: "drop-shadow(0 30px 34px rgba(120,60,90,0.22))",
-                    }}
-                  >
-                    <g fill="url(#ae-glass)">
-                      <path d="M72 100 C62 104 56 116 56 132 C55 160 52 180 50 200 C47 225 43 250 40 280 C37 290 33 300 34 312 C35 322 41 326 45 322 C49 316 48 306 50 294 C54 270 58 244 62 218 C64 204 66 196 68 184 C70 170 74 152 76 138 Z" />
-                      <path d="M168 100 C178 104 184 116 184 132 C185 160 188 180 190 200 C193 225 197 250 200 280 C203 290 207 300 206 312 C205 322 199 326 195 322 C191 316 192 306 190 294 C186 270 182 244 178 218 C176 204 174 196 172 184 C170 170 166 152 164 138 Z" />
-                      <path d="M110 64 C110 74 110 80 108 86 C96 90 84 93 74 99 C66 103 63 114 67 126 C71 138 76 152 77 166 C79 186 86 200 87 214 C88 228 80 240 79 256 C77 278 80 302 84 330 C87 352 87 364 86 376 C84 398 84 420 89 446 C92 462 94 472 94 482 C88 488 80 493 82 498 C86 503 100 503 106 500 C108 494 107 486 108 478 C110 450 112 420 111 396 C110 384 111 376 112 368 C114 340 117 310 120 288 C123 310 126 340 128 368 C129 376 130 384 129 396 C128 420 130 450 132 478 C133 486 132 494 134 500 C140 503 154 503 158 498 C160 493 152 488 146 482 C146 472 148 462 151 446 C156 420 156 398 154 376 C153 364 153 352 156 330 C160 302 163 278 161 256 C160 240 152 228 153 214 C154 200 161 186 163 166 C164 152 169 138 173 126 C177 114 174 103 166 99 C156 93 144 90 132 86 C130 80 130 74 130 64 Z" />
-                      <ellipse cx="120" cy="40" rx="22" ry="27" />
-                    </g>
-                  </g>
-
-                  {/* Real Human Muscular Anatomy with Volumetric Depth */}
-                  <g clipPath="url(#ae-bclip)">
-                    <rect x="0" y="0" width="240" height="520" fill="url(#ae-shade)" />
-                    <rect x="0" y="0" width="240" height="520" fill="rgba(168,91,80,0.14)" />
-
-                    {/* Trapezius & Sternocleidomastoid Neck Muscles */}
-                    <g stroke="rgba(255,255,255,0.4)" strokeWidth="0.6">
-                      <path d="M113 66 C115 76 117 88 118 98 C116 98 112 86 110 72 Z" fill="url(#ae-musc-ab-3d)" />
-                      <path d="M127 66 C125 76 123 88 122 98 C124 98 128 86 130 72 Z" fill="url(#ae-musc-ab-3d)" />
-                      <path d="M102 72 C96 80 86 88 78 96 C84 94 94 88 102 82 Z" fill="url(#ae-musc-oblique)" />
-                      <path d="M138 72 C144 80 154 88 162 96 C156 94 146 88 138 82 Z" fill="url(#ae-musc-oblique)" />
-                    </g>
-
-                    {/* Deltoids (Shoulders) - Volumetric Muscle Caps */}
-                    <g stroke="rgba(255,255,255,0.45)" strokeWidth="0.8">
-                      <path d="M74 100 C64 105 60 118 64 134 C68 144 76 150 78 142 C76 128 72 116 74 100 Z" fill="url(#ae-musc-deltoid)" />
-                      <path d="M70 106 C66 116 66 128 70 138" fill="none" stroke="rgba(255,230,225,0.7)" strokeWidth="0.8" />
-                      <path d="M166 100 C176 105 180 118 176 134 C172 144 164 150 162 142 C164 128 168 116 166 100 Z" fill="url(#ae-musc-deltoid)" />
-                      <path d="M170 106 C174 116 174 128 170 138" fill="none" stroke="rgba(255,230,225,0.7)" strokeWidth="0.8" />
-                    </g>
-
-                    {/* Pectoralis Major (Volumetric Chest Plates) */}
-                    <g stroke="rgba(255,255,255,0.5)" strokeWidth="0.9">
-                      <path d="M118 106 C105 106 90 114 84 128 C80 138 88 152 104 154 C112 155 118 150 118 142 Z" fill="url(#ae-musc-pectoral-l)" />
-                      <path d="M122 106 C135 106 150 114 156 128 C160 138 152 152 136 154 C128 155 122 150 122 142 Z" fill="url(#ae-musc-pectoral-r)" />
-                    </g>
-
-                    {/* Pectoralis Striation Lines (Anatomical Fiber Flow) */}
-                    <g fill="none" stroke="rgba(255,235,230,0.68)" strokeWidth="0.9" strokeLinecap="round">
-                      <path d="M117 114 C104 118 94 126 86 134" />
-                      <path d="M123 114 C136 118 146 126 154 134" />
-                      <path d="M117 126 C105 130 96 138 88 144" />
-                      <path d="M123 126 C135 130 144 138 152 144" />
-                      <path d="M117 138 C108 142 100 146 94 150" />
-                      <path d="M123 138 C132 142 140 146 146 150" />
-                    </g>
-
-                    {/* Serratus Anterior & Intercostals */}
-                    <g fill="url(#ae-musc-oblique)" stroke="rgba(255,255,255,0.4)" strokeWidth="0.7">
-                      <path d="M82 158 C77 164 74 172 74 180 C78 178 82 174 84 168 Z" />
-                      <path d="M158 158 C163 164 166 172 166 180 C162 178 158 174 156 168 Z" />
-                      <path d="M84 174 C80 182 78 190 78 196 C82 194 84 190 86 184 Z" />
-                      <path d="M156 174 C160 182 162 190 162 196 C158 194 156 190 154 184 Z" />
-                      <path d="M86 190 C83 198 82 206 82 212 C86 210 88 204 89 198 Z" />
-                      <path d="M154 190 C157 198 158 206 158 212 C154 210 152 204 151 198 Z" />
-                    </g>
-
-                    {/* Linea Alba (Abdominal Center Furrow with Dual Shadow & Highlight) */}
-                    <line x1="120" y1="154" x2="120" y2="264" stroke="rgba(80,20,15,0.65)" strokeWidth="2.2" strokeLinecap="round" />
-                    <line x1="120.7" y1="154" x2="120.7" y2="264" stroke="rgba(255,255,255,0.9)" strokeWidth="0.9" strokeLinecap="round" />
-
-                    {/* Rectus Abdominis (Anatomical 6-Pack with 3D Radial Cushion Relief) */}
-                    <g fill="url(#ae-musc-ab-3d)" stroke="rgba(255,255,255,0.5)" strokeWidth="0.8">
-                      {/* Upper Abs Pair */}
-                      <path d="M106 158 C100 158 96 163 96 172 C96 180 100 185 106 185 C112 185 118 180 118 172 C118 163 112 158 106 158 Z" />
-                      <path d="M134 158 C128 158 122 163 122 172 C122 180 128 185 134 185 C140 185 144 180 144 172 C144 163 140 158 134 158 Z" />
-                      {/* Mid Abs Pair */}
-                      <path d="M106 190 C99 190 95 196 95 206 C95 216 99 222 106 222 C113 222 118 216 118 206 C118 196 113 190 106 190 Z" />
-                      <path d="M134 190 C127 190 122 196 122 206 C122 216 127 222 134 222 C141 222 145 216 145 206 C145 196 141 190 134 190 Z" />
-                      {/* Lower Abs Pair */}
-                      <path d="M107 226 C101 226 97 232 97 242 C97 252 102 258 109 258 C115 258 118 252 118 242 C118 232 114 226 107 226 Z" />
-                      <path d="M133 226 C126 226 122 232 122 242 C122 252 125 258 131 258 C137 258 143 252 143 242 C143 232 139 226 133 226 Z" />
-                    </g>
-
-                    {/* Transverse Tendinous Inscriptions (Ab Groove 3D Indentations) */}
-                    <g fill="none" stroke="rgba(255,255,255,0.88)" strokeWidth="1.3" strokeLinecap="round">
-                      <path d="M96 186 Q107 188 118 186" />
-                      <path d="M122 186 Q133 188 144 186" />
-                      <path d="M95 223 Q106 225 118 223" />
-                      <path d="M122 223 Q133 225 145 223" />
-                      <path d="M97 259 Q108 261 118 259" />
-                      <path d="M122 259 Q132 261 143 259" />
-                    </g>
-
-                    {/* External Obliques (Waist Flank Muscles & Inguinal V-Cut) */}
-                    <g fill="url(#ae-musc-oblique)" stroke="rgba(255,255,255,0.4)" strokeWidth="0.8">
-                      <path d="M94 194 C88 202 86 216 86 234 C86 248 90 258 94 260 C96 250 96 234 96 216 Z" />
-                      <path d="M146 194 C152 202 154 216 154 234 C154 248 150 258 146 260 C144 250 144 234 144 216 Z" />
-                      <path d="M96 258 C104 270 114 274 120 274" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="1.3" />
-                      <path d="M144 258 C136 270 126 274 120 274" fill="none" stroke="rgba(255,255,255,0.85)" strokeWidth="1.3" />
-                    </g>
-
-                    {/* Biceps Brachii & Forearms */}
-                    <g fill="url(#ae-musc-deltoid)" stroke="rgba(255,255,255,0.45)" strokeWidth="0.8">
-                      <path d="M62 138 C56 154 54 174 56 194 C60 194 66 180 68 166 C70 152 68 140 62 138 Z" />
-                      <path d="M178 138 C184 154 186 174 184 194 C180 194 174 180 172 166 C170 152 172 140 178 138 Z" />
-                      <path d="M52 204 C46 228 42 258 40 284 C44 284 50 262 54 234 C56 218 54 208 52 204 Z" />
-                      <path d="M188 204 C194 228 198 258 200 284 C196 284 190 262 186 234 C184 218 186 208 188 204 Z" />
-                    </g>
-
-                    {/* Quadriceps Femoris (Thigh Muscles) */}
-                    <g fill="url(#ae-musc-quad-3d)" stroke="rgba(255,255,255,0.45)" strokeWidth="0.8">
-                      {/* Left Central Rectus Femoris */}
-                      <path d="M104 274 C98 300 96 332 98 360 C103 360 106 332 107 300 C108 285 107 276 104 274 Z" />
-                      {/* Left Outer Vastus Lateralis */}
-                      <path d="M93 278 C86 304 84 336 88 362 C92 362 95 336 96 304 C97 290 96 280 93 278 Z" />
-                      {/* Left Medial Vastus Medialis (Teardrop) */}
-                      <path d="M110 334 C106 342 105 352 106 364 C111 364 115 356 114 346 C113 338 111 334 110 334 Z" fill="url(#ae-musc-pectoral-l)" />
-
-                      {/* Right Central Rectus Femoris */}
-                      <path d="M136 274 C142 300 144 332 142 360 C137 360 134 332 133 300 C132 285 133 276 136 274 Z" />
-                      {/* Right Outer Vastus Lateralis */}
-                      <path d="M147 278 C154 304 156 336 152 362 C148 362 145 336 144 304 C143 290 144 280 147 278 Z" />
-                      {/* Right Medial Vastus Medialis (Teardrop) */}
-                      <path d="M130 334 C134 342 135 352 134 364 C129 364 125 356 126 346 C127 338 129 334 130 334 Z" fill="url(#ae-musc-pectoral-r)" />
-                    </g>
-
-                    {/* Patellar Tendons & Knee Articulations */}
-                    <g fill="rgba(255,255,255,0.78)">
-                      <circle cx="102" cy="370" r="3.2" />
-                      <circle cx="138" cy="370" r="3.2" />
-                      <rect x="100.5" y="373" width="3" height="8" rx="1.5" />
-                      <rect x="136.5" y="373" width="3" height="8" rx="1.5" />
-                    </g>
-
-                    {/* Gastrocnemius (Calves) & Tibialis Anterior (Shins) */}
-                    <g fill="url(#ae-musc-calf-3d)" stroke="rgba(255,255,255,0.4)" strokeWidth="0.8">
-                      <path d="M92 384 C85 402 85 424 90 446 C94 446 97 428 98 410 C99 396 97 386 92 384 Z" />
-                      <path d="M102 386 C105 402 106 422 104 442 C101 442 99 424 98 406 C97 394 100 388 102 386 Z" />
-                      <path d="M96 442 C94 460 93 474 94 486 C98 486 100 472 101 456 C101 446 98 442 96 442 Z" fill="url(#ae-musc-oblique)" />
-
-                      <path d="M148 384 C155 402 155 424 150 446 C146 446 143 428 142 410 C141 396 143 386 148 384 Z" />
-                      <path d="M138 386 C135 402 134 422 136 442 C139 442 141 424 142 406 C143 394 140 388 138 386 Z" />
-                      <path d="M144 442 C146 460 147 474 146 486 C142 486 140 472 139 456 C139 446 142 442 144 442 Z" fill="url(#ae-musc-oblique)" />
-                    </g>
-
-                    {/* Cardiovascular Vasculature (Aorta & Vena Cava) */}
-                    <g fill="none" strokeWidth="1.2">
-                      <path d="M125 142 C125 125 120 112 118 98 M125 125 C128 112 130 98 132 98" stroke="#EF4444" opacity="0.82" />
-                      <path d="M122 154 V250 C122 258 116 266 108 280 M122 250 C122 258 128 266 136 280" stroke="#EF4444" opacity="0.78" />
-                      <path d="M117 140 C117 125 114 112 114 98" stroke="#2563EB" opacity="0.78" />
-                      <path d="M117 154 V248 C117 256 112 264 105 278" stroke="#2563EB" opacity="0.72" />
-                    </g>
-
-                    {/* Pulsing Myocardial Engine (Beating Heart) */}
-                    <circle cx="127" cy="143" r="22" fill="url(#ae-glowR)" />
-                    <path
-                      className="ae-beat"
-                      d="M127 152 C117 145 113 140 113 135 A6.5 6.5 0 0 1 127 131 A6.5 6.5 0 0 1 141 135 C141 140 137 145 127 152 Z"
-                      fill="#E3202B"
-                      stroke="#FF6B6F"
-                      strokeWidth="0.8"
-                    />
-
-                    {/* Vertical Moving Scanning Laser Beam */}
-                    <rect
-                      className="ae-beam"
-                      x="0"
-                      y="-60"
-                      width="240"
-                      height="60"
-                      fill="url(#ae-beamG)"
-                    />
-                  </g>
-
-                  {/* Muscular Rim Highlight */}
-                  <g
-                    fill="none"
-                    stroke="rgba(255,255,255,0.95)"
-                    strokeWidth="1.4"
-                  >
-                    <path
-                      d="M104 22 Q98 36 102 54"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      opacity="0.9"
-                    />
-                    <path
-                      d="M82 112 Q76 170 86 222"
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      opacity="0.8"
-                    />
-                    <path
-                      d="M90 280 Q86 330 92 380"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      opacity="0.8"
-                    />
-                  </g>
-                </svg>
-
-                {/* Hotspots */}
-                <span className="ae-hot" style={{ left: "50%", top: "6.9%" }} />
-                <span
-                  className="ae-hot"
-                  style={{ left: "45.8%", top: "38.5%", animationDelay: ".8s" }}
-                />
-              </div>
-
-              {/* 3D ELLIPTICAL SCANNING RING - FRONT ARC (Passes IN FRONT OF the human body in 3D!) */}
-              <div
-                className="ae-scanring absolute left-1/2 top-[24px] w-[340px] h-[74px] pointer-events-none z-[16]"
-              >
-                <svg viewBox="0 0 340 74" className="w-full h-full overflow-visible">
-                  <defs>
-                    <linearGradient id="ae-scan-front-grad" x1="0" y1="0" x2="1" y2="0">
-                      <stop offset="0%" stopColor="#E3202B" stopOpacity="0.95" />
-                      <stop offset="20%" stopColor="#FF4A52" stopOpacity="1" />
-                      <stop offset="50%" stopColor="#FFA6AA" stopOpacity="1" />
-                      <stop offset="80%" stopColor="#FF4A52" stopOpacity="1" />
-                      <stop offset="100%" stopColor="#E3202B" stopOpacity="0.95" />
-                    </linearGradient>
-                    <filter id="ae-glow-front" x="-30%" y="-30%" width="160%" height="160%">
-                      <feGaussianBlur stdDeviation="4.5" result="blur" />
-                      <feMerge>
-                        <feMergeNode in="blur" />
-                        <feMergeNode in="SourceGraphic" />
-                      </feMerge>
-                    </filter>
-                  </defs>
-                  {/* Front ambient laser bloom passing across body */}
-                  <path
-                    d="M 12 37 A 158 31 0 0 0 328 37"
-                    fill="none"
-                    stroke="rgba(227,32,43,0.48)"
-                    strokeWidth="11"
-                    filter="url(#ae-glow-front)"
-                  />
-                  {/* Primary high-intensity front laser beam */}
-                  <path
-                    d="M 12 37 A 158 31 0 0 0 328 37"
-                    fill="none"
-                    stroke="url(#ae-scan-front-grad)"
-                    strokeWidth="3.4"
-                  />
-                  {/* Core white laser filament in front */}
-                  <path
-                    d="M 15 37 A 155 29 0 0 0 325 37"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.95)"
-                    strokeWidth="1.4"
-                  />
-                  {/* Left lateral laser emitter node */}
-                  <circle cx="12" cy="37" r="5" fill="#FFFFFF" filter="url(#ae-glow-front)" />
-                  <circle cx="12" cy="37" r="2.8" fill="#E3202B" />
-                  {/* Right lateral laser emitter node */}
-                  <circle cx="328" cy="37" r="5" fill="#FFFFFF" filter="url(#ae-glow-front)" />
-                  <circle cx="328" cy="37" r="2.8" fill="#E3202B" />
-                </svg>
-              </div>
-            </div>
+          {/* Interactive 3D Anatomy Scene (Zero Buffering, Instant Mount) */}
+          <div className="relative w-full h-[620px] z-10 flex items-center justify-center">
+            <Hero3DAtlas />
+          </div>
 
           {/* Floating Spheres Accents */}
           <div

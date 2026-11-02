@@ -61,7 +61,7 @@ export default function PatientNavbar({ activeTab }: Props) {
     <header className="sticky top-3 sm:top-4 z-40 px-3 sm:px-6 w-full relative">
       <nav
         aria-label="Main Navigation"
-        className="relative max-w-[1280px] mx-auto p-2 sm:p-2.5 pl-4 sm:pl-5 flex items-center justify-between gap-3 rounded-full border border-slate-200/80 bg-white/95 backdrop-blur-xl shadow-[0_4px_24px_rgba(29,31,34,0.04)]"
+        className="relative max-w-[1280px] mx-auto p-2 sm:p-2.5 pl-4 sm:pl-5 flex items-center justify-between gap-3 rounded-full border border-slate-200/80 bg-white shadow-[0_4px_24px_rgba(29,31,34,0.04)]"
       >
         {/* Brand Logo & Name */}
         <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
