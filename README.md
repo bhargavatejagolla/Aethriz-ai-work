@@ -1,4 +1,6 @@
+# AETHRIZ — Intelligent Health, Personalized
 
+The official next-generation bio-health AI landing page for **AETHRIZ** (Aethriz AI Healthcare And Advanced Research Private Limited).
 
 ## ✨ Key Features
 
