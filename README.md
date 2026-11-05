@@ -1,4 +1,8 @@
+# AETHRIZ — Intelligent Health, Personalized
 
+The official next-generation bio-health AI landing page for **AETHRIZ** (Aethriz AI Healthcare And Advanced Research Private Limited).
+
+## ✨ Key Features
 
 - **3D Glass Anatomy Telemetry Visual**:
   - Interactive anatomical frosted glass body with spine, internal organs, beating heart, and dynamic rim highlights.
